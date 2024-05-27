@@ -22,10 +22,10 @@ import React from "react";
 export default function page() {
   return (
     <>
-      <div className="flex felx-row h-screen w-full ">
+      <div className="flex felx-row h-screen w-full select-none ">
         <Sidebar />
         <EmailList />
-        <div className="bg-white w-full overflow-scroll">
+        <div className="bg-white w-full overflow-scroll select-none">
           <div className="w-full h-12 font-semibold text-[15px] p-2 border-b border-gray-300 flex items-center justify-between">
             <div className="flex gap-2">
               <Button size="icon" variant="ghost" className="justify-center">
@@ -90,11 +90,11 @@ export default function page() {
               <div className="flex flex-col p-4">
                 Hi Paul,
                 <p className="pt-3">
-                  I have some concerns that you might believe that how someone
-                  lives doesn’t matter. I have been told that you are telling
-                  people they are saved by faith alone and that works are a
-                  non-factor. Therefore, I have written the following in a
-                  letter I’ve sent out to correct this:
+                  I have some concerns that you think how someone lives doesn’t
+                  matter. I have been told that you are telling people they are
+                  saved by faith alone and that works are a non-factor.
+                  Therefore, I have written the following in a letter I’ve sent
+                  out to correct this:
                 </p>
                 <p className="m-2 p-2 text-sm bg-accent rounded">
                   What good is it, my brothers and sisters, if someone claims to
@@ -126,9 +126,21 @@ export default function page() {
                   <span className="font-semibold">James 2:14-26</span> (NRSVue)
                 </p>
                 <p className="pt-3">
-                  Please let me know what your thoughts are.
+                  Paul, if you are suggesting that someone can live without
+                  regard, you are in error. Our morality matters.<sup>1</sup>{" "}
+                  Please let me know what your thoughts are. This might just be
+                  a misunderstanding.
                 </p>
                 <p className="pt-3 font-bold">- James</p>
+                <p className="pt-8 text-xs text-gray-500">
+                  1. Craig L. Blomberg, and Mariam J. Kamell.{" "}
+                  <span className="italic">James.</span>
+                  Vol. 16. Zondervan Exegetical Commentary on the New Testament.
+                  (Grand Rapids, MI: Zondervan, 2008), 135-136. See also Chris
+                  A. Vlachos, <span className="italic">James</span>, ed. Murray
+                  J. Harris and Andreas J. Kˆstenberger. Exegetical Guide to the
+                  Greek New Testament. (B&H Academic, 2013), 94-95.
+                </p>
               </div>
             </div>
             <div className="border border-gray-300 rounded m-4">
@@ -157,11 +169,12 @@ export default function page() {
                 <p className="pt-3">Hi James,</p>
                 <p className="pt-3">Thanks for writting to me.</p>
                 <p className="pt-3">
-                  I think there is a misunderstanding here. People have taken
-                  what I wrote and have run with it. They have created the
-                  doctrine of “sola fide,” but that’s not what I wrote about. In
-                  fact, your letter is the only place in the New Testament where
-                  the words “faith alone” are used!{" "}
+                  I do think there is a misunderstanding here. People have taken
+                  what I wrote and have run with it to the point that they are
+                  doing exactly what you are suggesting is not to be done (i.e.,
+                  not giving any concern to the works that they are doing). To
+                  prove my point, your letter is the only place in the New
+                  Testament where the words “faith alone” are used!<sup>2</sup>
                 </p>
                 <p className="pt-3">
                   You see, I don’t think we really disagree; rather, I think we
@@ -170,21 +183,22 @@ export default function page() {
                 </p>
                 <p className="pt-3 pl-3">
                   <span className="font-bold mr-1">Faith:</span>Accepting the
-                  gospel and being committed to Christ.{" "}
+                  gospel and being committed to Christ.<sup>3</sup>
                 </p>
                 <p className="pt-3 pl-3">
                   <span className="font-bold mr-1">Works (of the law):</span>
                   boundary markers of the law such as circumcision, table
-                  regulations, and sabbath.
+                  regulations, and sabbath.<sup>4</sup>
                 </p>
                 <p className="pt-3">
                   What I’m trying to refute is that people must become Jewish to
                   be saved and that obedience to these works is a means to
-                  salvation. Instead, people must put their full trust in Jesus.
-                  Doing so does require that one follows in the ways of Christ,
-                  leaves their old life behind, and lives rightly. I thought I
-                  was quite clear with this in writings such as Romans 6:4, 16;
-                  1 Corinthians 6:9-11; and Ephesians 5:3-5.
+                  salvation.<sup>5</sup> Instead, people must put their full
+                  trust in Jesus. Doing so does require that one follows in the
+                  ways of Christ, leaves their old life behind, and lives
+                  rightly. I thought I was quite clear with this in writings
+                  such as Romans 6:4, 16; 1 Corinthians 6:9-11; and Ephesians
+                  5:3-5.
                 </p>
                 <p className="pt-3">
                   I would love to hear how you’re defining faith and works in
@@ -196,7 +210,7 @@ export default function page() {
                   Paul
                 </p>
                 <p className="pt-8 text-xs text-gray-500">
-                  1. N. T. Wright and Michael F. Bird,{" "}
+                  2. N. T. Wright and Michael F. Bird,{" "}
                   <span className="italic">
                     The New Testament in Its World: An Introduction to the
                     History, Literature and Theology of the First Christians
@@ -204,18 +218,18 @@ export default function page() {
                   (London: Society for Promoting Christian Knowledge, 2019),
                   745.
                   <br />
-                  2. George Eldon Ladd,{" "}
+                  3. George Eldon Ladd,{" "}
                   <span className="italic">
                     A Theology of the New Testament,
                   </span>{" "}
                   Rev. ed (Grand Rapids, MI: Eerdmans, 1993), 639.
                   <br />
-                  3. James D. G. Dunn,{" "}
+                  4. James D. G. Dunn,{" "}
                   <span className="italic">The New Perspective on Paul</span>
                   , Rev. ed, 185 (Grand Rapid, MI: W. B. Eerdmans Pub. Co,
                   2008), 111.
                   <br />
-                  4. Dunn,{" "}
+                  5. Dunn,{" "}
                   <span className="italic">New Perspective on Paul</span>, 418;
                   Douglas J. Moo,{" "}
                   <span className="italic">
@@ -262,43 +276,43 @@ export default function page() {
                 </p>
                 <p className="pt-3 pl-3">
                   <span className="font-bold mr-1">Works:</span>
-                  Deed of love.
+                  Deed of love.<sup>6</sup>
                 </p>
                 <p className="pt-3">
-                  When I’m speaking of faith in this context, I’m speaking more
-                  in line with the rabbinic definition. I agree that true faith
-                  is about commitment to God and Christ, and I would agree that
-                  faith, as you state it, is given to us (see Jas. 1:17-18). I
+                  My definition above is a misunderstanding of what faith is,
+                  not what I think it is.<sup>7</sup> What I really believe
+                  faith is is a commitment to and practical trust in God (see
+                  Jas. 1:17-18). This is in line with the rabbinic definition. I
                   just do not want people to misunderstand your gospel as
-                  lawless. Right living must flow from faith or there is no true
-                  faith present at all. You too place a high value on this, I
-                  know. We really are going for the same thing here: we want
-                  people to both believe and live rightly. I spent some time
-                  this week and counted 16 times in your letters where you use
-                  the phrase “good works” in a positive light. Two other things
-                  stood out to me as I read. First, you commend the
-                  Thessalonians for their works of faith (1 Thess. 1:3). Second,
-                  you told the Galatians that “the only thing that counts is
-                  faith working through love” (Gal. 5:6). To which I say,
-                  “Exactly.”
+                  lawless.<sup>8</sup> Right living must flow from faith or
+                  there is no true faith present at all. You too place a high
+                  value on this, I know. We really are going for the same thing
+                  here: we want people to both believe and live rightly. I spent
+                  some time this week and counted 16 times in your letters where
+                  you use the phrase “good works” in a positive light.
+                  <sup>9</sup> Two other things stood out to me as I read.
+                  First, is your commendation of the Thessalonians for their
+                  "works of faith".<sup>10</sup> Second, you told the Galatians
+                  that “the only thing that counts is faith working through
+                  love”<sup>11</sup>. To which I say, “Exactly.”
                 </p>
                 <p className="pt-3">
                   That said, I think we approach Abraham a bit differently. Like
-                  most Jews of our time, I focus on his act of faithfulness in
-                  Genesis 22. What is significant about Abraham to me is that he
-                  remained faithful. However, it seems that you are more focused
-                  on his initial step of faith than on his on-going
-                  faithfulness. Thoughts?
+                  most Jews of our time, I focus on his faithfulness as seen in
+                  Genesis 22.<sup>12</sup> What is significant about Abraham to
+                  me is that he remained faithful. However, it seems that you
+                  are more focused on his faith when God chose him rather than
+                  on his on-going faithfulness.<sup>13</sup> Thoughts?
                 </p>
                 <p className="pt-3 font-bold">- James</p>
                 <p className="pt-8 text-xs text-gray-500">
-                  5. Ladd,{" "}
+                  6. Ladd,{" "}
                   <span className="italic">
                     New Theology of the New Testament,
                   </span>{" "}
                   639.
                   <br />
-                  6. Ladd,{" "}
+                  7. Ladd,{" "}
                   <span className="italic">
                     New Theology of the New Testament,
                   </span>{" "}
@@ -306,27 +320,26 @@ export default function page() {
                   <span className="italic">James,</span> 60; Varner, “Does James
                   Have a Theology?”, 8-9.
                   <br />
-                  7. Donald Alfred Hagner,{" "}
+                  8. Donald Alfred Hagner,{" "}
                   <span className="italic">
                     The New Testament: A Historical and Theological Introduction
                   </span>
-                  (Grand Rapids, MI: Baker Academic, 2012), 672. See also Walter
-                  A. Elwell and Barry J. Beitzel, “James, Letter Of,” in
-                  <span className="italic">
-                    Baker Encyclopedia of the Bible,
-                  </span>{" "}
-                  vol. 2 (Grand Rapids, MI: Baker Book House, 1988), 1093; Moo,
+                  (Grand Rapids, MI: Baker Academic, 2012), 672. See also Moo,
                   <span className="italic">James,</span>
                   61
                   <br />
-                  8. 2 Corinthians 9:8; Ephesians 2:10; Philippians 1:6;
+                  9. 2 Corinthians 9:8; Ephesians 2:10; Philippians 1:6;
                   Colossians 1:10; 2 Thessalonians 2:17; 1 Timothy 2:10; 5:10,
                   25; 6:18; 2 Timothy 2:21; 3:17; Titus 1:16; 2:7; 3:1, 8, 14.
                   <br />
-                  9. Dunn,
+                  10. 1 Thess. 1:3
+                  <br />
+                  11. Gal. 5:6
+                  <br />
+                  12. Dunn,
                   <span className="italic"> New Perspective on Paul,</span> 47.
                   <br />
-                  10. Michael F. Bird,{" "}
+                  13. Michael F. Bird,{" "}
                   <span className="italic">
                     Evangelical Theology: A Biblical and Systematic Introduction
                   </span>{" "}
@@ -365,8 +378,8 @@ export default function page() {
                   someone in his grace, and that is what Christ does for us now.
                   That is not to negate his faithfulness; it’s just to draw
                   attention to his faith. You’re focused on justification while
-                  I’m focused on salvation. They both matter, but they are
-                  different issues.{" "}
+                  I’m focused on salvation.<sup>14</sup> They both matter, but
+                  they are different issues.{" "}
                 </p>
                 <p className="pt-3">
                   I think there is a misunderstanding here. People have taken
@@ -382,9 +395,9 @@ export default function page() {
                 <p className="pt-3">
                   I will add that I do think that we can’t under-emphasis the
                   fact that faith does play a major role in salvation, and this
-                  is different than traditional Jewish thought. Again, faith
-                  should lead to action and it isn’t faith without it, but faith
-                  does save.
+                  is different than traditional Jewish thought.<sup>15</sup>{" "}
+                  Again, faith should lead to action and it isn’t faith without
+                  it, but faith does save.
                 </p>
                 <p className="pt-3">Thanks for all you do.</p>
                 <p className="pt-3 font-semibold">
@@ -393,9 +406,9 @@ export default function page() {
                   Paul
                 </p>
                 <p className="pt-8 text-xs text-gray-500">
-                  11. Varner, “Does James Have a Theology?”, 9.
+                  14. Varner, “Does James Have a Theology?”, 9.
                   <br />
-                  12. N. T. Wright,{" "}
+                  15. N. T. Wright,{" "}
                   <span className="italic">
                     The New Testament and the People of God,
                   </span>{" "}
