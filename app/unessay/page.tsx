@@ -292,7 +292,7 @@ export default function page() {
                   you use the phrase “good works” in a positive light.
                   <sup>9</sup> Two other things stood out to me as I read.
                   First, is your commendation of the Thessalonians for their
-                  "works of faith".<sup>10</sup> Second, you told the Galatians
+                  works of faith.<sup>10</sup> Second, you told the Galatians
                   that “the only thing that counts is faith working through
                   love”<sup>11</sup>. To which I say, “Exactly.”
                 </p>
