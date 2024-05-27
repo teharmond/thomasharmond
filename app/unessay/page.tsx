@@ -17,15 +17,11 @@ import {
   Folder,
   Trash,
 } from "lucide-react";
-import Head from "next/head";
 import React from "react";
 
 export default function page() {
   return (
     <>
-      <Head>
-        <title>Unessay | Thomas Harmond</title>
-      </Head>
       <div className="flex felx-row h-screen w-full ">
         <Sidebar />
         <EmailList />
