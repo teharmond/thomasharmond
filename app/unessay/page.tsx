@@ -99,19 +99,19 @@ export default function page() {
                   recent letter to try and correct this teaching of yours:
                 </p>
                 <p className="m-2 p-2 text-sm bg-accent rounded">
-                  "What good is it, my brothers and sisters, if someone claims
-                  to have faith but does not have works? Surely that faith
-                  cannot save, can it? If a brother or sister is naked and lacks
-                  daily food and one of you says to them, “Go in peace; keep
-                  warm and eat your fill,” and yet you do not supply their
-                  bodily needs, what is the good of that? So faith by itself, if
-                  it has no works, is dead.
+                  What good is it, my brothers and sisters, if someone claims to
+                  have faith but does not have works? Surely that faith cannot
+                  save, can it? If a brother or sister is naked and lacks daily
+                  food and one of you says to them, “Go in peace; keep warm and
+                  eat your fill,” and yet you do not supply their bodily needs,
+                  what is the good of that? So faith by itself, if it has no
+                  works, is dead.
                   <br />
                   <br />
-                  "But someone will say, “You have faith, and I have works.”
-                  Show me your faith apart from works, and I by my works will
-                  show you faith. You believe that God is one; you do well. Even
-                  the demons believe—and shudder. Do you want to be shown, you
+                  But someone will say, “You have faith, and I have works.” Show
+                  me your faith apart from works, and I by my works will show
+                  you faith. You believe that God is one; you do well. Even the
+                  demons believe—and shudder. Do you want to be shown, you
                   senseless person, that faith apart from works is worthless?
                   Was not our ancestor Abraham justified by works when he
                   offered his son Isaac on the altar? You see that faith was
@@ -123,7 +123,7 @@ export default function page() {
                   Likewise, was not Rahab the prostitute also justified by works
                   when she welcomed the messengers and sent them out by another
                   road? For just as the body without the spirit is dead, so
-                  faith without works is also dead."
+                  faith without works is also dead.
                   <br />
                   <br />
                   <span className="font-semibold">James 2:14-26</span> (NRSVue)
@@ -168,15 +168,15 @@ export default function page() {
               <div className="flex overflow-scroll p-4 flex-col">
                 <p className="pt-3">James,</p>
                 <p className="pt-3">
-                  There is a total misunderstanding here, but I don't think it's
-                  all your fault. People have been taking some of what I have
+                  There is a total misunderstanding here, but I do not think it
+                  is all your fault. People have been taking some of what I have
                   written and have run with it to the point that they are doing
                   exactly what you are suggesting is not to be done! There are
                   some who have been ignoring the practices and ethics of the
                   faith, claiming that they can do whatever they like since they
                   are free. While I have written much on the freedom we have in
                   Christ, I have not done so as a way to downplay the importance
-                  of how one lives. To prove my point, your letter is actaully
+                  of how one lives. To prove my point, your letter is actually
                   the only place in the New Testament where the words “faith
                   alone” are used!
                   <sup>2</sup>
@@ -207,7 +207,7 @@ export default function page() {
                   Ephesians 5:3-5.
                 </p>
                 <p className="pt-3">
-                  Let me give one more example from my writtings. In 1
+                  Let me give one more example from my writings. In 1
                   Corinthians 3:10-15, I speak of two types of builders. The
                   first builds with intention while the second builds
                   carelessly. What the first builds survives while what the
@@ -218,8 +218,8 @@ export default function page() {
                   <span className="italic">yet</span> be justified.<sup>6</sup>
                 </p>
                 <p className="pt-3">
-                  I noticed that you called attention to Abraham's
-                  <span className="italic">faithfulness</span> while I tend to
+                  I noticed that you called attention to Abraham&#8217;s
+                  <span className="italic"> faithfulness</span> while I tend to
                   point out his <span className="italic">faith</span>. That is a
                   valid thing to do. However, I will wait until I hear back from
                   you about the above before I expand my thoughts on this.
@@ -296,25 +296,26 @@ export default function page() {
                   Thanks for your input. I see the misunderstanding. I still am
                   glad I wrote the letter. Even if you do not need correction,
                   those who misunderstand you do. I want people to understand,
-                  as you do, that daith is not just agreeing with the right
-                  doctrine; it is a pratical commitment to and trust in God.
+                  as you do, that faith is not just agreeing with the right
+                  doctrine; it is a practical commitment to and trust in God.
                   <sup>7</sup> The goal of this type of faith is that people
                   would do deeds of love, just as Jesus commanded.<sup>8</sup>{" "}
                   Now that I think of it, I believe you spoke about this in
                   Galatians 5:6 where you talk about faith working through love.
                 </p>
                 <p className="pt-3">
-                  I'm glad we're on the same page on this. I just do not want
+                  I am glad we are on the same page on this. I just do not want
                   people to misunderstand your gospel as lawless.
-                  <sup>9</sup> Right belief, right living. That's what we both
-                  want to see form in the church as it contiunes to grow.
+                  <sup>9</sup> Right belief, right living. That is what we both
+                  want to see form in the church as it continues to grow.
                 </p>
                 <p className="pt-3">
-                  Let's come back to the Abraham conversation. Like most Jews of
-                  our time, I focus on his faithfulness as seen in Genesis 22.
+                  Let us come back to the Abraham conversation. Like most Jews
+                  of our time, I focus on his faithfulness as seen in Genesis
+                  22.
                   <sup>10</sup> What is significant about Abraham to me is that
                   he remained faithful over the course of his life. He trusted
-                  what God had promised, and this was seen by him contiuning to
+                  what God had promised, and this was seen by him continuing to
                   live aligned to this belief. That said, it seems that you are
                   more focused on his faith when God chose him rather than on
                   his on-going faithfulness.<sup>11</sup> Is that fair to say?
@@ -382,24 +383,24 @@ export default function page() {
                 <p className="pt-3">Glad we agree.</p>
                 <p className="pt-3">
                   I agree that his faithfulness matters (though he clearly
-                  contiunes to fail (see Gen. 12 and 20)). But I think it is
+                  continues to fail (see Gen. 12 and 20)). But I think it is
                   more significant that God chose him and not he chooses us.
-                  This is not to negate Abraham's faithfulness; it's just to
-                  draw more attention to God's faithfulness towards us.
+                  This is not to negate Abraham&#8217;s faithfulness; it's just
+                  to draw more attention to God&#8217;s faithfulness towards us.
                 </p>
                 <p className="pt-3">
                   As you know, we have never thought that our people are saved
-                  becasue they earned it; we know that it is a gift from God and
+                  because they earned it; we know that it is a gift from God and
                   that obedience is the response to this gift.<sup>12</sup>{" "}
                   Works matter, and they play a role in our justification, but
                   they do not determine our salvation.<sup>13</sup>
                 </p>
                 <p className="pt-3">
-                  Maybe I can land this plane by saying this. Faith cannont be
+                  Maybe I can land this plane by saying this. Faith cannot be
                   abstracted; it will always have a real-world impact on how we
                   think, live, and act.<sup>14</sup> Faith without works is
-                  indeed dead becasue it is no faith at all. Faith itself will
-                  alawys work if it is true. When this faith does work, it leads
+                  indeed dead because it is no faith at all. Faith itself will
+                  always work if it is true. When this faith does work, it leads
                   to our justification.
                 </p>
                 <p className="pt-3">
@@ -459,7 +460,7 @@ export default function page() {
                 <p className="pt-3">Thanks for the discussion.</p>
                 <p className="pt-3">
                   Praying for you in this time. May the grace of the Lord Jesus
-                  be with you as you contiune to bring people to the truth.
+                  be with you as you continue to bring people to the truth.
                 </p>
                 <p className="pt-3 font-bold">- James</p>
               </div>

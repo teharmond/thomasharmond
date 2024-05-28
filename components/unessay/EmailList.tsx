@@ -13,7 +13,9 @@ export default function EmailList() {
         </div>
         <h1 className="text-xs font-medium">Re: Faith and Works</h1>
         <p className="text-xs line-clamp-2">
-          I really enjoyed this discussion, so thank you, James.
+          Hi Paul, I enjoyed it as well, and I found it quite helpful. Thanks
+          for the discussion. Praying for you in this time. May the grace of the
+          Lord Jesus be with you as you continue to bring people to the truth.
           <br />
           Grace and peace, <br />
           Paul
