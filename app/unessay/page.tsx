@@ -386,7 +386,7 @@ export default function page() {
                 <p className="pt-3">
                   With Abraham, I agree that his faithfulness matters (though he
                   clearly continues to fail (see Gen. 12 and 20)). But I think
-                  it is more significant that God chose him and not he chooses
+                  it is more significant that God chose him and now he chooses
                   us. This is not to negate Abraham&#8217;s faithfulness&#59;
                   it&#8217;s just to draw more attention to God&#8217;s
                   faithfulness towards us.
