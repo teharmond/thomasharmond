@@ -380,12 +380,14 @@ export default function page() {
               </div>
               <div className="flex overflow-scroll p-4 flex-col">
                 <p className="pt-3">Hi James,</p>
-                <p className="pt-3">Glad we agree.</p>
                 <p className="pt-3">
-                  I agree that his faithfulness matters (though he clearly
-                  continues to fail (see Gen. 12 and 20)). But I think it is
-                  more significant that God chose him and not he chooses us.
-                  This is not to negate Abraham&#8217;s faithfulness&#59;
+                  Glad we agree on the faith vs. works conversation.
+                </p>
+                <p className="pt-3">
+                  With Abraham, I agree that his faithfulness matters (though he
+                  clearly continues to fail (see Gen. 12 and 20)). But I think
+                  it is more significant that God chose him and not he chooses
+                  us. This is not to negate Abraham&#8217;s faithfulness&#59;
                   it&#8217;s just to draw more attention to God&#8217;s
                   faithfulness towards us.
                 </p>
