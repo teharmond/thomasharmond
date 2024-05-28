@@ -385,8 +385,9 @@ export default function page() {
                   I agree that his faithfulness matters (though he clearly
                   continues to fail (see Gen. 12 and 20)). But I think it is
                   more significant that God chose him and not he chooses us.
-                  This is not to negate Abraham&#8217;s faithfulness; it's just
-                  to draw more attention to God&#8217;s faithfulness towards us.
+                  This is not to negate Abraham&#8217;s faithfulness&#59; it's
+                  just to draw more attention to God&#8217;s faithfulness
+                  towards us.
                 </p>
                 <p className="pt-3">
                   As you know, we have never thought that our people are saved
@@ -397,8 +398,8 @@ export default function page() {
                 </p>
                 <p className="pt-3">
                   Maybe I can land this plane by saying this. Faith cannot be
-                  abstracted; it will always have a real-world impact on how we
-                  think, live, and act.<sup>14</sup> Faith without works is
+                  abstracted&#59; it will always have a real-world impact on how
+                  we think, live, and act.<sup>14</sup> Faith without works is
                   indeed dead because it is no faith at all. Faith itself will
                   always work if it is true. When this faith does work, it leads
                   to our justification.
