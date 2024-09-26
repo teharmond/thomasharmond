@@ -7,7 +7,10 @@ export default function Home() {
       Hello.
       <br />
       <br />
-      Currently building <Link href="https://trivo.app">Trivo</Link>
+      Currently building{" "}
+      <Link className="text-blue-500 underline" href="https://trivo.app">
+        Trivo
+      </Link>
     </div>
   );
 }
