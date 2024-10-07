@@ -2,9 +2,11 @@
 
 import { useState, useCallback } from "react";
 import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Component() {
+  const [text, setText] = useState("");
   const [wordCount, setWordCount] = useState(0);
 
   const countWords = useCallback((text: string) => {
@@ -14,8 +16,15 @@ export default function Component() {
   }, []);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newCount = countWords(e.target.value);
+    const newText = e.target.value;
+    setText(newText);
+    const newCount = countWords(newText);
     setWordCount(newCount);
+  };
+
+  const handleClearAll = () => {
+    setText("");
+    setWordCount(0);
   };
 
   return (
@@ -29,12 +38,20 @@ export default function Component() {
         <Textarea
           placeholder="Type or paste your text here..."
           className="min-h-[200px] text-base"
+          value={text}
           onChange={handleTextChange}
         />
-        <div className="text-center">
+        <div className="flex justify-between items-center">
           <p className="text-lg font-semibold">
             Word Count: <span className="text-primary">{wordCount}</span>
           </p>
+          <Button
+            onClick={handleClearAll}
+            variant="outline"
+            className="hover:bg-destructive hover:text-destructive-foreground"
+          >
+            Clear All
+          </Button>
         </div>
       </CardContent>
     </Card>
