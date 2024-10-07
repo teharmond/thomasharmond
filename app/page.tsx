@@ -19,6 +19,13 @@ export default function Home() {
           their ministries so they can focus on what matters most.
         </div>
       </div>
+
+      <div className="flex flex-col ">
+        <Link className="text-blue-500 underline font-semibold" href="/blog">
+          Blog
+        </Link>
+        <div className="text-sm ">Some of my thoughts and ideas.</div>
+      </div>
       <div className="flex flex-col ">
         <Link
           className="text-blue-500 underline font-semibold"
