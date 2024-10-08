@@ -3,28 +3,34 @@
 import { useState, useCallback, useMemo } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { ChevronDown, ChevronUp } from "lucide-react";
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const getHighlightColor = (wordCount: number) => {
-  if (wordCount <= 3) return "bg-yellow-200";
-  if (wordCount <= 8) return "bg-purple-200";
-  if (wordCount <= 14) return "bg-green-200";
-  return "bg-red-200";
+  if (wordCount <= 3) return "bg-yellow-600";
+  if (wordCount <= 8) return "bg-purple-600";
+  if (wordCount <= 14) return "bg-green-600";
+  return "bg-red-600";
 };
 
 export default function Component() {
   const [text, setText] = useState("");
   const [wordCount, setWordCount] = useState(0);
   const [wpm, setWpm] = useState(150);
-  const [isOpen, setIsOpen] = useState(false);
 
   const countWords = useCallback((text: string) => {
     const words = text.match(/\b[\w]+\b/g);
@@ -57,7 +63,7 @@ export default function Component() {
           return (
             <span
               key={`${lineIndex}-${sentenceIndex}`}
-              className={`${color} px-1 rounded`}
+              className={`${color} mr-1 px-0.5 rounded`}
             >
               {trimmedSentence}
             </span>
@@ -92,14 +98,14 @@ export default function Component() {
   const time = calculateTime(wordCount, wpm);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 overflow-y-auto">
       <Card className="w-full max-w-3xl mx-auto">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">
-            Word Counter
+            Writing Tools
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-2">
           <Textarea
             placeholder="Type or paste your text here..."
             className="min-h-[200px] text-base"
@@ -108,65 +114,73 @@ export default function Component() {
             spellCheck={true}
             aria-label="Text input for word counting and sentence analysis"
           />
-          <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-            <CollapsibleTrigger asChild>
-              <div className="flex items-center font-semibold justify-between w-full hover:bg-muted transition-all p-2 rounded-md hover:cursor-pointer">
-                Sentence Length Analysis
-                {isOpen ? (
-                  <ChevronUp className="h-4 w-4" />
-                ) : (
-                  <ChevronDown className="h-4 w-4" />
-                )}
-              </div>
-            </CollapsibleTrigger>
-            <CollapsibleContent>
-              <div className="mt-0.5 bg-white p-4 rounded-md border border-gray-200 max-h-[300px] overflow-y-auto">
-                {highlightedText}
-              </div>
-              <div className="flex flex-wrap gap-2 text-sm mt-2">
-                <span className="bg-yellow-200 px-2 py-1 rounded">
-                  1-3 words
-                </span>
-                <span className="bg-purple-200 px-2 py-1 rounded">
-                  4-8 words
-                </span>
-                <span className="bg-green-200 px-2 py-1 rounded">
-                  9-14 words
-                </span>
-                <span className="bg-red-200 px-2 py-1 rounded">15+ words</span>
-              </div>
-            </CollapsibleContent>
-          </Collapsible>
           <div className="flex justify-between items-center">
-            <p className="text-lg font-semibold">
+            <p className=" font-medium pl-2">
               Word Count: <span className="text-primary">{wordCount}</span>
             </p>
+          </div>
+          <Accordion type="multiple" className="w-full px-2">
+            <AccordionItem value="sentence-analysis">
+              <AccordionTrigger>Sentence Length Analysis</AccordionTrigger>
+              <AccordionContent>
+                <div className="bg-card p-3 rounded-md border border-gray-200 max-h-[300px] overflow-y-auto">
+                  {highlightedText}
+                </div>
+                <div className="flex flex-wrap gap-2 text-sm mt-2">
+                  <span className="bg-yellow-600 px-2 py-1 rounded">
+                    1-3 words
+                  </span>
+                  <span className="bg-purple-600 px-2 py-1 rounded">
+                    4-8 words
+                  </span>
+                  <span className="bg-green-600 px-2 py-1 rounded">
+                    9-14 words
+                  </span>
+                  <span className="bg-red-600 px-2 py-1 rounded">
+                    15+ words
+                  </span>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="reading-time">
+              <AccordionTrigger>Reading Time</AccordionTrigger>
+              <AccordionContent>
+                <div className="p-4 rounded-md border border-gray-200">
+                  <div className="flex gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="wpm">Words/Min.</Label>
+                      <Input
+                        id="wpm"
+                        type="number"
+                        value={wpm}
+                        onChange={handleWpmChange}
+                        min="1"
+                        className="max-w-[80px] h-9"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="estimatedTime">Estimated Time:</Label>
+                      <p id="estimatedTime" className="py-1.5 font-medium">
+                        {time}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </CardContent>
+        <CardFooter className="px-8 mt-4 ">
+          <div className="flex justify-end w-full">
             <Button
               onClick={handleClearAll}
               variant="outline"
-              className="hover:bg-destructive hover:text-destructive-foreground"
+              className="hover:bg-destructive hover:text-destructive-foreground h-9"
             >
               Clear All
             </Button>
           </div>
-          <div className="flex gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="wpm">Words/Min.</Label>
-              <Input
-                id="wpm"
-                type="number"
-                value={wpm}
-                onChange={handleWpmChange}
-                min="1"
-                className="max-w-[80px] h-9"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="wpm">Estimated Time:</Label>
-              <p className="py-1.5 font-medium">{time}</p>
-            </div>
-          </div>
-        </CardContent>
+        </CardFooter>
       </Card>
     </div>
   );
