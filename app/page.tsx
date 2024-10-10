@@ -97,12 +97,12 @@ export default function Home() {
             </div>
           </div>
           <div className="flex flex-col ">
-            <div className="text-muted-foreground  font-medium  ">
-              <span className="underline">Byte Counter</span>{" "}
-              <span className="text-xs text-muted-foreground font-normal ">
-                (Coming Soon)
-              </span>
-            </div>
+            <Link
+              className="text-blue-500 underline font-semibold"
+              href="/byte"
+            >
+              Byte Counter
+            </Link>
             <div className="text-sm ">
               A tool to help with counting bytes for your projects.
             </div>
@@ -120,12 +120,9 @@ export default function Home() {
             </div>
           </div>
           <div className="flex flex-col ">
-            <div className="text-muted-foreground  font-medium  ">
-              <span className="underline">QR Code Generator</span>{" "}
-              <span className="text-xs text-muted-foreground font-normal ">
-                (Coming Soon)
-              </span>
-            </div>
+            <Link className="text-blue-500 underline font-semibold" href="/qr">
+              QR Code Generator
+            </Link>
             <div className="text-sm ">
               A tool to help with generating QR codes for your projects.
             </div>
