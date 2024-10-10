@@ -15,7 +15,7 @@ export default function Home() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <div className="text-lg font-medium ">Projects</div>
+        <div className="font-mono uppercase font-medium ">Projects</div>
         <div className="flex flex-col gap-4">
           <div className="flex flex-col ">
             <Link
@@ -44,7 +44,7 @@ export default function Home() {
         </div>
       </div>
       <div className="flex flex-col gap-1">
-        <div className="text-lg font-medium ">Resources</div>
+        <div className="font-mono uppercase font-medium ">Resources</div>
         <div className="flex flex-col gap-4">
           <div className="flex flex-col ">
             <div className="text-muted-foreground  font-medium  ">
@@ -83,7 +83,7 @@ export default function Home() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <div className="text-lg font-medium ">Tools</div>
+        <div className="font-mono uppercase font-medium ">Tools</div>
         <div className="flex flex-col gap-4">
           <div className="flex flex-col ">
             <Link
@@ -108,12 +108,13 @@ export default function Home() {
             </div>
           </div>
           <div className="flex flex-col ">
-            <div className="text-muted-foreground  font-medium  ">
-              <span className="underline">UUID Generator</span>{" "}
-              <span className="text-xs text-muted-foreground font-normal ">
-                (Coming Soon)
-              </span>
-            </div>
+            <Link
+              className="text-blue-500 underline font-semibold"
+              href="/uuid"
+            >
+              UUID Generator
+            </Link>
+
             <div className="text-sm ">
               A tool to help with generating UUIDs for your projects.
             </div>
