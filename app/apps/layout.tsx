@@ -44,7 +44,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="h-screen flex">
-      <div className="flex flex-col gap-4 h-screen w-[350px] bg-card border-r overflow-hidden px-2">
+      <div className="flex flex-col gap-4 h-screen w-[380px] bg-card border-r overflow-hidden px-2">
         <div className="flex justify-between items-center pt-4 px-2">
           <div className="text-lg font-medium">Apps I Use</div>
         </div>
@@ -54,27 +54,25 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <div className="text-sm text-muted-foreground px-2">
                 {category}
               </div>
-              {sortApps(groupedApps[category]).map((app) => (
-                <Link key={app.id} href={app.href}>
-                  <div className="h-16 flex items-center justify-start p-2 w-full gap-2 hover:bg-muted rounded-lg transition-colors">
-                    <div>
-                      <Image
-                        src={getAppIcon(app.icon)}
-                        alt={`${app.name} icon`}
-                        width={48}
-                        height={48}
-                        className="rounded-xl"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-0.5">
-                      <div className="text-sm font-medium">{app.name}</div>
-                      <div className="text-xs text-muted-foreground">
-                        {app.price}
+              <div className="grid grid-cols-4 gap-2">
+                {sortApps(groupedApps[category]).map((app) => (
+                  <Link key={app.id} href={app.href}>
+                    <div className="p-1 flex flex-col items-center justify-start  w-full gap-1 text-secondary-foreground hover:bg-muted rounded-lg transition-colors">
+                      <div>
+                        <Image
+                          src={getAppIcon(app.icon)}
+                          alt={`${app.name} icon`}
+                          width={48}
+                          height={48}
+                          className="rounded-xl"
+                        />
                       </div>
+
+                      <div className="text-sm font-medium">{app.name}</div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                ))}
+              </div>
             </div>
           ))}
         </div>
