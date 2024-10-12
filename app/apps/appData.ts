@@ -4,11 +4,11 @@ import CursorLogo from "./appLogos/Cursor.webp";
 
 export const appsData = [
   {
-    id: "figma",
-    name: "Figma",
-    category: "Design",
-    icon: "/icons/figma.webp",
-    href: "/apps/figma",
+    id: "notion",
+    name: "Notion",
+    category: "Productivity",
+    icon: notionLogo,
+    href: "/apps/notion",
     price: "Free",
   },
   {
