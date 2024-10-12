@@ -16,8 +16,10 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
 import EmailCopy from "./email-copy";
 
 export default function ResponsiveSidebar() {
@@ -97,13 +99,13 @@ export default function ResponsiveSidebar() {
           Socials
         </div>
         <SidebarLink
-          href="https://instagram.com"
+          href="https://www.instagram.com/thomas.harmond/"
           icon={<Instagram className="w-3.5 h-3.5" />}
           text="Instagram"
           external
         />
         <SidebarLink
-          href="https://twitter.com"
+          href="https://x.com/teharmond"
           icon={<Twitter className="w-3.5 h-3.5" />}
           text="Twitter"
           external
@@ -163,15 +165,23 @@ const SidebarLink: React.FC<SidebarLinkProps> = ({
   icon,
   text,
   external,
-}) => (
-  <Link
-    className="text-secondary-foreground flex items-center gap-1.5 w-full justify-between hover:bg-muted transition-colors px-2 py-1 rounded-md"
-    href={href}
-  >
-    <span className="flex items-center gap-2.5">
-      {icon}
-      {text}
-    </span>
-    {external && <ExternalLink className="w-3.5 h-3.5" />}
-  </Link>
-);
+}) => {
+  const pathname = usePathname();
+  const isActive = pathname === href;
+
+  return (
+    <Link
+      className={cn(
+        "text-secondary-foreground flex items-center gap-1.5 w-full justify-between hover:bg-muted transition-colors px-2 py-1 rounded-md",
+        isActive && "bg-muted font-medium"
+      )}
+      href={href}
+    >
+      <span className="flex items-center gap-2.5">
+        {icon}
+        {text}
+      </span>
+      {external && <ExternalLink className="w-3.5 h-3.5" />}
+    </Link>
+  );
+};

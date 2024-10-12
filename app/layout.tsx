@@ -20,20 +20,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="flex-col md:flex-row">
-          <ResponsiveSidebar />
-          <main className="flex-1 p-4 md:p-6">
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              {children}
-              <Toaster />
-            </ThemeProvider>
-          </main>
-        </div>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="flex flex-col md:flex-row h-screen">
+            <ResponsiveSidebar />
+            <div className="flex-1 overflow-y-auto">
+              <main className="flex-1">
+                {children}
+                <Toaster />
+              </main>
+            </div>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
