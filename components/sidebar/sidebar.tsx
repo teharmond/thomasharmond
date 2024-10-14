@@ -16,6 +16,7 @@ import {
   X,
   Code,
   ImageIcon,
+  Home,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -39,7 +40,13 @@ export default function ResponsiveSidebar() {
           </div>
         </div>
       </div>
-
+      <div className="flex flex-col gap-0.5">
+        <SidebarLink
+          href="/"
+          icon={<Home className="w-3.5 h-3.5" />}
+          text="Home"
+        />
+      </div>
       <div className="flex flex-col gap-0.5">
         <div className="text-muted-foreground text-xs uppercase font-medium px-2 py-1">
           Me
