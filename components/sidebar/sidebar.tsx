@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import {
   Bookmark,
   Dices,
@@ -17,6 +17,7 @@ import {
   Code,
   ImageIcon,
   Home,
+  Book,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -27,6 +28,28 @@ import EmailCopy from "./email-copy";
 
 export default function ResponsiveSidebar() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  const activeLink = useMemo(() => {
+    const links = [
+      { href: "/", text: "Home" },
+      { href: "/blog", text: "Blog" },
+      { href: "/bookmarks", text: "Bookmarks" },
+      { href: "/apps", text: "Apps I Use" },
+      { href: "/writing-tools", text: "Writing Tools" },
+      { href: "/byte", text: "Byte Counter" },
+      { href: "/uuid", text: "UUID Generator" },
+      { href: "/qr", text: "QR Code Generator" },
+      { href: "/text-to-safe-html", text: "Text to Safe HTML" },
+      { href: "/webp", text: "WebP Converter" },
+    ];
+
+    const matchedLink = links.find(
+      (link) => pathname === link.href || pathname.startsWith(`${link.href}/`)
+    );
+
+    return matchedLink?.text || "Thomas Harmond";
+  }, [pathname]);
 
   const SidebarContent = () => (
     <>
@@ -134,6 +157,13 @@ export default function ResponsiveSidebar() {
           Socials
         </div>
         <SidebarLink
+          href="https://www.goodreads.com/user/show/92633673-thomas-harmond/"
+          icon={<Book className="w-3.5 h-3.5" />}
+          text="Goodreads"
+          external
+          setIsOpen={setIsOpen}
+        />
+        <SidebarLink
           href="https://www.instagram.com/thomas.harmond/"
           icon={<Instagram className="w-3.5 h-3.5" />}
           text="Instagram"
@@ -154,7 +184,7 @@ export default function ResponsiveSidebar() {
   return (
     <>
       {/* Hamburger menu for medium screens and below */}
-      <div className="md:hidden border-b px-2 py-1.5 ">
+      <div className="md:hidden border-b px-2 py-1.5 flex items-center gap-1">
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon" className="md:hidden">
@@ -180,6 +210,7 @@ export default function ResponsiveSidebar() {
             </div>
           </SheetContent>
         </Sheet>
+        <span className="text-sm font-medium">{activeLink}</span>
       </div>
 
       {/* Regular sidebar for large screens */}
@@ -206,7 +237,9 @@ const SidebarLink: React.FC<SidebarLinkProps> = ({
   setIsOpen,
 }) => {
   const pathname = usePathname();
-  const isActive = pathname === href;
+  const isActive = external
+    ? false
+    : pathname === href || pathname.startsWith(`${href}/`);
 
   const handleClick = () => {
     if (setIsOpen) {
