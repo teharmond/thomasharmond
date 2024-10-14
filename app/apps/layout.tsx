@@ -2,10 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import { appsData } from "./appData";
-import notionLogo from "./appLogos/Notion.webp";
-import LinearLogo from "./appLogos/Linear.webp";
-import CursorLogo from "./appLogos/Cursor.webp";
-import { StaticImageData } from "next/image";
 
 // Helper function to sort apps alphabetically by name
 function sortApps(apps: typeof appsData) {
@@ -21,21 +17,6 @@ function groupAppsByCategory(apps: typeof appsData) {
     acc[app.category].push(app);
     return acc;
   }, {} as Record<string, typeof appsData>);
-}
-
-// Updated helper function
-function getAppIcon(icon: string | StaticImageData): string | StaticImageData {
-  const iconMap: Record<string, StaticImageData> = {
-    notionLogo,
-    LinearLogo,
-    CursorLogo,
-  };
-
-  if (typeof icon === "string") {
-    return iconMap[icon] || icon;
-  }
-
-  return icon;
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -54,21 +35,20 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <div className="text-sm text-muted-foreground px-2">
                 {category}
               </div>
-              <div className="grid grid-cols-4 gap-2">
+              <div className="flex flex-col ">
                 {sortApps(groupedApps[category]).map((app) => (
-                  <Link key={app.id} href={app.href}>
-                    <div className="p-1 flex flex-col items-center justify-start  w-full gap-1 text-secondary-foreground hover:bg-muted rounded-lg transition-colors">
+                  <Link key={app.id} href={`/apps/${app.id}`}>
+                    <div className="p-1 flex items-center justify-start w-full gap-2.5 text-secondary-foreground hover:bg-muted rounded-lg transition-colors">
                       <div>
                         <Image
-                          src={getAppIcon(app.icon)}
+                          src={app.icon}
                           alt={`${app.name} icon`}
                           width={48}
                           height={48}
                           className="rounded-xl"
                         />
                       </div>
-
-                      <div className="text-sm font-medium">{app.name}</div>
+                      <div>{app.name}</div>
                     </div>
                   </Link>
                 ))}

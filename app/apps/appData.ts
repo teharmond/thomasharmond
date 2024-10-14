@@ -1,6 +1,14 @@
 import notionLogo from "./appLogos/Notion.webp";
 import LinearLogo from "./appLogos/Linear.webp";
 import CursorLogo from "./appLogos/Cursor.webp";
+import PostgresdotnewLogo from "./appLogos/Postgresdotnew.webp";
+import V0Logo from "./appLogos/V0.webp";
+import ChatGPTLogo from "./appLogos/ChatGPT.webp";
+import ClaudeLogo from "./appLogos/Claude.webp";
+import FigmaLogo from "./appLogos/Figma.webp";
+import HalideLogo from "./appLogos/Halide.webp";
+import PhotoshopLogo from "./appLogos/Photoshop.webp";
+import CloudflareLogo from "./appLogos/Cloudflare.webp";
 
 export const appsData = [
   {
@@ -8,7 +16,7 @@ export const appsData = [
     name: "Raycast",
     category: "Productivity",
     icon: notionLogo,
-    href: "/apps/raycast",
+    link: "/apps/raycast",
     price: "Free",
   },
   {
@@ -16,7 +24,7 @@ export const appsData = [
     name: "Notion",
     category: "Productivity",
     icon: notionLogo,
-    href: "/apps/notion",
+    link: "/apps/notion",
     price: "Free",
   },
   {
@@ -24,7 +32,7 @@ export const appsData = [
     name: "Notion Calendar",
     category: "Productivity",
     icon: notionLogo,
-    href: "/apps/notion-calendar",
+    link: "/apps/notion-calendar",
     price: "Free",
   },
   {
@@ -32,15 +40,15 @@ export const appsData = [
     name: "Passwords",
     category: "Productivity",
     icon: notionLogo,
-    href: "/apps/passwords",
+    link: "/apps/passwords",
     price: "Free",
   },
   {
     id: "photoshop",
     name: "Photoshop",
     category: "Creativity",
-    icon: notionLogo,
-    href: "/apps/photoshop",
+    icon: PhotoshopLogo,
+    link: "/apps/photoshop",
     price: "Free",
   },
   {
@@ -48,15 +56,15 @@ export const appsData = [
     name: "iCloud",
     category: "Productivity",
     icon: notionLogo,
-    href: "/apps/iCloud",
+    link: "/apps/iCloud",
     price: "Free",
   },
   {
     id: "figma",
     name: "Figma",
     category: "Creativity",
-    icon: notionLogo,
-    href: "/apps/figma",
+    icon: FigmaLogo,
+    link: "/apps/figma",
     price: "Free",
   },
   {
@@ -64,7 +72,7 @@ export const appsData = [
     name: "Arc",
     category: "Productivity",
     icon: notionLogo,
-    href: "/apps/arc",
+    link: "/apps/arc",
     price: "Free",
   },
   {
@@ -72,7 +80,7 @@ export const appsData = [
     name: "Tana",
     category: "Productivity",
     icon: notionLogo,
-    href: "/apps/tana",
+    link: "/apps/tana",
     price: "Free",
   },
   {
@@ -80,7 +88,7 @@ export const appsData = [
     name: "Reader",
     category: "Information",
     icon: notionLogo,
-    href: "/apps/reader",
+    link: "/apps/reader",
     price: "Free",
   },
   {
@@ -88,7 +96,7 @@ export const appsData = [
     name: "Readwise",
     category: "Information",
     icon: notionLogo,
-    href: "/apps/readwise",
+    link: "/apps/readwise",
     price: "Free",
   },
   {
@@ -96,7 +104,7 @@ export const appsData = [
     name: "YouTube",
     category: "Entertainment",
     icon: notionLogo,
-    href: "/apps/youtube",
+    link: "/apps/youtube",
     price: "Free",
   },
   {
@@ -104,7 +112,7 @@ export const appsData = [
     name: "Nebula",
     category: "Entertainment",
     icon: notionLogo,
-    href: "/apps/nebula",
+    link: "/apps/nebula",
     price: "Free",
   },
   {
@@ -112,7 +120,7 @@ export const appsData = [
     name: "Kindle",
     category: "Information",
     icon: notionLogo,
-    href: "/apps/kindle",
+    link: "/apps/kindle",
     price: "Free",
   },
   {
@@ -120,7 +128,7 @@ export const appsData = [
     name: "Refind",
     category: "Information",
     icon: notionLogo,
-    href: "/apps/refind",
+    link: "/apps/refind",
     price: "Free",
   },
   {
@@ -128,7 +136,7 @@ export const appsData = [
     name: "Cursor",
     category: "Development",
     icon: CursorLogo,
-    href: "/apps/cursor",
+    link: "/apps/cursor",
     price: "Free",
   },
   {
@@ -136,7 +144,7 @@ export const appsData = [
     name: "Postman",
     category: "Development",
     icon: CursorLogo,
-    href: "/apps/postman",
+    link: "/apps/postman",
     price: "Free",
   },
   {
@@ -144,7 +152,7 @@ export const appsData = [
     name: "iTerm",
     category: "Development",
     icon: CursorLogo,
-    href: "/apps/iterm",
+    link: "/apps/iterm",
     price: "Free",
   },
   {
@@ -152,7 +160,7 @@ export const appsData = [
     name: "Vercel",
     category: "Development",
     icon: CursorLogo,
-    href: "/apps/vercel",
+    link: "/apps/vercel",
     price: "Free",
   },
   {
@@ -160,7 +168,7 @@ export const appsData = [
     name: "Next.js",
     category: "Development",
     icon: CursorLogo,
-    href: "/apps/nextjs",
+    link: "/apps/nextjs",
     price: "Free",
   },
   {
@@ -168,15 +176,15 @@ export const appsData = [
     name: "GitHub",
     category: "Development",
     icon: CursorLogo,
-    href: "/apps/vercel",
+    link: "/apps/vercel",
     price: "Free",
   },
   {
     id: "cloudflare",
     name: "Cloudflare",
     category: "Development",
-    icon: CursorLogo,
-    href: "/apps/vercel",
+    icon: CloudflareLogo,
+    link: "/apps/vercel",
     price: "Free",
   },
   {
@@ -184,7 +192,7 @@ export const appsData = [
     name: "Supabase",
     category: "Development",
     icon: CursorLogo,
-    href: "/apps/vercel",
+    link: "/apps/vercel",
     price: "Free",
   },
   {
@@ -192,7 +200,7 @@ export const appsData = [
     name: "Linear",
     category: "Productivity",
     icon: LinearLogo,
-    href: "/apps/linear",
+    link: "/apps/linear",
     price: "Free",
     description:
       "Linear is a project management tool that helps you manage your projects and tasks.",
@@ -201,8 +209,8 @@ export const appsData = [
     id: "v0",
     name: "V0",
     category: "AI",
-    icon: LinearLogo,
-    href: "/apps/linear",
+    icon: V0Logo,
+    link: "/apps/v0",
     price: "Free",
     description:
       "Linear is a project management tool that helps you manage your projects and tasks.",
@@ -211,18 +219,18 @@ export const appsData = [
     id: "chatgpt",
     name: "Chat GPT",
     category: "AI",
-    icon: LinearLogo,
-    href: "/apps/linear",
+    icon: ChatGPTLogo,
+    link: "/apps/linear",
     price: "Free",
     description:
       "Linear is a project management tool that helps you manage your projects and tasks.",
   },
   {
     id: "postgresnew",
-    name: "pg.new",
+    name: "postgres.new",
     category: "AI",
-    icon: LinearLogo,
-    href: "/apps/linear",
+    icon: PostgresdotnewLogo,
+    link: "/apps/linear",
     price: "Free",
     description:
       "Linear is a project management tool that helps you manage your projects and tasks.",
@@ -231,8 +239,8 @@ export const appsData = [
     id: "claude",
     name: "Claude",
     category: "AI",
-    icon: LinearLogo,
-    href: "/apps/linear",
+    icon: ClaudeLogo,
+    link: "/apps/linear",
     price: "Free",
     description:
       "Linear is a project management tool that helps you manage your projects and tasks.",
@@ -242,7 +250,7 @@ export const appsData = [
     name: "Tailwind",
     category: "Development",
     icon: LinearLogo,
-    href: "/apps/linear",
+    link: "/apps/linear",
     price: "Free",
     description:
       "Linear is a project management tool that helps you manage your projects and tasks.",
@@ -252,7 +260,7 @@ export const appsData = [
     name: "X",
     category: "Social Media",
     icon: LinearLogo,
-    href: "/apps/x",
+    link: "/apps/x",
     price: "Free",
     description:
       "Linear is a project management tool that helps you manage your projects and tasks.",
@@ -262,7 +270,7 @@ export const appsData = [
     name: "Instagram",
     category: "Social Media",
     icon: LinearLogo,
-    href: "/apps/instagram",
+    link: "/apps/instagram",
     price: "Free",
     description:
       "Linear is a project management tool that helps you manage your projects and tasks.",
@@ -272,7 +280,7 @@ export const appsData = [
     name: "Dribbble",
     category: "Social Media",
     icon: LinearLogo,
-    href: "/apps/dribbble",
+    link: "/apps/dribbble",
     price: "Free",
     description:
       "Linear is a project management tool that helps you manage your projects and tasks.",
@@ -282,7 +290,7 @@ export const appsData = [
     name: "Arc Search",
     category: "Productivity",
     icon: LinearLogo,
-    href: "/apps/arc-search",
+    link: "/apps/arc-search",
     price: "Free",
     description:
       "Linear is a project management tool that helps you manage your projects and tasks.",
@@ -291,8 +299,8 @@ export const appsData = [
     id: "halide",
     name: "Halide",
     category: "Creativity",
-    icon: LinearLogo,
-    href: "/apps/halide",
+    icon: HalideLogo,
+    link: "/apps/halide",
     price: "Free",
     description:
       "Linear is a project management tool that helps you manage your projects and tasks.",
@@ -302,7 +310,7 @@ export const appsData = [
     name: "Spotify",
     category: "Entertainment",
     icon: LinearLogo,
-    href: "/apps/spotify",
+    link: "/apps/spotify",
     price: "Free",
     description:
       "Linear is a project management tool that helps you manage your projects and tasks.",
@@ -312,7 +320,7 @@ export const appsData = [
     name: "Logos",
     category: "Information",
     icon: LinearLogo,
-    href: "/apps/logos",
+    link: "/apps/logos",
     price: "Free",
     description:
       "Linear is a project management tool that helps you manage your projects and tasks.",
@@ -322,7 +330,7 @@ export const appsData = [
     name: "Sequel",
     category: "Entertainment",
     icon: LinearLogo,
-    href: "/apps/sequel",
+    link: "/apps/sequel",
     price: "Free",
     description:
       "Linear is a project management tool that helps you manage your projects and tasks.",
@@ -332,7 +340,7 @@ export const appsData = [
     name: "Shortcuts",
     category: "Productivity",
     icon: LinearLogo,
-    href: "/apps/shortcuts",
+    link: "/apps/shortcuts",
     price: "Free",
     description:
       "Linear is a project management tool that helps you manage your projects and tasks.",

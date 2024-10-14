@@ -15,6 +15,7 @@ import {
   Menu,
   X,
   Code,
+  ImageIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -98,6 +99,11 @@ export default function ResponsiveSidebar() {
           href="/text-to-safe-html"
           icon={<Code className="w-3.5 h-3.5" />}
           text="Text to Safe HTML"
+        />
+        <SidebarLink
+          href="/webp"
+          icon={<ImageIcon className="w-3.5 h-3.5" />}
+          text="WebP Converter"
         />
       </div>
       <div className="flex flex-col gap-0.5">
