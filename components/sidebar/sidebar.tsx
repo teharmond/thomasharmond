@@ -45,6 +45,7 @@ export default function ResponsiveSidebar() {
           href="/"
           icon={<Home className="w-3.5 h-3.5" />}
           text="Home"
+          setIsOpen={setIsOpen}
         />
       </div>
       <div className="flex flex-col gap-0.5">
@@ -55,27 +56,36 @@ export default function ResponsiveSidebar() {
           href="/blog"
           icon={<Newspaper className="w-3.5 h-3.5" />}
           text="Blog"
+          setIsOpen={setIsOpen}
         />
         <SidebarLink
           href="/bookmarks"
           icon={<Bookmark className="w-3.5 h-3.5" />}
           text="Bookmarks"
+          setIsOpen={setIsOpen}
         />
         <SidebarLink
           href="/apps"
           icon={<Layers className="w-3.5 h-3.5" />}
           text="Apps I Use"
+          setIsOpen={setIsOpen}
         />
       </div>
       <div className="flex flex-col gap-0.5">
         <div className="text-muted-foreground text-xs uppercase font-medium px-2 py-1">
           Projects
         </div>
-        <SidebarLink href="https://trivo.app" text="Trivo" external />
+        <SidebarLink
+          href="https://trivo.app"
+          text="Trivo"
+          external
+          setIsOpen={setIsOpen}
+        />
         <SidebarLink
           href="https://theologynotes.com"
           text="Theology Notes"
           external
+          setIsOpen={setIsOpen}
         />
       </div>
       <div className="flex flex-col gap-0.5">
@@ -86,31 +96,37 @@ export default function ResponsiveSidebar() {
           href="/writing-tools"
           icon={<PenTool className="w-3.5 h-3.5" />}
           text="Writing Tools"
+          setIsOpen={setIsOpen}
         />
         <SidebarLink
           href="/byte"
           icon={<MemoryStick className="w-3.5 h-3.5" />}
           text="Byte Counter"
+          setIsOpen={setIsOpen}
         />
         <SidebarLink
           href="/uuid"
           icon={<Dices className="w-3.5 h-3.5" />}
           text="UUID Generator"
+          setIsOpen={setIsOpen}
         />
         <SidebarLink
           href="/qr"
           icon={<QrCode className="w-3.5 h-3.5" />}
           text="QR Code Generator"
+          setIsOpen={setIsOpen}
         />
         <SidebarLink
           href="/text-to-safe-html"
           icon={<Code className="w-3.5 h-3.5" />}
           text="Text to Safe HTML"
+          setIsOpen={setIsOpen}
         />
         <SidebarLink
           href="/webp"
           icon={<ImageIcon className="w-3.5 h-3.5" />}
           text="WebP Converter"
+          setIsOpen={setIsOpen}
         />
       </div>
       <div className="flex flex-col gap-0.5">
@@ -122,12 +138,14 @@ export default function ResponsiveSidebar() {
           icon={<Instagram className="w-3.5 h-3.5" />}
           text="Instagram"
           external
+          setIsOpen={setIsOpen}
         />
         <SidebarLink
           href="https://x.com/teharmond"
           icon={<Twitter className="w-3.5 h-3.5" />}
           text="Twitter"
           external
+          setIsOpen={setIsOpen}
         />
       </div>
     </>
@@ -177,6 +195,7 @@ interface SidebarLinkProps {
   icon?: React.ReactNode;
   text: string;
   external?: boolean;
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SidebarLink: React.FC<SidebarLinkProps> = ({
@@ -184,9 +203,16 @@ const SidebarLink: React.FC<SidebarLinkProps> = ({
   icon,
   text,
   external,
+  setIsOpen,
 }) => {
   const pathname = usePathname();
   const isActive = pathname === href;
+
+  const handleClick = () => {
+    if (setIsOpen) {
+      setIsOpen(false);
+    }
+  };
 
   return (
     <Link
@@ -195,6 +221,7 @@ const SidebarLink: React.FC<SidebarLinkProps> = ({
         isActive && "bg-muted font-medium"
       )}
       href={href}
+      onClick={handleClick}
     >
       <span className="flex items-center gap-2.5">
         {icon}

@@ -24,12 +24,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const sortedCategories = Object.keys(groupedApps).sort();
 
   return (
-    <div className="h-screen flex">
-      <div className="flex flex-col gap-4 h-screen w-[380px] bg-card border-r overflow-hidden px-2">
+    <div className="lg:h-screen flex">
+      <div className=" flex-col gap-4 h-screen w-[300px] bg-card border-r overflow-hidden px-2 hidden lg:flex">
         <div className="flex justify-between items-center pt-4 px-2">
           <div className="text-lg font-medium">Apps I Use</div>
         </div>
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto ">
           {sortedCategories.map((category) => (
             <div key={category} className="flex flex-col gap-1 mb-4">
               <div className="text-sm text-muted-foreground px-2">
