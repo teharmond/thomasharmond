@@ -14,6 +14,7 @@ import {
   Twitter,
   Menu,
   X,
+  Code,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -92,6 +93,11 @@ export default function ResponsiveSidebar() {
           href="/qr"
           icon={<QrCode className="w-3.5 h-3.5" />}
           text="QR Code Generator"
+        />
+        <SidebarLink
+          href="/text-to-safe-html"
+          icon={<Code className="w-3.5 h-3.5" />}
+          text="Text to Safe HTML"
         />
       </div>
       <div className="flex flex-col gap-0.5">
