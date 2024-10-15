@@ -13,7 +13,7 @@ import ExpoLogo from "./appLogos/Expo.webp";
 import NextjsLogo from "./appLogos/Nextjs.webp";
 import StripeLogo from "./appLogos/Stripe.webp";
 import VercelLogo from "./appLogos/Vercel.webp";
-import GithubLogo from "./appLogos/Github.webp";
+import GithubLogo from "./appLogos/GitHub.webp";
 import PostmanLogo from "./appLogos/Postman.webp";
 import WarpLogo from "./appLogos/Warp.webp";
 import TailwindLogo from "./appLogos/Tailwind.webp";
