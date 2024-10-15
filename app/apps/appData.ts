@@ -9,13 +9,54 @@ import FigmaLogo from "./appLogos/Figma.webp";
 import HalideLogo from "./appLogos/Halide.webp";
 import PhotoshopLogo from "./appLogos/Photoshop.webp";
 import CloudflareLogo from "./appLogos/Cloudflare.webp";
+import ExpoLogo from "./appLogos/Expo.webp";
+import NextjsLogo from "./appLogos/Nextjs.webp";
+import StripeLogo from "./appLogos/Stripe.webp";
+import VercelLogo from "./appLogos/Vercel.webp";
+import GithubLogo from "./appLogos/Github.webp";
+import PostmanLogo from "./appLogos/Postman.webp";
+import WarpLogo from "./appLogos/Warp.webp";
+import TailwindLogo from "./appLogos/Tailwind.webp";
+import SupabaseLogo from "./appLogos/Supabase.webp";
+import RemindersLogo from "./appLogos/Reminders.webp";
+import RaycastLogo from "./appLogos/Raycast.webp";
+import FlightlyLogo from "./appLogos/Flightly.webp";
+import DimeLogo from "./appLogos/Dime.webp";
+import AnkiLogo from "./appLogos/Anki.webp";
+import ArcLogo from "./appLogos/Arc.webp";
+import ArcSearchLogo from "./appLogos/ArcSearch.webp";
+import ConnectedPapersLogo from "./appLogos/ConnectedPapers.webp";
+import ElicitLogo from "./appLogos/Elicit.webp";
+import GoodreadsLogo from "./appLogos/Goodreads.webp";
+import InstagramLogo from "./appLogos/Instagram.webp";
+import RedditLogo from "./appLogos/Reddit.webp";
+import SpotifyLogo from "./appLogos/Spotify.webp";
+import ZoteroLogo from "./appLogos/Zotero.webp";
+import IcloudLogo from "./appLogos/iCloud.webp";
+import KindleLogo from "./appLogos/Kindle.webp";
+import LogosLogo from "./appLogos/Logos.webp";
+import PasswordsLogo from "./appLogos/Passwords.webp";
+import RefindLogo from "./appLogos/Refind.webp";
+import ReadwiseLogo from "./appLogos/Readwise.webp";
+import YouTubeLogo from "./appLogos/YouTube.webp";
+import NebulaLogo from "./appLogos/Nebula.webp";
+import NotionCalendarLogo from "./appLogos/NotionCalendar.webp";
+import XLogo from "./appLogos/X.webp";
+import TanaLogo from "./appLogos/Tana.webp";
+import ShortcutsLogo from "./appLogos/Shortcuts.webp";
+import SequelLogo from "./appLogos/Sequel.webp";
+import ReaderLogo from "./appLogos/Reader.webp";
+import NotesLogo from "./appLogos/Notes.webp";
+import MailLogo from "./appLogos/Mail.webp";
+import LibbyLogo from "./appLogos/Libby.webp";
+import DribbbleLogo from "./appLogos/Dribbble.webp";
 
 export const appsData = [
   {
     id: "raycast",
     name: "Raycast",
     category: "Productivity",
-    icon: notionLogo,
+    icon: RaycastLogo,
     link: "https://www.raycast.com/",
     price: "Free",
     useCase: "Quick access to system functions, apps, and custom scripts",
@@ -26,7 +67,7 @@ export const appsData = [
     id: "flightly",
     name: "Flightly",
     category: "Other",
-    icon: notionLogo,
+    icon: FlightlyLogo,
     link: "https://flightly.com/",
     price: "Free",
     useCase: "Tracking and managing flight information",
@@ -37,7 +78,7 @@ export const appsData = [
     id: "dime",
     name: "Dime",
     category: "Other",
-    icon: notionLogo,
+    icon: DimeLogo,
     link: "https://apps.apple.com/sg/app/dime-budget-expense-tracker/id1635280255?ign-itscg=30200&ign-itsct=apps_box_promote_link",
     price: "Free",
     useCase: "Personal finance management and expense tracking",
@@ -61,7 +102,7 @@ export const appsData = [
     id: "notion-calendar",
     name: "Notion Calendar",
     category: "Productivity",
-    icon: notionLogo,
+    icon: NotionCalendarLogo,
     link: "https://www.notion.so/product/calendar",
     price: "Free",
     useCase: "Integrated calendar and scheduling within Notion",
@@ -74,7 +115,7 @@ export const appsData = [
     id: "passwords",
     name: "Passwords",
     category: "Productivity",
-    icon: notionLogo,
+    icon: PasswordsLogo,
     link: "https://apps.apple.com/us/app/passwords/id6473799789",
     price: "Free",
     useCase: "Securely store and manage passwords",
@@ -97,7 +138,7 @@ export const appsData = [
     id: "iCloud",
     name: "iCloud",
     category: "Productivity",
-    icon: notionLogo,
+    icon: IcloudLogo,
     link: "https://www.icloud.com/",
     price: "Free",
     useCase: "Cloud storage and backup for Apple devices",
@@ -121,7 +162,7 @@ export const appsData = [
     id: "arc",
     name: "Arc",
     category: "Productivity",
-    icon: notionLogo,
+    icon: ArcLogo,
     link: "https://arc.net/",
     price: "Free",
     useCase: "Browser for macOS with a focus on privacy and speed",
@@ -133,7 +174,7 @@ export const appsData = [
     id: "tana",
     name: "Tana",
     category: "Productivity",
-    icon: notionLogo,
+    icon: TanaLogo,
     link: "https://tana.inc/",
     price: "Free",
     useCase: "Note-taking and knowledge management",
@@ -145,7 +186,7 @@ export const appsData = [
     id: "reader",
     name: "Reader",
     category: "Information and Research",
-    icon: notionLogo,
+    icon: ReaderLogo,
     link: "https://readwise.io/read",
     price: "Free",
     useCase: "Highlighting and summarizing articles for efficient reading",
@@ -156,7 +197,7 @@ export const appsData = [
     id: "readwise",
     name: "Readwise",
     category: "Information and Research",
-    icon: notionLogo,
+    icon: ReadwiseLogo,
     link: "https://readwise.io/",
     price: "Free",
     useCase: "Summarizing and organizing articles for efficient reading",
@@ -168,7 +209,7 @@ export const appsData = [
     id: "youtube",
     name: "YouTube",
     category: "Entertainment",
-    icon: notionLogo,
+    icon: YouTubeLogo,
     link: "https://www.youtube.com/",
     price: "Free",
     useCase: "Watching videos and streaming content",
@@ -179,7 +220,7 @@ export const appsData = [
     id: "nebula",
     name: "Nebula",
     category: "Entertainment",
-    icon: notionLogo,
+    icon: NebulaLogo,
     link: "https://nebula.tv/",
     price: "Free",
     useCase: "Streaming movies and TV shows",
@@ -190,7 +231,7 @@ export const appsData = [
     id: "kindle",
     name: "Kindle",
     category: "Information and Research",
-    icon: notionLogo,
+    icon: KindleLogo,
     link: "https://www.amazon.com/b?ie=UTF8&node=16571048011",
     price: "Free",
     useCase: "Reading e-books and digital books",
@@ -201,7 +242,7 @@ export const appsData = [
     id: "refind",
     name: "Refind",
     category: "Information and Research",
-    icon: notionLogo,
+    icon: RefindLogo,
     link: "https://refind.com/",
     price: "Free",
     useCase: "Discovering and searching for articles and news",
@@ -225,7 +266,7 @@ export const appsData = [
     id: "postman",
     name: "Postman",
     category: "Development",
-    icon: CursorLogo,
+    icon: PostmanLogo,
     link: "https://www.postman.com/",
     price: "Free",
     useCase: "Testing and documenting APIs",
@@ -237,7 +278,7 @@ export const appsData = [
     id: "warp",
     name: "Warp",
     category: "Development",
-    icon: CursorLogo,
+    icon: WarpLogo,
     link: "https://www.warp.dev/",
     price: "Free",
     useCase: "Developing and managing code in the terminal",
@@ -249,7 +290,7 @@ export const appsData = [
     id: "vercel",
     name: "Vercel",
     category: "Development",
-    icon: CursorLogo,
+    icon: VercelLogo,
     link: "https://vercel.com/",
     price: "Free",
     useCase: "Deploying and hosting web applications",
@@ -260,7 +301,7 @@ export const appsData = [
     id: "nextjs",
     name: "Next.js",
     category: "Development",
-    icon: CursorLogo,
+    icon: NextjsLogo,
     link: "https://nextjs.org/",
     price: "Free",
     useCase: "Building server-side rendered React applications",
@@ -273,7 +314,7 @@ export const appsData = [
     id: "expo",
     name: "Expo",
     category: "Development",
-    icon: CursorLogo,
+    icon: ExpoLogo,
     link: "https://expo.dev/",
     price: "Free",
     useCase: "Building and deploying React Native applications",
@@ -286,7 +327,7 @@ export const appsData = [
     id: "stripe",
     name: "Stripe",
     category: "Development",
-    icon: CursorLogo,
+    icon: StripeLogo,
     link: "https://stripe.com/",
     price: "Free",
     useCase: "Integrating payment processing into web applications",
@@ -298,7 +339,7 @@ export const appsData = [
     id: "github",
     name: "GitHub",
     category: "Development",
-    icon: CursorLogo,
+    icon: GithubLogo,
     link: "https://github.com/",
     price: "Free",
     useCase: "Hosting and managing Git repositories",
@@ -322,7 +363,7 @@ export const appsData = [
     id: "supabase",
     name: "Supabase",
     category: "Development",
-    icon: CursorLogo,
+    icon: SupabaseLogo,
     link: "https://supabase.com/",
     price: "Free",
     useCase: "Building and managing databases for web applications",
@@ -396,7 +437,7 @@ export const appsData = [
     id: "tailwind",
     name: "Tailwind",
     category: "Development",
-    icon: LinearLogo,
+    icon: TailwindLogo,
     link: "https://tailwindcss.com/",
     price: "Free",
     description: "Tailwind is a utility-first CSS framework.",
@@ -408,7 +449,7 @@ export const appsData = [
     id: "x",
     name: "X",
     category: "Social Media",
-    icon: LinearLogo,
+    icon: XLogo,
     link: "https://twitter.com/",
     price: "Free",
     description: "X (formerly Twitter) is a social media platform.",
@@ -420,7 +461,7 @@ export const appsData = [
     id: "goodreads",
     name: "Goodreads",
     category: "Social Media",
-    icon: LinearLogo,
+    icon: GoodreadsLogo,
     link: "https://www.goodreads.com/user/show/92633673-thomas-harmond/",
     price: "Free",
     description:
@@ -433,7 +474,7 @@ export const appsData = [
     id: "reddit",
     name: "Reddit",
     category: "Social Media",
-    icon: LinearLogo,
+    icon: RedditLogo,
     link: "https://www.reddit.com/",
     price: "Free",
     description:
@@ -446,7 +487,7 @@ export const appsData = [
     id: "instagram",
     name: "Instagram",
     category: "Social Media",
-    icon: LinearLogo,
+    icon: InstagramLogo,
     link: "https://www.instagram.com/thomas.harmond/",
     price: "Free",
     description:
@@ -459,7 +500,7 @@ export const appsData = [
     id: "dribbble",
     name: "Dribbble",
     category: "Social Media",
-    icon: LinearLogo,
+    icon: DribbbleLogo,
     link: "https://dribbble.com/",
     price: "Free",
     description:
@@ -472,7 +513,7 @@ export const appsData = [
     id: "arc-search",
     name: "Arc Search",
     category: "Productivity",
-    icon: LinearLogo,
+    icon: ArcSearchLogo,
     link: "https://arc.net/search",
     price: "Free",
     description:
@@ -485,7 +526,7 @@ export const appsData = [
     id: "mail",
     name: "Mail",
     category: "Productivity",
-    icon: LinearLogo,
+    icon: MailLogo,
     link: "https://www.icloud.com/mail",
     price: "Free",
     description:
@@ -498,7 +539,7 @@ export const appsData = [
     id: "notes",
     name: "Notes",
     category: "Productivity",
-    icon: LinearLogo,
+    icon: NotesLogo,
     link: "https://www.icloud.com/notes/",
     price: "Free",
     description:
@@ -510,7 +551,7 @@ export const appsData = [
     id: "reminders",
     name: "Reminders",
     category: "Productivity",
-    icon: LinearLogo,
+    icon: RemindersLogo,
     link: "https://www.icloud.com/reminders/",
     price: "Free",
     description:
@@ -534,7 +575,7 @@ export const appsData = [
     id: "spotify",
     name: "Spotify",
     category: "Entertainment",
-    icon: LinearLogo,
+    icon: SpotifyLogo,
     link: "https://www.spotify.com/",
     price: "Free",
     description: "Spotify is a music streaming service.",
@@ -545,7 +586,7 @@ export const appsData = [
     id: "logos",
     name: "Logos",
     category: "Information and Research",
-    icon: LinearLogo,
+    icon: LogosLogo,
     link: "https://logos.com/",
     price: "Free",
     description:
@@ -558,7 +599,7 @@ export const appsData = [
     id: "elicit",
     name: "Elicit",
     category: "Information and Research",
-    icon: LinearLogo,
+    icon: ElicitLogo,
     link: "https://elicit.com/",
     price: "Free",
     description: "Helps you find research papers.",
@@ -570,7 +611,7 @@ export const appsData = [
     id: "zotero",
     name: "Zotero",
     category: "Information and Research",
-    icon: LinearLogo,
+    icon: ZoteroLogo,
     link: "https://www.zotero.org/",
     price: "Free",
     description: "Helps you manage your research papers.",
@@ -582,7 +623,7 @@ export const appsData = [
     id: "anki",
     name: "Anki",
     category: "Information and Research",
-    icon: LinearLogo,
+    icon: AnkiLogo,
     link: "https://apps.ankiweb.net/",
     price: "Free",
     description: "Helps you memorise things.",
@@ -594,7 +635,7 @@ export const appsData = [
     id: "connected-papers",
     name: "Connected Papers",
     category: "Information and Research",
-    icon: LinearLogo,
+    icon: ConnectedPapersLogo,
     link: "https://www.connectedpapers.com/",
     price: "Free",
     description: "Helps you find research papers.",
@@ -606,7 +647,7 @@ export const appsData = [
     id: "libby",
     name: "Libby",
     category: "Information and Research",
-    icon: LinearLogo,
+    icon: LibbyLogo,
     link: "https://libbyapp.com/",
     price: "Free",
     description:
@@ -619,7 +660,7 @@ export const appsData = [
     id: "sequel",
     name: "Sequel",
     category: "Entertainment",
-    icon: LinearLogo,
+    icon: SequelLogo,
     link: "https://www.getsequel.app/",
     price: "Free",
     description:
@@ -632,7 +673,7 @@ export const appsData = [
     id: "shortcuts",
     name: "Shortcuts",
     category: "Productivity",
-    icon: LinearLogo,
+    icon: ShortcutsLogo,
     link: "https://apps.apple.com/us/app/shortcuts/id915249334",
     price: "Free",
     description: "Apple's built-in automation app for iOS",

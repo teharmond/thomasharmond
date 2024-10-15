@@ -36,17 +36,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <div className="text-sm text-muted-foreground px-2">
                   {category}
                 </div>
-                <div className="flex flex-col ">
+                <div className="flex flex-col gap-0.5">
                   {sortApps(groupedApps[category]).map((app) => (
                     <Link key={app.id} href={`/apps/${app.id}`}>
-                      <div className="p-1 flex items-center justify-start w-full gap-2.5 text-secondary-foreground hover:bg-muted rounded-lg transition-colors">
+                      <div className="p-1.5 flex items-center justify-start w-full gap-2.5 text-secondary-foreground hover:bg-muted rounded-lg transition-colors">
                         <div>
                           <Image
                             src={app.icon}
                             alt={`${app.name} icon`}
-                            width={48}
-                            height={48}
-                            className="rounded-xl"
+                            width={44}
+                            height={44}
+                            className="rounded-xl "
                           />
                         </div>
                         <div>{app.name}</div>
