@@ -98,12 +98,32 @@ export default function ResponsiveSidebar() {
         <div className="text-muted-foreground text-xs uppercase font-medium px-2 py-1">
           Projects
         </div>
+
         <SidebarLink
-          href="https://trivo.app"
-          text="Trivo"
+          href="https://churchspace.co"
+          text="Church Space"
           external
           setIsOpen={setIsOpen}
+          icon={
+            <svg
+              className="w-3.5 h-3.5"
+              viewBox="0 0 168 285"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g fill="none">
+                <path
+                  d="M142.177 23.3423H173.437C179.612 23.3423 184.617 28.3479 184.617 34.5227V258.318C184.617 264.493 179.612 269.498 173.437 269.498H142.177V23.3423Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M0 57.5604C0 52.8443 2.9699 48.6392 7.41455 47.0622L125.19 5.27404C132.441 2.70142 140.054 8.07871 140.054 15.7722V275.171C140.054 282.801 132.557 288.172 125.332 285.718L7.55682 245.715C3.03886 244.18 0 239.939 0 235.167V57.5604Z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          }
         />
+
         <SidebarLink
           href="https://theologynotes.com"
           text="Theology Notes"
@@ -256,7 +276,7 @@ const SidebarLink: React.FC<SidebarLinkProps> = ({
       href={href}
       onClick={handleClick}
     >
-      <span className="flex items-center gap-2.5">
+      <span className="flex items-center gap-2">
         {icon}
         {text}
       </span>
