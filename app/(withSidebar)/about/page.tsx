@@ -5,11 +5,11 @@ export default function page() {
   return (
     <div>
       <p>
-        I'm Thomas, and I live at the intersection of the Church and technology.
-        I have a bachelor's degree in theology.
+        I&apos;m Thomas, and I live at the intersection of the Church and
+        technology. I have a bachelor&apos;s degree in theology.
       </p>
       <p>
-        I'm currently working on{" "}
+        I&apos;m currently working on{" "}
         <span className="inline">
           <Link
             href="https://churchspace.co"
