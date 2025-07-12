@@ -5,10 +5,9 @@ interface ArticleParagraphProps {
   className?: string;
 }
 
-export default function ArticleParagraph({ children, className = "" }: ArticleParagraphProps) {
-  return (
-    <p className={`text-pretty leading-7 ${className}`}>
-      {children}
-    </p>
-  );
+export default function ArticleParagraph({
+  children,
+  className = "",
+}: ArticleParagraphProps) {
+  return <p className={` leading-7 ${className}`}>{children}</p>;
 }
