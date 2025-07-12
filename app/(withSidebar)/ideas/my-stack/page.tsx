@@ -158,7 +158,7 @@ export default function page() {
         <mark className="font-semibold">Vercel AI SDK with Google Gemini</mark>
       </ArticleParagraph>
       <ArticleParagraph>
-        The AI SDK is a dream to work with. You're able to quickly test out
+        The AI SDK is a dream to work with. You&apos;re able to quickly test out
         differnt modles with a single line of code, it&apos;s easy to add tools,
         and like most things in my stack, it lets me move fast.{" "}
       </ArticleParagraph>
