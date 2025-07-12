@@ -1,13 +1,17 @@
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
+
+const image = "/tandr.jpg";
 
 export default function page() {
   return (
-    <div>
+    <div className="space-y-4">
       <p>
-        I&apos;m Thomas, and I live at the intersection of the Church and
-        technology. I have a bachelor&apos;s degree in theology.
+        I&apos;m Thomas. I live in Houston with my wife, Rylea, and our two
+        dogs, Theo and Roo.
       </p>
+
       <p>
         I&apos;m currently working on{" "}
         <span className="inline">
@@ -41,10 +45,21 @@ export default function page() {
             </span>
           </Link>
           , a platform helping churches free their ministry from app overload.
+          Before this, I worked at Hillsong Church in Sydney, Australia where I
+          also earned a bachelor&apos;s degree in theology.
         </span>
-        <br />
-        <br />I was previously worked for Hillsong Church in Sydney.
       </p>
+
+      <p>
+        I also serve as a pastoral resident at a local church here in Houston.
+      </p>
+      <Image
+        src={image}
+        alt="Thomas and Rylea"
+        width={1200}
+        height={1200}
+        className="w-full rounded-lg"
+      />
     </div>
   );
 }
