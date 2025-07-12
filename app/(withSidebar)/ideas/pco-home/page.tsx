@@ -77,7 +77,7 @@ export default function page() {
         (all before the next guest comes to the door). The same is true when a
         children&apos;s pastor learns a kid&apos;s favorite candy, a worship
         leader is flagged about a potential volunteer, or when a pastor learns
-        of passing of a congregant&apos;s close friend.
+        of the passing of a congregant&apos;s close friend.
       </ArticleParagraph>
       <ArticleParagraph>How can we solve this?</ArticleParagraph>
       <ArticleParagraph>
