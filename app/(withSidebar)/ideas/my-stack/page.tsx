@@ -17,11 +17,8 @@ export default function page() {
       </ArticleParagraph>
       <SectionHeader>01. FRAMEWORK</SectionHeader>
       <ArticleParagraph>
-        <mark className="font-semibold">
-          Next.js and React with TypeScript.
-        </mark>
-      </ArticleParagraph>
-      <ArticleParagraph>
+        <mark className="font-medium">Next.js and React with TypeScript.</mark>
+        <br />
         Everyone has their (very strong) opinions on this, but Next is the best
         way to ship an app in 2025. AI coding tools know it well which helps a
         solo-dev (like myself) fix bugs and move fast. I use the app router with
@@ -96,9 +93,8 @@ export default function page() {
       </ArticleParagraph>
       <SectionHeader className="mt-10">02. STYLING</SectionHeader>
       <ArticleParagraph>
-        <mark className="font-semibold">Tailwind CSS and shadcn/ui</mark>
-      </ArticleParagraph>
-      <ArticleParagraph>
+        <mark className="font-medium">Tailwind CSS and shadcn/ui</mark>
+        <br />
         Similar to Next, Tailwind and shadcn/ui help me move fast while still
         giving me loads of flexibility. Colocating my styles allows me to make
         all changes to a component on a single file. The CSS bundle stays small
@@ -110,10 +106,8 @@ export default function page() {
         already functional, accessible, and well designed?
       </ArticleParagraph>
       <ArticleParagraph>
-        <mark className="font-semibold">Nucleo Icons</mark>
-      </ArticleParagraph>
-
-      <ArticleParagraph>
+        <mark className="font-medium">Nucleo Icons</mark>
+        <br />
         For icons, I&apos;m a huge fan of Nucleo. It&apos;s a one time purchase,
         new icons and styles are constantly added, the icons are beautiful, and
         I&apos;ve had icon requests be added quickly. I feel like I&apos;m
@@ -121,18 +115,16 @@ export default function page() {
         standard Lucide icons.
       </ArticleParagraph>
       <ArticleParagraph>
-        <mark className="font-semibold">Motion</mark> (previously Framer Motion)
-      </ArticleParagraph>
-      <ArticleParagraph>
+        <mark className="font-medium">Motion</mark> (previously Framer Motion)
+        <br />
         Using Motion helps bring small things to life in the app.
         Micro-animations (along with taste and design) help set apps apart in
         2025 when a feature can be prompted in 10 minutes.
       </ArticleParagraph>
       <SectionHeader className="mt-10">03. DATABASE</SectionHeader>
       <ArticleParagraph>
-        <mark className="font-semibold">Postgres</mark> (Supabase)
-      </ArticleParagraph>
-      <ArticleParagraph>
+        <mark className="font-medium">Postgres</mark> (Supabase)
+        <br />
         Postgres just makes sense to me. It&apos;s how I thought about data
         before I knew anything about database.{" "}
       </ArticleParagraph>
@@ -147,17 +139,15 @@ export default function page() {
         me to maintain.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
-        <mark className="font-semibold">Upstash</mark>
-      </ArticleParagraph>
-      <ArticleParagraph>
+        <mark className="font-medium">Upstash</mark>
+        <br />
         At the moment, I only use Redis for rate limiting, but there are loads
         of things that could be improved in Church Space by using it more.
       </ArticleParagraph>
       <SectionHeader className="mt-10">04. AI</SectionHeader>
       <ArticleParagraph>
-        <mark className="font-semibold">Vercel AI SDK with Google Gemini</mark>
-      </ArticleParagraph>
-      <ArticleParagraph>
+        <mark className="font-medium">Vercel AI SDK with Google Gemini</mark>
+        <br />
         The AI SDK is a dream to work with. You&apos;re able to quickly test out
         differnt modles with a single line of code, it&apos;s easy to add tools,
         and like most things in my stack, it lets me move fast.{" "}
@@ -168,9 +158,8 @@ export default function page() {
         on paper forms submissions, my AI bill is cheap.
       </ArticleParagraph>
       <ArticleParagraph>
-        <mark className="font-semibold">Cursor and Claude Code</mark>
-      </ArticleParagraph>
-      <ArticleParagraph>
+        <mark className="font-medium">Cursor and Claude Code</mark>
+        <br />
         For dev tools, I&apos;ve been using Cursor and Claude Code.
         Cursor&apos;s tab complete is unmatched, and Claude Code&apos;s limits
         allow me to have a background task or two going at any time while I work
@@ -178,9 +167,8 @@ export default function page() {
       </ArticleParagraph>
       <SectionHeader className="mt-10">05. EVERYTHING ELSE</SectionHeader>
       <ArticleParagraph>
-        <mark className="font-bold">Vercel </mark>
-      </ArticleParagraph>
-      <ArticleParagraph>
+        <mark className="font-medium">Vercel </mark>
+        <br />
         Vercel&apos;s DX is unmatched. Again, I could self host my app, but why
         on earth would I do that as a solo dev when I can pay $20/mo to not
         think about it? Additionally, they keep improving the product and keep
@@ -191,27 +179,22 @@ export default function page() {
         but I&apos;m not hitting free limits on Vercel any time soon.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
-        <mark className="font-semibold">Trigger.dev</mark>
-      </ArticleParagraph>
-      <ArticleParagraph>
-        I use Trigger.dev for my background jobs. While node has it&apos;s
+        <mark className="font-medium">Trigger.dev</mark>
+        <br />I use Trigger.dev for my background jobs. While node has it&apos;s
         drawbacks at scale, I love writing everything in TS and being able to
         reuse functions from other parts of the app.
       </ArticleParagraph>
       <ArticleParagraph>
-        <mark className="font-semibold">Resend</mark>
-      </ArticleParagraph>
-      <ArticleParagraph>
+        <mark className="font-medium">Resend</mark>
+        <br />
         Resend is what I use for email delivery. The DX is super easy. I use
         their webhooks for things like opens, click tracking, and domain
         verification.
       </ArticleParagraph>
       <ArticleParagraph>
-        <mark className="font-semibold">Zustand, React Query, and Nuqs</mark>
-      </ArticleParagraph>
-      <ArticleParagraph>
-        I use Zustand for global state in the app (mainly just things to do with
-        the user, their organization, and their PCO connection).
+        <mark className="font-medium">Zustand, React Query, and Nuqs</mark>
+        <br />I use Zustand for global state in the app (mainly just things to
+        do with the user, their organization, and their PCO connection).
       </ArticleParagraph>
       <ArticleParagraph>
         I use React Query for all server state management.
@@ -221,26 +204,22 @@ export default function page() {
         with.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
-        <mark className="font-semibold">DND Kit</mark>
-      </ArticleParagraph>
-      <ArticleParagraph>
+        <mark className="font-medium">DND Kit</mark>
+        <br />
         My drag and drop tool of choice. Used throughout the app. Has some
         quirks, but good overall.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
-        <mark className="font-semibold">Tiptap </mark>
-      </ArticleParagraph>
-      <ArticleParagraph>
+        <mark className="font-medium">Tiptap </mark>
+        <br />
         The extensions (both included and custom) make Tiptap a great option for
         a rich text editor. I like that I can get the json and the and HTML of
         the editor contents. If/when I eventually work on mobile, having some
         flexibility with the data format will be helpful.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
-        <mark className="font-semibold">React QR Code Logo</mark>
-      </ArticleParagraph>
-      <ArticleParagraph>
-        A great tool for making custom QR codes.{" "}
+        <mark className="font-medium">React QR Code Logo</mark>A great tool for
+        making custom QR codes.{" "}
       </ArticleParagraph>
       <SectionHeader className="mt-10">06. CLOSING THOUGHTS</SectionHeader>
 
