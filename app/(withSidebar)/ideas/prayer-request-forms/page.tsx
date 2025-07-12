@@ -2,6 +2,7 @@ import React from "react";
 import ArticleHeader from "../../../../components/ArticleHeader";
 import SectionHeader from "../../../../components/SectionHeader";
 import ArticleParagraph from "../../../../components/ArticleParagraph";
+import Image from "next/image";
 
 import { Metadata } from "next";
 
@@ -135,6 +136,12 @@ export default function page() {
       <ArticleParagraph>
         A prayer form turns into a time of prayer and an act of community.{" "}
       </ArticleParagraph>
+      <Image
+        src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//prayer-flow.png"
+        alt="Prayer wall"
+        width={1000}
+        height={1000}
+      />
       <SectionHeader>04. CONCLUSION</SectionHeader>
       <ArticleParagraph>
         While this didn&apos;t go live before I left staff, I still think
