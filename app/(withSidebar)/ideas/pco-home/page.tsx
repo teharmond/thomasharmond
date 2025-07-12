@@ -3,6 +3,12 @@ import ArticleHeader from "../../../../components/ArticleHeader";
 import SectionHeader from "../../../../components/SectionHeader";
 import ArticleParagraph from "../../../../components/ArticleParagraph";
 import Image from "next/image";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "On Planning Center Home",
+  description: "The meta-layer of Planning Center",
+};
 
 export default function page() {
   return (

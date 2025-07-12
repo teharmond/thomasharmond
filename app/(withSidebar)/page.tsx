@@ -2,14 +2,14 @@ import React from "react";
 
 const articles = [
   {
-    title: "My Stack",
-    description: "What I used to build Church Space",
-    link: "/ideas/my-stack",
-  },
-  {
     title: "On Planning Center Home",
     description: "The meta-layer of Planning Center",
     link: "/ideas/pco-home",
+  },
+  {
+    title: "My Stack",
+    description: "What I used to build Church Space",
+    link: "/ideas/my-stack",
   },
 ];
 

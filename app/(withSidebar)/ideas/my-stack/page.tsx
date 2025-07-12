@@ -3,6 +3,12 @@ import ArticleHeader from "../../../../components/ArticleHeader";
 import SectionHeader from "../../../../components/SectionHeader";
 import ArticleParagraph from "../../../../components/ArticleParagraph";
 import ArticleList from "../../../../components/ArticleList";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "My Stack",
+  description: "What I used to build Church Space",
+};
 
 export default function page() {
   return (
