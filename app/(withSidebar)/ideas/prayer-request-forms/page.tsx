@@ -2,7 +2,6 @@ import React from "react";
 import ArticleHeader from "../../../../components/ArticleHeader";
 import SectionHeader from "../../../../components/SectionHeader";
 import ArticleParagraph from "../../../../components/ArticleParagraph";
-import Image from "next/image";
 
 import { Metadata } from "next";
 
