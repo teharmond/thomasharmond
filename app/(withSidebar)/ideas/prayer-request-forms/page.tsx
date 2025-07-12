@@ -5,8 +5,21 @@ import ArticleParagraph from "../../../../components/ArticleParagraph";
 
 import { Metadata } from "next";
 
+const articles = [
+  {
+    title: "On Planning Center Home",
+    description: "The meta-layer of Planning Center",
+    link: "/ideas/pco-home",
+  },
+  {
+    title: "My Stack",
+    description: "What I used to build Church Space",
+    link: "/ideas/my-stack",
+  },
+];
+
 export const metadata: Metadata = {
-  title: "I don’t like prayer request forms",
+  title: "Why I don’t like prayer request forms",
   description: "The pastoral implications of our technical choices",
 };
 
@@ -14,7 +27,7 @@ export default function page() {
   return (
     <div className="px-2 gap-4 flex flex-col">
       <ArticleHeader
-        title="I don’t like prayer request forms"
+        title="Why I don’t like prayer request forms"
         description="The pastoral implications of our technical choices"
       />
       <SectionHeader>01. INTRODUCTION</SectionHeader>
@@ -138,6 +151,21 @@ export default function page() {
         the medium as a whole. We just have to be a bit more thoughtful about
         what we build.
       </ArticleParagraph>
+      <div className="flex flex-col gap-2 bg-muted p-4 rounded-xl mt-12">
+        <h3 className="text-xl font-bold px-2">More</h3>
+        {articles.map((article, index) => (
+          <a
+            href={article.link}
+            className="text-pretty hover:bg-blue-100 font-medium hover:text-blue-600 px-2 py-1 rounded-md transition-colors"
+            key={index}
+          >
+            <h2>{article.title}</h2>
+            <p className="text-sm text-muted-foreground font-light">
+              {article.description}
+            </p>
+          </a>
+        ))}
+      </div>
     </div>
   );
 }

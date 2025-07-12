@@ -7,7 +7,7 @@ const articles = [
     link: "/ideas/pco-home",
   },
   {
-    title: "I don’t like prayer request forms",
+    title: "Why I don’t like prayer request forms",
     description: "The pastoral implications of our technical choices",
     link: "/ideas/prayer-request-forms",
   },

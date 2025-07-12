@@ -6,7 +6,7 @@ const image = "/tandr.jpg";
 
 export default function page() {
   return (
-    <div className="space-y-4">
+    <div className="flex flex-col gap-4 px-2">
       <p>
         I&apos;m Thomas. I live in Houston with my wife, Rylea, and our two
         dogs, Theo and Roo.
@@ -58,7 +58,7 @@ export default function page() {
         alt="Thomas and Rylea"
         width={1200}
         height={1200}
-        className="w-full rounded-lg"
+        className="w-full rounded-lg aspect-[5/6] object-cover mt-10"
       />
     </div>
   );
