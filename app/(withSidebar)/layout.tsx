@@ -1,5 +1,6 @@
 import React from "react";
 import { Analytics } from "@vercel/analytics/next";
+import Substack from "@/components/substack";
 
 export default function layout({ children }: { children: React.ReactNode }) {
   return (
@@ -19,6 +20,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
         </header>
 
         {children}
+        <Substack />
         <footer className="text-xs text-muted-foreground my-12 flex  gap-3 px-2">
           <a href="/" className="hover:underline">
             Home
