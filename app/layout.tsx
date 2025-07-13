@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { Roboto_Mono } from "next/font/google";
+import { GeistMono } from "geist/font/mono";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
-
-const robotoMono = Roboto_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Thomas Harmond",
@@ -17,9 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={robotoMono.className}>
+      <body className={GeistMono.className}>
         {children}
         <Toaster />
+        <Analytics />
       </body>
     </html>
   );

@@ -168,8 +168,8 @@ export default function page() {
         <mark className="font-medium">Vercel AI SDK with Google Gemini</mark>
         <br />
         The AI SDK is a dream to work with. You&apos;re able to quickly test out
-        differnt modles with a single line of code, it&apos;s easy to add tools,
-        and like most things in my stack, it lets me move fast.{" "}
+        different models with a single line of code, it&apos;s easy to add
+        tools, and like most things in my stack, it lets me move fast.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
         Google has been my go to model provider. It&apos;s incredibly cheap and
@@ -237,13 +237,13 @@ export default function page() {
         flexibility with the data format will be helpful.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
-        <mark className="font-medium">React QR Code Logo</mark>A great tool for
-        making custom QR codes.{" "}
+        <mark className="font-medium">React QR Code Logo</mark>
+        <br />A great tool for making custom QR codes.{" "}
       </ArticleParagraph>
       <SectionHeader className="mt-10">06. CLOSING THOUGHTS</SectionHeader>
 
       <ArticleParagraph>
-        In the past 2 months since having actaully put something out in the
+        In the past 2 months since having actually put something out in the
         world, I&apos;ve been able to connect with so many people: builders,
         churches, and companies. I built for a year in private, just slowly
         working on what I wanted to do. Building in public is 1,000x more

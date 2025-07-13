@@ -12,6 +12,11 @@ const articles = [
     link: "/ideas/prayer-request-forms",
   },
   {
+    title: "Do I really need 14 apps to join the team?",
+    description: "Who’s going to build Notion for Churches?",
+    link: "/ideas/14-apps",
+  },
+  {
     title: "My Stack",
     description: "What I used to build Church Space",
     link: "/ideas/my-stack",

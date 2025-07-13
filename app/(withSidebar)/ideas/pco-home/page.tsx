@@ -54,8 +54,15 @@ export default function page() {
         needed.
       </ArticleParagraph>
       <ArticleParagraph>
-        But when Planning Center Home was announced in 2021, it clicked for me
-        that this can be the solution.
+        But when I was writing{" "}
+        <a
+          href="/ideas/14-apps"
+          className="underline hover:text-primary italic font-medium underline-offset-4"
+          target="_blank"
+        >
+          Do I really need 14 apps to join the team?
+        </a>
+        , it clicked for me that Planning Center Home can be the solution.
       </ArticleParagraph>
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//pco-home-announcement.png"
