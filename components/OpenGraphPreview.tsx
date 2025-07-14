@@ -107,21 +107,17 @@ export function OpenGraphPreview({
     if (variant === "compact") {
       return (
         <Card
-          className={`group hover:shadow-md transition-shadow duration-200 ${className}`}
+          className={`group mx-2 hover:shadow-md transition-all duration-200 cursor-pointer border hover:border-border/80 ${className}`}
           onClick={handleClick}
         >
           <CardContent className="p-3">
             <div className="flex items-center space-x-3">
-              <ExternalLink className="w-4 h-4 flex-shrink-0 text-muted-foreground" />
+              <div className="w-4 h-4 flex-shrink-0" />
               <span className="text-sm font-medium truncate flex-1 group-hover:text-foreground/80 transition-colors">
                 {title || new URL(url).hostname}
               </span>
+              <ExternalLink className="w-3 h-3 text-muted-foreground flex-shrink-0" />
             </div>
-            {error && (
-              <p className="text-xs text-muted-foreground mt-1">
-                Failed to load preview
-              </p>
-            )}
           </CardContent>
         </Card>
       );
@@ -129,7 +125,7 @@ export function OpenGraphPreview({
 
     return (
       <Card
-        className={`group hover:shadow-md transition-shadow duration-200 ${className}`}
+        className={`group mx-2 hover:shadow-md transition-all duration-200 cursor-pointer border hover:border-border/80 ${className}`}
         onClick={handleClick}
       >
         <CardContent className="p-4">
@@ -137,11 +133,6 @@ export function OpenGraphPreview({
             <ExternalLink className="w-4 h-4" />
             <span className="text-sm truncate">{title || url}</span>
           </div>
-          {error && (
-            <p className="text-xs text-muted-foreground mt-1">
-              Failed to load preview
-            </p>
-          )}
         </CardContent>
       </Card>
     );
