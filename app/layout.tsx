@@ -7,9 +7,6 @@ import { Toaster } from "@/components/ui/toaster";
 export const metadata: Metadata = {
   title: "Thomas Harmond",
   description: "Personal website of Thomas Harmond",
-  icons: {
-    icon: "/favicon.ico",
-  },
 };
 
 export default function RootLayout({
