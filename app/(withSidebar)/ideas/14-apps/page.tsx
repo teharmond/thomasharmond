@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 
 export default function page() {
   return (
-    <div className="px-2 gap-4 flex flex-col">
+    <div className=" gap-4 flex flex-col">
       <ArticleHeader
         title="Do I really need 14 apps to join the team?"
         description="Who’s going to build Notion for Churches?"

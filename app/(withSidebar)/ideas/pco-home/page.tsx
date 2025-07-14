@@ -25,7 +25,7 @@ const articles = [
 
 export default function page() {
   return (
-    <div className="px-2 gap-4 flex flex-col">
+    <div className=" gap-4 flex flex-col">
       <ArticleHeader
         title="On Planning Center Home"
         description="The meta-layer of Planning Center"
@@ -126,6 +126,12 @@ export default function page() {
       </ArticleParagraph>
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//pco-capture-mockup.png"
+        alt="Planning Center Capture Mobile App Mockup"
+        width={1000}
+        height={1000}
+      />
+      <Image
+        src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//pco-contact-capture.png"
         alt="Planning Center Capture Mobile App Mockup"
         width={1000}
         height={1000}

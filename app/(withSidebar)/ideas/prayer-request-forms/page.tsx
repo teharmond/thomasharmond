@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 
 export default function page() {
   return (
-    <div className="px-2 gap-4 flex flex-col">
+    <div className="gap-4 flex flex-col">
       <ArticleHeader
         title="Why I don’t like prayer request forms"
         description="The pastoral implications of our technical choices"
