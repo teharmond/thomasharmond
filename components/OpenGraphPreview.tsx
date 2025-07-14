@@ -138,7 +138,12 @@ export function OpenGraphPreview({
                 className="w-4 h-4 flex-shrink-0 object-contain rounded-sm"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.style.display = "none";
+                  // Try GitHub's SVG favicon as fallback
+                  if (data.url.includes('github.com')) {
+                    target.src = 'https://github.com/fluidicon.png';
+                  } else {
+                    target.style.display = "none";
+                  }
                 }}
               />
             )}

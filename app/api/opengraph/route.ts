@@ -9,6 +9,22 @@ export async function GET(request: NextRequest) {
   }
 
   try {
+    // Check if it's X.com/Twitter and handle specially
+    const urlObj = new URL(url)
+    if (urlObj.hostname === 'x.com' || urlObj.hostname === 'twitter.com') {
+      // X.com blocks scraping, so return basic info
+      const username = urlObj.pathname.split('/')[1]
+      return NextResponse.json({
+        title: username ? `@${username} on X` : 'X (Twitter)',
+        description: 'View profile on X (formerly Twitter)',
+        image: null,
+        siteName: 'X',
+        favicon: 'https://abs.twimg.com/favicons/twitter.3.ico',
+        url,
+        blocked: true
+      })
+    }
+
     const response = await fetch(url, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
@@ -77,7 +93,9 @@ function extractFavicon(html: string, baseUrl: string): string | null {
   const faviconPatterns = [
     /<link[^>]*rel=["'](?:shortcut )?icon["'][^>]*href=["']([^"']*?)["']/i,
     /<link[^>]*href=["']([^"']*?)["'][^>]*rel=["'](?:shortcut )?icon["']/i,
-    /<link[^>]*rel=["']apple-touch-icon["'][^>]*href=["']([^"']*?)["']/i
+    /<link[^>]*rel=["']apple-touch-icon["'][^>]*href=["']([^"']*?)["']/i,
+    /<link[^>]*rel=["']icon["'][^>]*type=["']image\/svg\+xml["'][^>]*href=["']([^"']*?)["']/i,
+    /<link[^>]*rel=["']mask-icon["'][^>]*href=["']([^"']*?)["']/i
   ]
   
   for (const pattern of faviconPatterns) {
@@ -99,6 +117,14 @@ function extractFavicon(html: string, baseUrl: string): string | null {
       }
     }
   }
+  
+  // GitHub specific favicon
+  try {
+    const urlObj = new URL(baseUrl)
+    if (urlObj.hostname === 'github.com') {
+      return 'https://github.com/favicon.ico'
+    }
+  } catch {}
   
   // Fallback to default favicon location
   try {
