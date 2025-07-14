@@ -298,7 +298,7 @@ export default function page() {
         org chart and who is good at what. You can then auto-assign these based
         on who submitted it and what it&apos;s about. A general prayer request
         from a young mom can be auto-assigned to the children&apos;s pastor. A
-        prayer request mentioning self harm and be an immediate alert to the
+        prayer request mentioning self harm can be an immediate alert to the
         senior pastor or the pastoral care pastor. Now, more of the staff is
         involved in caring for people and less admin work had to be done to get
         there.
