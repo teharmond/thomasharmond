@@ -17,6 +17,16 @@ const articles = [
     description: "The pastoral implications of our technical choices",
     link: "/ideas/prayer-request-forms",
   },
+  {
+    title: "Do I really need 14 apps to join the team?",
+    description: "Who’s going to build Notion for Churches?",
+    link: "/ideas/14-apps",
+  },
+  {
+    title: "Notes on Craft and Quality",
+    description: "The companies that have helped me shape Church Space",
+    link: "/ideas/craft-and-quality",
+  },
 ];
 
 export const metadata: Metadata = {
