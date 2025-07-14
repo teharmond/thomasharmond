@@ -4,6 +4,7 @@ import SectionHeader from "../../../../components/SectionHeader";
 import ArticleParagraph from "../../../../components/ArticleParagraph";
 import Image from "next/image";
 import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "On Planning Center Home",
@@ -65,13 +66,13 @@ export default function page() {
       </ArticleParagraph>
       <ArticleParagraph>
         But when I was writing{" "}
-        <a
+        <Link
           href="/ideas/14-apps"
           className="underline hover:text-primary italic font-medium underline-offset-4"
           target="_blank"
         >
           Do I really need 14 apps to join the team?
-        </a>
+        </Link>
         , it clicked for me that Planning Center Home can be the solution.
       </ArticleParagraph>
       <Image
@@ -285,15 +286,22 @@ export default function page() {
       </ArticleParagraph>
       <ArticleParagraph>
         And let&apos;s go one step further. Imagine if you could{" "}
-        <mark>submit a form and have that auto-create a task</mark> (i.e., a
-        prayer request). Then, rather than leaving it in a queue, you make Home
-        aware of your org chart and who is good at what. You can then
-        auto-assign these based on who submitted it and what it&apos;s about. A
-        general prayer request from a young mom can be auto-assigned to the
-        children&apos;s pastor. A prayer request mentioning self harm and be an
-        immediate alert to the senior pastor or the pastoral care pastor. Now,
-        more of the staff is involved in caring for people and less admin work
-        had to be done to get there.
+        <mark>submit a form and have that auto-create a task</mark> (i.e.,{" "}
+        <Link
+          href="/ideas/prayer-request-forms"
+          className="underline hover:text-primary italic font-medium underline-offset-4"
+          target="_blank"
+        >
+          a prayer request form
+        </Link>
+        ). Then, rather than leaving it in a queue, you make Home aware of your
+        org chart and who is good at what. You can then auto-assign these based
+        on who submitted it and what it&apos;s about. A general prayer request
+        from a young mom can be auto-assigned to the children&apos;s pastor. A
+        prayer request mentioning self harm and be an immediate alert to the
+        senior pastor or the pastoral care pastor. Now, more of the staff is
+        involved in caring for people and less admin work had to be done to get
+        there.
       </ArticleParagraph>
       <SectionHeader>04. WIKI</SectionHeader>
       <ArticleParagraph>Dashboards. Tasks. And Wiki. </ArticleParagraph>
