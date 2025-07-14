@@ -99,15 +99,43 @@ export function OpenGraphPreview({
     );
   }
 
+  const handleClick = () => {
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
   if (error || !data) {
+    if (variant === "compact") {
+      return (
+        <Card
+          className={`group hover:shadow-md transition-shadow duration-200 ${className}`}
+          onClick={handleClick}
+        >
+          <CardContent className="p-3">
+            <div className="flex items-center space-x-3">
+              <ExternalLink className="w-4 h-4 flex-shrink-0 text-muted-foreground" />
+              <span className="text-sm font-medium truncate flex-1 group-hover:text-foreground/80 transition-colors">
+                {title || new URL(url).hostname}
+              </span>
+            </div>
+            {error && (
+              <p className="text-xs text-muted-foreground mt-1">
+                Failed to load preview
+              </p>
+            )}
+          </CardContent>
+        </Card>
+      );
+    }
+
     return (
       <Card
         className={`group hover:shadow-md transition-shadow duration-200 ${className}`}
+        onClick={handleClick}
       >
-        <CardContent className={variant === "compact" ? "p-3" : "p-4"}>
+        <CardContent className="p-4">
           <div className="flex items-center space-x-2 text-muted-foreground">
             <ExternalLink className="w-4 h-4" />
-            <span className="text-sm truncate">{url}</span>
+            <span className="text-sm truncate">{title || url}</span>
           </div>
           {error && (
             <p className="text-xs text-muted-foreground mt-1">
@@ -118,10 +146,6 @@ export function OpenGraphPreview({
       </Card>
     );
   }
-
-  const handleClick = () => {
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
 
   if (variant === "compact") {
     return (
@@ -139,8 +163,8 @@ export function OpenGraphPreview({
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   // Try GitHub's SVG favicon as fallback
-                  if (data.url.includes('github.com')) {
-                    target.src = 'https://github.com/fluidicon.png';
+                  if (data.url.includes("github.com")) {
+                    target.src = "https://github.com/fluidicon.png";
                   } else {
                     target.style.display = "none";
                   }

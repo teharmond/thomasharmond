@@ -188,10 +188,12 @@ export default function Page() {
       <OpenGraphPreview url="https://x.com/karrisaarinen" variant="compact" />
       <OpenGraphPreview
         url="https://youtu.be/pCil7YNhNCU?si=Q7mZLWP0pgBSj0SH"
+        title="Config 2025: Crafting quality that endures (Karri Saarinen, Co-founder & CEO, Linear) | Figma"
         variant="compact"
       />
       <OpenGraphPreview
         url="https://youtu.be/NQmw8eqfd9o?si=wbyHBsxVvjM7kbEB"
+        title="Julian Lehr - How to get people excited about your product"
         variant="compact"
       />
       <SectionHeader url="https://midday.ai">Midday</SectionHeader>
@@ -225,6 +227,7 @@ export default function Page() {
       </ArticleParagraph>
       <OpenGraphPreview
         url="https://youtu.be/Kgn-e5a5uZA?si=vhEySLIQ8GM52ACa"
+        title="The Ultimate Raycast Deep Dive (craft, AI, hype, & more)"
         variant="compact"
       />
       <OpenGraphPreview
@@ -271,18 +274,22 @@ export default function Page() {
       />
       <OpenGraphPreview
         url="https://youtu.be/sbQCYmnNHVY?si=bnrVXcfEPeeh_94T"
+        title="Dustin Senos - Designing Dia (the AI-native web browser)"
         variant="compact"
       />
       <OpenGraphPreview
         url="https://youtu.be/w45EQ2jS5ok?si=nmvBKKUi8Wgx5jdA"
+        title="Config London 2025: Designing for both iOS and Android—the right way with Christine Røde"
         variant="compact"
       />
       <OpenGraphPreview
         url="https://www.nytimes.com/2025/07/11/technology/personaltech/ai-internet-browser-dia.html"
+        title="Is A.I. the Future of Web Browsing?"
         variant="compact"
       />
       <OpenGraphPreview
         url="https://www.youtube.com/watch?v=210zavw00y4"
+        title="Arc Had Millions of Users. Why They Left It Behind for Dia."
         variant="compact"
       />
       <OpenGraphPreview url="https://x.com/joshm" variant="compact" />
