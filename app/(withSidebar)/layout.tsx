@@ -5,7 +5,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
   return (
     <main className="flex-1">
       <div className="w-full max-w-2xl flex flex-col pt-12 md:pt-24 gap-12 mx-auto px-2">
-        <header className="flex flex-col px-2">
+        <header className="flex flex-col px-2 font-mono">
           <a href="/" className=" font-medium ">
             Thomas Harmond
           </a>

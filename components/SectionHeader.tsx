@@ -19,7 +19,7 @@ export default function SectionHeader({
         <Link
           href={url}
           target="_blank"
-          className="mt-10 px-2 hover:bg-primary/10 rounded-md group"
+          className="mt-10 px-2 hover:bg-primary/10 rounded-md group font-mono"
         >
           <h2
             className={`text-primary justify-between flex items-center gap-2 w-full border-secondary font-bold border-b group-hover:border-transparent  text-2xl ${className}`}
@@ -30,7 +30,7 @@ export default function SectionHeader({
         </Link>
       ) : (
         <h2
-          className={` mx-2 text-primary border-secondary font-bold border-b w-full  text-2xl mt-10 ${className}`}
+          className={` mx-2 text-primary border-secondary font-bold border-b w-full  text-2xl mt-10 font-mono ${className}`}
         >
           {children}
         </h2>

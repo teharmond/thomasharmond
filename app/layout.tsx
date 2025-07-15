@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { GeistMono } from "geist/font/mono";
+import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   description: "Personal website of Thomas Harmond",
 };
 
+const inter = Inter({ subsets: ["latin"] });
 export default function RootLayout({
   children,
 }: {
@@ -16,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={GeistMono.className}>
+      <body className={inter.className}>
         {children}
         <Toaster />
         <Analytics />
