@@ -136,10 +136,10 @@ export default function page() {
       <ArticleParagraph>
         To make this work, I first needed to make a way to build digital forms
         as the backbone. It was easy enough to rework the email builder into a
-        form builder, but I didn’t want this to just be a good paper tool. I had
-        to make this digital builder great. I added in advanced conditional
-        logic, pages, advanced fields, and content blocks to give extra info and
-        resources to the submitter.
+        form builder, but I didn&apos;t want this to just be a good paper tool.
+        I had to make this digital builder great. I added in advanced
+        conditional logic, pages, advanced fields, and content blocks to give
+        extra info and resources to the submitter.
       </ArticleParagraph>
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//form-builder.png"
@@ -177,7 +177,7 @@ export default function page() {
       <ArticleParagraph>
         Now, we needed a way to get the digital form on paper. For this, I used
         React PDF. Super fun tool. I defined the CSS for how each field should
-        look when it’s rendered, and then I can pass the form schema to the
+        look when it&apos;s rendered, and then I can pass the form schema to the
         function. We then filter out content blocks (other than text and
         dividers) and filter out file upload fields. The user can then download
         this PDF in multiple paper sizes to suit their needs.{" "}
@@ -228,8 +228,8 @@ export default function page() {
         There are still a lot of things to be worked out. What do you do with
         conditional fields? If a JSON response fails the Zod validation, should
         you use a different model to try again? Should paper form submissions
-        receive a submission confirmation email? What’s the best UX for someone
-        to correct submission values that were processed incorrectly?
+        receive a submission confirmation email? What&apos;s the best UX for
+        someone to correct submission values that were processed incorrectly?
       </ArticleParagraph>
       <ArticleParagraph>
         I'm looking forward to answering these questions in the coming weeks as
