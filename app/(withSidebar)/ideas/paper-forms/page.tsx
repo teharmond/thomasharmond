@@ -78,14 +78,14 @@ export default function page() {
         </mark>
       </ArticleParagraph>
       <ArticleParagraph>
-        But like most things, there's a catch.
+        But like most things, there&apos;s a catch.
       </ArticleParagraph>
       <ArticleParagraph>
         While paper forms give you more immediate and personal responses, they
         also create hours of admin work. If you want to capture this data
         digitally and use it in any formalized process, you have to input all
         the data by hand into your tool of choice. But most form tools—Planning
-        Center included—don't let you manually input form data. So churches
+        Center included—don&apos;t let you manually input form data. So churches
         either have to create a seperate process for each submission type or
         they have to bring the data together themselves in a secondary tool.
       </ArticleParagraph>
@@ -232,8 +232,8 @@ export default function page() {
         someone to correct submission values that were processed incorrectly?
       </ArticleParagraph>
       <ArticleParagraph>
-        I'm looking forward to answering these questions in the coming weeks as
-        we get ready to roll it out to more churches.
+        I&apos;m looking forward to answering these questions in the coming
+        weeks as we get ready to roll it out to more churches.
       </ArticleParagraph>
       <ArticleParagraph>
         If you have any ideas or want to be access to the beta, reach out to me
