@@ -1,0 +1,264 @@
+import React from "react";
+import ArticleHeader from "../../../../components/ArticleHeader";
+import ArticleParagraph from "../../../../components/ArticleParagraph";
+import ArticleList from "../../../../components/ArticleList";
+import { Metadata } from "next";
+import SectionHeader from "@/components/SectionHeader";
+import Image from "next/image";
+import Link from "next/link";
+
+const articles = [
+  {
+    title: "On Planning Center Home",
+    description: "The meta-layer of Planning Center",
+    link: "/ideas/pco-home",
+  },
+  {
+    title: "Notes on Craft and Quality",
+    description: "The companies that have helped me shape Church Space",
+    link: "/ideas/craft-and-quality",
+  },
+  {
+    title: "Why I don’t like prayer request forms",
+    description: "The pastoral implications of our technical choices",
+    link: "/ideas/prayer-request-forms",
+  },
+  {
+    title: "My Stack",
+    description: "What I used to build Church Space",
+    link: "/ideas/my-stack",
+  },
+];
+
+export const metadata: Metadata = {
+  title: "Churches Need Paper Forms",
+  description: "How I'm building paper forms for Church Space",
+};
+
+export default function page() {
+  return (
+    <div className=" gap-4 flex flex-col">
+      <ArticleHeader
+        title="Churches Need Paper Forms"
+        description="How I'm building paper forms for Church Space"
+      />
+      <SectionHeader>INTRODUCTION</SectionHeader>
+
+      <ArticleParagraph>
+        A few months ago, my wife came home from a church event with a large
+        stack of papers.
+      </ArticleParagraph>
+      <ArticleParagraph>&quot;What are those?&quot; I asked. </ArticleParagraph>
+      <ArticleParagraph>
+        <mark className="font-semibold">&quot;Paper forms.&quot;</mark>
+      </ArticleParagraph>
+      <ArticleParagraph>
+        In that moment, eight hours of manual data entry flashed through my
+        mind.
+      </ArticleParagraph>
+      <ArticleParagraph>
+        But her reason for using paper made sense. When she puts a QR code on a
+        screen and asks people to fill it out, she gets fewer responses and the
+        digital abstraction leads to those responses being less personal.
+      </ArticleParagraph>
+      <ArticleParagraph>
+        She&apos;s not alone in this. The past two churches I&apos;ve been at
+        have paper forms everywhere: giving envelopes, new children&apos;s
+        forms, prayer requests, praise reports, spiritual health assessments,
+        surveys, you name it.
+      </ArticleParagraph>
+      <ArticleParagraph>
+        While the digital side of my brain hates to admit it, I think
+        they&apos;re good. In my own experience, I fill out paper forms right
+        away whereas the digital ones sit on my todo list indefinitely.
+      </ArticleParagraph>
+      <ArticleParagraph>
+        <mark className="font-semibold">
+          So churches should be using digital forms.
+        </mark>
+      </ArticleParagraph>
+      <ArticleParagraph>
+        But like most things, there's a catch.
+      </ArticleParagraph>
+      <ArticleParagraph>
+        While paper forms give you more immediate and personal responses, they
+        also create hours of admin work. If you want to capture this data
+        digitally and use it in any formalized process, you have to input all
+        the data by hand into your tool of choice. But most form tools—Planning
+        Center included—don't let you manually input form data. So churches
+        either have to create a seperate process for each submission type or
+        they have to bring the data together themselves in a secondary tool.
+      </ArticleParagraph>
+      <ArticleParagraph>Not ideal.</ArticleParagraph>
+      <ArticleParagraph>
+        So when I started working on{" "}
+        <span className="inline ">
+          <Link
+            href="https://churchspace.co"
+            className="inline items-baseline group"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span className="h-5 w-5 bg-[#6065fe] mr-1.5 rounded items-center justify-center inline-flex">
+              <svg
+                height={14}
+                width={14}
+                viewBox="0 0 185 291"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g fill="none">
+                  <path
+                    d="M142.177 23.3423H173.437C179.612 23.3423 184.617 28.3479 184.617 34.5227V258.318C184.617 264.493 179.612 269.498 173.437 269.498H142.177V23.3423Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M0 57.5604C0 52.8443 2.9699 48.6392 7.41455 47.0622L125.19 5.27404C132.441 2.70142 140.054 8.07871 140.054 15.7722V275.171C140.054 282.801 132.557 288.172 125.332 285.718L7.55682 245.715C3.03886 244.18 0 239.939 0 235.167V57.5604Z"
+                    fill="white"
+                  />
+                </g>
+              </svg>
+            </span>
+            <span className="underline decoration-2 underline-offset-2 group-hover:underline-offset-4 transition-all duration-300 ease-in-out">
+              Church Space
+            </span>
+          </Link>
+        </span>{" "}
+        Forms, this was the core problem I wanted to solve.{" "}
+      </ArticleParagraph>
+      <Image
+        src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//paper-digital-chart.png"
+        alt="Paper and Digital Chart"
+        width={1000}
+        height={1000}
+        className="mt-2 mb-10 w-[80%] mx-auto"
+      />
+      <SectionHeader>TOWARDS A SOLUTION</SectionHeader>
+      <ArticleParagraph>
+        To make this work, I first needed to make a way to build digital forms
+        as the backbone. It was easy enough to rework the email builder into a
+        form builder, but I didn’t want this to just be a good paper tool. I had
+        to make this digital builder great. I added in advanced conditional
+        logic, pages, advanced fields, and content blocks to give extra info and
+        resources to the submitter.
+      </ArticleParagraph>
+      <Image
+        src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//form-builder.png"
+        alt="Form Builder"
+        width={1000}
+        height={1000}
+        className="mt-2  "
+      />
+      <Image
+        src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//form-conditions.png"
+        alt="Form Conditions"
+        width={1000}
+        height={1000}
+        className="mt-2 mb-10 "
+      />
+      <ArticleParagraph>
+        I then added in a way to link form fields to Planning Center fields
+        (including custom fields) and to have the form submissions go to a
+        workflow card or profile note in PCO.{" "}
+      </ArticleParagraph>
+      <Image
+        src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//form-pco-logic-one.png"
+        alt="Form PCO Logic"
+        width={1000}
+        height={1000}
+        className="mt-2  "
+      />
+      <Image
+        src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//form-pco-logic-two.png"
+        alt="Form PCO Connection"
+        width={1000}
+        height={1000}
+        className="mt-2 mb-10 "
+      />
+      <ArticleParagraph>
+        Now, we needed a way to get the digital form on paper. For this, I used
+        React PDF. Super fun tool. I defined the CSS for how each field should
+        look when it’s rendered, and then I can pass the form schema to the
+        function. We then filter out content blocks (other than text and
+        dividers) and filter out file upload fields. The user can then download
+        this PDF in multiple paper sizes to suit their needs.{" "}
+      </ArticleParagraph>
+      <Image
+        src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//paper-form.png"
+        alt="Paper Form"
+        width={1000}
+        height={1000}
+        className="mt-2 mb-10 "
+      />
+      <ArticleParagraph>
+        Once the user is ready to upload their submissions, they can open the
+        site on their mobile device and scan them in. Each image is encoded to
+        base64, batched together, and passed to a Trigger.dev job along with the
+        form schema. The job uses the Vercel AI SDK with Gemini 2.0 Flash to
+        analyze the forms and convert the data to JSON. We then use Zod to
+        validate the results.{" "}
+      </ArticleParagraph>
+      <Image
+        src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//upload-paper-form.png"
+        alt="Upload Paper Form"
+        width={1000}
+        height={1000}
+        className="mt-2 mb-10 "
+      />
+
+      <ArticleParagraph>
+        Because the fields are matched by title, people are able to create their
+        own designs for their forms and use those instead. This also means you
+        can take any paper form you already have printed and make a digital
+        companion for it.
+      </ArticleParagraph>
+      <Image
+        src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//form-code.png"
+        alt="Form Code"
+        width={1000}
+        height={1000}
+        className="mt-2 mb-10 "
+      />
+      <ArticleParagraph>
+        All the results are then added to the same table as the digital
+        submissions so that your data is all in one place. This gives ultimate
+        freedom to churches while keeping their data clean.
+      </ArticleParagraph>
+      <SectionHeader>WHAT&apos;S NEXT</SectionHeader>
+      <ArticleParagraph>
+        There are still a lot of things to be worked out. What do you do with
+        conditional fields? If a JSON response fails the Zod validation, should
+        you use a different model to try again? Should paper form submissions
+        receive a submission confirmation email? What’s the best UX for someone
+        to correct submission values that were processed incorrectly?
+      </ArticleParagraph>
+      <ArticleParagraph>
+        I'm looking forward to answering these questions in the coming weeks as
+        we get ready to roll it out to more churches.
+      </ArticleParagraph>
+      <ArticleParagraph>
+        If you have any ideas or want to be access to the beta, reach out to me
+        at{" "}
+        <a href="mailto:hey@thomasharmond.com" className="underline">
+          hey@thomasharmond.com
+        </a>
+        .
+      </ArticleParagraph>
+
+      <div className="flex flex-col gap-2 bg-muted p-4 rounded-xl mt-12">
+        <h3 className="text-xl font-bold px-2">More</h3>
+        {articles.map((article, index) => (
+          <a
+            href={article.link}
+            className="text-pretty hover:bg-blue-100 font-medium hover:text-blue-600 px-2 py-1 rounded-md transition-colors"
+            key={index}
+          >
+            <h2>{article.title}</h2>
+            <p className="text-sm text-muted-foreground font-light">
+              {article.description}
+            </p>
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
