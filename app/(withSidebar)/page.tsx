@@ -1,11 +1,11 @@
 import React from "react";
 
 const articles = [
-  {
-    title: "Churches Need Paper Forms",
-    description: "How I'm building paper forms for Church Space",
-    link: "/ideas/paper-forms",
-  },
+  // {
+  //   title: "Churches Need Paper Forms",
+  //   description: "How I'm building paper forms for Church Space",
+  //   link: "/ideas/paper-forms",
+  // },
   {
     title: "On Planning Center Home",
     description: "The meta-layer of Planning Center",
