@@ -16,8 +16,8 @@ export default function ArticleList({
   const ListComponent = type === "ordered" ? "ol" : "ul";
   const listStyles =
     type === "ordered"
-      ? "list-decimal list-outside space-y-2 pl-8"
-      : "list-disc list-outside space-y-2 pl-4";
+      ? "list-decimal list-outside space-y-2 pl-8 "
+      : "list-disc list-outside space-y-2 pl-6";
   const indentStyles = indent ? "ml-1" : "";
 
   return (

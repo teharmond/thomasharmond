@@ -43,16 +43,20 @@ export default function page() {
         description="Thoughts on PCO Home (and ChMS in general)"
       />
       <SectionHeader>Links</SectionHeader>
-      <mark className="w-fit">
-        <span className="font-semibold">DEMO</span>
-      </mark>
+      <ArticleParagraph>
+        <mark className="w-fit">
+          <span className="font-semibold">DEMO</span>
+        </mark>
+      </ArticleParagraph>
       <OpenGraphPreview
         url="https://pcohome.thomasharmond.com"
         variant="compact"
       />
-      <mark className="w-fit">
-        <span className="font-semibold">Previous Article</span>
-      </mark>
+      <ArticleParagraph>
+        <mark className="w-fit">
+          <span className="font-semibold">Previous Article</span>
+        </mark>
+      </ArticleParagraph>
       <OpenGraphPreview
         url="https://thomasharmond.com/idas/pco-home"
         title="On Planning Center Home"
