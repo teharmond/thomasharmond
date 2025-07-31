@@ -9,6 +9,11 @@ import Image from "next/image";
 
 const articles = [
   {
+    title: "The missing bridge in Church software",
+    description: "Why we need a GitHub for minsitry resources",
+    link: "/ideas/missing-bridge",
+  },
+  {
     title: "On Planning Center Home",
     description: "The meta-layer of Planning Center",
     link: "/ideas/pco-home",
@@ -63,12 +68,32 @@ export default function page() {
       />
       <ArticleParagraph>
         <mark className="w-fit">
-          <span className="font-semibold">Previous Article</span>
+          <span className="font-semibold">Other Articles</span>
         </mark>
       </ArticleParagraph>
       <OpenGraphPreview
+        url="https://thomasharmond.com/idas/prayer-request-forms"
+        title="Why I don’t like prayer request forms"
+        variant="compact"
+      />
+      <OpenGraphPreview
+        url="https://thomasharmond.com/idas/missing-bridge"
+        title="The missing bridge in Church software"
+        variant="compact"
+      />
+      <OpenGraphPreview
+        url="https://thomasharmond.com/idas/paper-forms"
+        title="Churches Need Paper Forms"
+        variant="compact"
+      />
+      <OpenGraphPreview
         url="https://thomasharmond.com/idas/pco-home"
         title="On Planning Center Home"
+        variant="compact"
+      />
+      <OpenGraphPreview
+        url="https://thomasharmond.com/idas/14-apps"
+        title="Do I really need 14 apps to join the team?"
         variant="compact"
       />
       <SectionHeader>Random things I love about PCO</SectionHeader>

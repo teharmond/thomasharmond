@@ -13,6 +13,11 @@ export const metadata: Metadata = {
 
 const articles = [
   {
+    title: "The missing bridge in Church software",
+    description: "Why we need a GitHub for minsitry resources",
+    link: "/ideas/missing-bridge",
+  },
+  {
     title: "Churches Need Paper Forms",
     description: "Starting over from first principles to meet real needs",
     link: "/ideas/paper-forms",

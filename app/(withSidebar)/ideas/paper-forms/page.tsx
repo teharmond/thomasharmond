@@ -8,6 +8,11 @@ import ArticleParagraph from "../../../../components/ArticleParagraph";
 
 const articles = [
   {
+    title: "The missing bridge in Church software",
+    description: "Why we need a GitHub for minsitry resources",
+    link: "/ideas/missing-bridge",
+  },
+  {
     title: "Answer questions that bring you joy",
     description: "A simple heuristic for the next step",
     link: "/ideas/questions-that-bring-joy",
