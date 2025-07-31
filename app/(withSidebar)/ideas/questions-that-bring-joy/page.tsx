@@ -9,6 +9,16 @@ export const metadata: Metadata = {
 
 const articles = [
   {
+    title: "Churches Need Paper Forms",
+    description: "Starting over from first principles to meet real needs",
+    link: "/ideas/paper-forms",
+  },
+  {
+    title: "On Planning Center Home",
+    description: "The meta-layer of Planning Center",
+    link: "/ideas/pco-home",
+  },
+  {
     title: "Why I don’t like prayer request forms",
     description: "The pastoral implications of our technical choices",
     link: "/ideas/prayer-request-forms",
@@ -22,11 +32,6 @@ const articles = [
     title: "Notes on Craft and Quality",
     description: "The companies that have helped me shape Church Space",
     link: "/ideas/craft-and-quality",
-  },
-  {
-    title: "My Stack",
-    description: "What I used to build Church Space",
-    link: "/ideas/my-stack",
   },
 ];
 

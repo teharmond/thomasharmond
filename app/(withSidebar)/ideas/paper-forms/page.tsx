@@ -8,14 +8,14 @@ import ArticleParagraph from "../../../../components/ArticleParagraph";
 
 const articles = [
   {
+    title: "Answer questions that bring you joy",
+    description: "A simple heuristic for the next step",
+    link: "/ideas/questions-that-bring-joy",
+  },
+  {
     title: "On Planning Center Home",
     description: "The meta-layer of Planning Center",
     link: "/ideas/pco-home",
-  },
-  {
-    title: "Notes on Craft and Quality",
-    description: "The companies that have helped me shape Church Space",
-    link: "/ideas/craft-and-quality",
   },
   {
     title: "Why I don’t like prayer request forms",
@@ -23,9 +23,14 @@ const articles = [
     link: "/ideas/prayer-request-forms",
   },
   {
-    title: "My Stack",
-    description: "What I used to build Church Space",
-    link: "/ideas/my-stack",
+    title: "Do I really need 14 apps to join the team?",
+    description: "Who’s going to build Notion for Churches?",
+    link: "/ideas/14-apps",
+  },
+  {
+    title: "Notes on Craft and Quality",
+    description: "The companies that have helped me shape Church Space",
+    link: "/ideas/craft-and-quality",
   },
 ];
 
