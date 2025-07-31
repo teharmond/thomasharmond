@@ -71,6 +71,78 @@ export default function page() {
         title="On Planning Center Home"
         variant="compact"
       />
+      <SectionHeader>Random things I love about PCO</SectionHeader>
+      <ArticleList type="unordered">
+        <li>
+          <span className="font-semibold">Not VC backed.</span>
+        </li>
+        <li>
+          <span className="font-semibold">
+            People, Chat, Church Center, Home, etc. is free.
+          </span>{" "}
+          Surely this is related to the former point.
+        </li>
+        <li>
+          <span className="font-semibold">
+            Introduces non-technical/non-process-oriented people to better
+            technical processes.
+          </span>{" "}
+          Workflows are a good example of this. Rather than disorganized email
+          threads, phone calls that we assume people are following up, and
+          checking in with the team every day, there&apos;s a centralized place
+          for this. And simply <i>having</i> the feature makes people ask how
+          they could use it, thus leading to better processes. Calendar and the
+          approvals built in are another good example of this. The church
+          I&apos;m at now would have never had a process for event approvals
+          before.
+        </li>
+        <li>
+          <span className="font-semibold">Activity tab in People.</span>
+        </li>
+        <li>
+          <span className="font-semibold">Lists.</span> They&apos;re a
+          superpower if you know how to wield them. Every time I think something
+          isn&apos;t possible with a Home dashboard or with a data operation, I
+          realize that Lists actually enable it.
+        </li>
+        <li>
+          <span className="font-semibold">Potential duplicates.</span>
+        </li>
+        <li>
+          <span className="font-semibold">
+            Easy to export data from any app.
+          </span>{" "}
+          Makes me feel like we own our data.
+        </li>
+        <li>
+          <span className="font-semibold">The API.</span> I built a whole
+          business around it and have no plans to integrate with other ChMSs any
+          time soon as they don&apos;t have an easy to use public API. I also
+          love what I&apos;ve been able to do in a church context as well for
+          importing data from other services and using it for in-house tools.
+        </li>
+        <li>
+          <span className="font-semibold">Good communities.</span>
+        </li>
+        <li>
+          <span className="font-semibold">Public changelogs.</span>
+        </li>
+        <li>
+          <span className="font-semibold">Amazing support team.</span>
+        </li>
+        <li>
+          <span className="font-semibold">Services.</span> There&apos;s
+          literally no other alternative. I&apos;ve tried to find something even
+          close and it just doesn&apos;t exist.
+        </li>
+        <li>
+          <span className="font-semibold">Church Center.</span> For some reason,
+          many churches feel like they need to have their own custom app. So
+          they sign up for something like Subsplash only to realize they have to
+          maintain their own app. Church Center scratches the itch of having an
+          app without the complexity.
+        </li>
+      </ArticleList>
       <SectionHeader>My biggest gripe with Church software</SectionHeader>
       <ArticleParagraph>
         I hate how many apps are needed in ministry (see{" "}
@@ -330,6 +402,21 @@ export default function page() {
           </ArticleList>
         </li>
         <li>
+          <span className="font-semibold">People Import</span>
+          <ArticleList type="unordered" indent>
+            <li>
+              <span>
+                It might just be me, but profile matching <i>never</i> works for
+                me in People. This has been true at both Good Shepherd and
+                Hillsong. I know there&apos;s the remote ID, but I can never get
+                that to work either and I can&apos;t find much support stuff on
+                it. So in the past (and for Church Space) I&apos;ve had to build
+                my own profile matching and linking logic.
+              </span>
+            </li>
+          </ArticleList>
+        </li>
+        <li>
           <span className="font-semibold">Tasks</span>
         </li>
         <li>
@@ -378,7 +465,21 @@ export default function page() {
           <span className="font-semibold">Docs/Wiki 👀</span>
         </li>
         <li>
-          <span className="font-semibold">Trainings 👀</span>
+          <span className="font-semibold">
+            Training and content platform 👀
+          </span>
+          <ArticleList type="unordered" indent>
+            <li>
+              <span>
+                I&apos;ve built this one out as well, but I would love to have a
+                content platform where I can do team trainings, make and host
+                small group content, and be able to share resources with and
+                access resources from other churches. (Article on this concept
+                and how it can be used with forms, website pages, content, etc.
+                soon.)
+              </span>
+            </li>
+          </ArticleList>
         </li>
         <li>
           <span className="font-semibold">Point of Sale 👀</span>

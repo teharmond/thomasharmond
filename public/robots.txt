@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /unlisted
+Disallow: /api
+Disallow: /tools
+Disallow: /apps
+

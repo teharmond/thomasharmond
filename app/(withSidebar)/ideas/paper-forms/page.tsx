@@ -262,7 +262,7 @@ export default function page() {
           answering these questions
           <ExternalLink className="h-4 w-4 inline ml-1 mb-1" />
         </Link>{" "}
-        in the coming weeks as we get ready to roll it out to more churches.
+        in the coming weeks as I decide if I even want to put this out.
       </ArticleParagraph>
       <ArticleParagraph>
         If you have any ideas or want access to the alpha, reach out to me at{" "}
