@@ -290,7 +290,7 @@ export default function page() {
             </li>
             <li>
               <span>
-                I'd love to more easily see and export the list results
+                I&apos;d love to more easily see and export the list results
                 breakdown popover.
               </span>
             </li>
