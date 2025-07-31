@@ -46,36 +46,56 @@ export default function page() {
 
       <ArticleParagraph>
         A few months ago, my wife came home from a church event with a large
-        stack of papers.
+        stack of paper.
       </ArticleParagraph>
       <ArticleParagraph>&quot;What are those?&quot; I asked. </ArticleParagraph>
-      <ArticleParagraph>
-        <mark className="font-semibold">&quot;Paper forms.&quot;</mark>
+      <ArticleParagraph className="italic">
+        &quot;Paper forms.&quot;
       </ArticleParagraph>
       <ArticleParagraph>
         In that moment, eight hours of manual data entry flashed through my
         mind.
       </ArticleParagraph>
       <ArticleParagraph>
-        But her reason for using paper made sense. When she puts a QR code on a
-        screen and asks people to fill it out, she gets fewer responses and the
-        digital abstraction leads to those responses being less personal.
+        It&apos;s easy to be cynical about this, and I see the sentiment online
+        a lot. Catch up with the times. Tell people to pull out their phone and
+        fill it out.
+      </ArticleParagraph>
+      <ArticleParagraph>
+        But this is far from a compassionate solution. We have to go back to
+        first principles. Rather than telling people who use our products that
+        they need to work around <i>our</i> ideas and systems, we need to think
+        about why they might want something, even an antiquated something, in
+        the first place.
+      </ArticleParagraph>
+      <ArticleParagraph>
+        For my wife, her reason is simple: when she puts a QR code on a screen
+        and asks people to fill it out, she gets fewer responses and the digital
+        abstraction leads to those responses being less personal.
       </ArticleParagraph>
       <ArticleParagraph>
         She&apos;s not alone in this. The past two churches I&apos;ve been at
         have paper forms everywhere: giving envelopes, new children&apos;s
         forms, prayer requests, praise reports, spiritual health assessments,
-        surveys, you name it.
+        surveys, connect forms, you name it.
       </ArticleParagraph>
       <ArticleParagraph>
-        While the digital side of my brain hates to admit it, I think
-        they&apos;re good. In my own experience, I fill out paper forms right
-        away whereas the digital ones sit on my todo list indefinitely.
+        While the digital side of my brain hates to admit it, I think they have
+        a place.
+      </ArticleParagraph>
+      <ArticleParagraph>
+        In my own experience, I fill out paper forms right away whereas the
+        digital ones sit on my todo list indefinitely. When I have paper in
+        front of me, I feel an intentionally that I don&apos;t always feel on my
+        phone. And to be honest, I&apos;m more likely to fill out the paper form
+        in the back of the pew when I get bored during the sermon than filling
+        out a digital one if I pull my phone out.
       </ArticleParagraph>
       <ArticleParagraph>
         <mark className="font-semibold">
           So churches should be using paper forms.
-        </mark>
+        </mark>{" "}
+        Not in lieu of digital, but as a complement to a well-rounded system.
       </ArticleParagraph>
       <ArticleParagraph>
         But like most things, there&apos;s a catch.
@@ -86,7 +106,7 @@ export default function page() {
         digitally and use it in any formalized process, you have to input all
         the data by hand into your tool of choice. But most form tools—Planning
         Center included—don&apos;t let you manually input form data. So churches
-        either have to create a seperate process for each submission type or
+        either have to create a separate process for each submission type or
         they have to bring the data together themselves in a secondary tool.
       </ArticleParagraph>
       <ArticleParagraph>Not ideal.</ArticleParagraph>
@@ -116,11 +136,11 @@ export default function page() {
       <SectionHeader>TOWARDS A SOLUTION</SectionHeader>
       <ArticleParagraph>
         To make this work, I first needed to make a way to build digital forms
-        as the backbone. It was easy enough to rework the email builder into a
-        form builder, but I didn&apos;t want this to just be a good paper tool.
-        I had to make this digital builder great. I added in advanced
-        conditional logic, pages, advanced fields, and content blocks to give
-        extra info and resources to the submitter.
+        to serve as the backbone. It was easy enough to rework the email builder
+        into a form builder, but I wanted to make this digital builder great,
+        solving both needs a church has. I added in advanced conditional logic,
+        pages, every field type you could need, and content blocks to give extra
+        info and resources to the submitter.
       </ArticleParagraph>
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//form-builder.png"
@@ -139,7 +159,9 @@ export default function page() {
       <ArticleParagraph>
         I then added in a way to link form fields to Planning Center fields
         (including custom fields) and to have the form submissions go to a
-        workflow card or profile note in PCO.{" "}
+        workflow card or profile note in PCO. A core part of the value that
+        Church Space offers is that it keeps PCO as the source of truth for all
+        data. This couldn&apos;t be the exception to that.
       </ArticleParagraph>
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//form-pco-logic-one.png"
@@ -157,11 +179,11 @@ export default function page() {
       />
       <ArticleParagraph>
         Now, we needed a way to get the digital form on paper. For this, I used
-        React PDF. Super fun tool. I defined the CSS for how each field should
-        look when it&apos;s rendered, and then I can pass the form schema to the
-        function. We then filter out content blocks (other than text and
-        dividers) and filter out file upload fields. The user can then download
-        this PDF in multiple paper sizes to suit their needs.{" "}
+        React PDF. Super fun tool. I defined the CSS for how each field type
+        should render, and then I can pass the form schema to the function. We
+        then filter out content blocks (other than text and dividers) and filter
+        out file upload fields. The user can then download this PDF in multiple
+        paper sizes to suit their needs.
       </ArticleParagraph>
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//paper-form.png"
@@ -173,10 +195,10 @@ export default function page() {
       <ArticleParagraph>
         Once the user is ready to upload their submissions, they can open the
         site on their mobile device and scan them in. Each image is encoded to
-        base64, batched together, and passed to a Trigger.dev job along with the
-        form schema. The job uses the Vercel AI SDK with Gemini 2.0 Flash to
-        analyze the forms and convert the data to JSON. We then use Zod to
-        validate the results.{" "}
+        base64, batched together, and passed to a Trigger.dev background job
+        along with the form schema. The job uses the Vercel AI SDK with Gemini
+        2.0 Flash to analyze the forms and convert the data to JSON. We then use
+        Zod to validate the results.{" "}
       </ArticleParagraph>
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//upload-paper-form.png"
@@ -206,18 +228,31 @@ export default function page() {
       </ArticleParagraph>
       <SectionHeader>WHAT&apos;S NEXT</SectionHeader>
       <ArticleParagraph>
+        Churches are infinitely unique which is why I deeply believe there
+        should be software of all sorts—forms, project management, communication
+        tools—that is specially designed for churches. This is another step in
+        that direction.
+      </ArticleParagraph>
+      <ArticleParagraph>
+        I hope this tool helps us in ministry to better care for our people. We
+        don't collect data to stack up vanity metrics; we do it because
+        everything from a prayer request to an email unsubscribe tells us
+        something about the people that we've been entrusted to care for.{" "}
+      </ArticleParagraph>
+      <ArticleParagraph>
         There are still a lot of things to be worked out. What do you do with
-        conditional fields? If a JSON response fails the Zod validation, should
-        you use a different model to try again? Should paper form submissions
-        receive a submission confirmation email? What&apos;s the best UX for
-        someone to correct submission values that were processed incorrectly?
+        conditional fields on paper? If a JSON response fails the Zod
+        validation, should you use a different model to try the OCR again?
+        Should paper form submissions receive a submission confirmation email?
+        What&apos;s the best UX for someone to correct submission values that
+        were processed incorrectly?
       </ArticleParagraph>
       <ArticleParagraph>
         I&apos;m looking forward to answering these questions in the coming
         weeks as we get ready to roll it out to more churches.
       </ArticleParagraph>
       <ArticleParagraph>
-        If you have any ideas or want to access to the beta, reach out to me at{" "}
+        If you have any ideas or want to access to the alpha, reach out to me at{" "}
         <a href="mailto:hey@thomasharmond.com" className="underline">
           hey@thomasharmond.com
         </a>
