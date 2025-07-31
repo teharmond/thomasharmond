@@ -243,6 +243,93 @@ export default function page() {
           <span className="font-semibold">Dashboards</span>
         </li>
         <li>
+          <span className="font-semibold">Lists</span>
+          <ArticleList type="unordered" indent>
+            <li>
+              <span>Rule-based lists and custom list.</span>
+            </li>
+            <li>
+              <span>
+                Rules are too hard to build for people who don&apos;t think in
+                if-then statements (i.e., natural language).
+              </span>
+            </li>
+            <li>
+              <span>
+                Need to be able to offset automation times. Right now,
+                automations fire at 2am for auto-refreshing lists. Ideally this
+                would be solved by letting you pick an hour of the day to
+                refresh the list.
+              </span>
+            </li>
+            <li>
+              <span>
+                Auto-delete list after <i>n</i> days. That or don&apos;t
+                actually save every list after it&apos;s created. (This has some
+                bad downstream effects though.)
+              </span>
+            </li>
+            <li>
+              <span>
+                Filter to see which lists are auto-refreshing and which lists
+                have automations.
+              </span>
+            </li>
+            <li>
+              <span>
+                Filter to see which lists are auto-refreshing and which lists
+                have automations.
+              </span>
+            </li>
+            <li>
+              <span>
+                Why is bulk action icon a pencil? And why are bulk actions not
+                under actions? (I think I get why, but it confuses me every
+                time.)
+              </span>
+            </li>
+            <li>
+              <span>
+                I'd love to more easily see and export the list results
+                breakdown popover.
+              </span>
+            </li>
+            <li>
+              <span>Some lists I just want for the total results number.</span>
+            </li>
+            <li>
+              <span>
+                Either in lists or just in forms, I&apos;d love to have form
+                results filtering.
+              </span>
+            </li>
+            <li>
+              <span>
+                I&apos;d like to see what lists a person is in from their people
+                profile.
+              </span>
+            </li>
+            <li>
+              <span>
+                If I add some filters on the People tab, I&apos;d love to save
+                that filter as a list (or maybe a new concept of
+                &quot;views&quot; if that doesn&apos;t get too muddy.)
+              </span>
+            </li>
+          </ArticleList>
+        </li>
+        <li>
+          <span className="font-semibold">Workflows</span>
+          <ArticleList type="unordered" indent>
+            <li>
+              <span>
+                Auto-assign workflow cards based on who is most connected to
+                that person based on other involvement data.
+              </span>
+            </li>
+          </ArticleList>
+        </li>
+        <li>
           <span className="font-semibold">Tasks</span>
         </li>
         <li>
@@ -269,6 +356,23 @@ export default function page() {
         </li>
         <li>
           <span className="font-semibold">Forms</span>
+          <ArticleList type="unordered" indent>
+            <li>
+              <span>Paper forms.</span>
+            </li>
+            <li>
+              <span>Embeds.</span>
+            </li>
+            <li>
+              <span>Filtering of results.</span>
+            </li>
+            <li>
+              <span>Better conditional logic.</span>
+            </li>
+            <li>
+              <span>File downloads and inline images</span>
+            </li>
+          </ArticleList>
         </li>
         <li>
           <span className="font-semibold">Docs/Wiki 👀</span>

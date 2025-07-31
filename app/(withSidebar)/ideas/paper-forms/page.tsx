@@ -249,7 +249,7 @@ export default function page() {
         validation, should you use a different model to try again? Should paper
         form submissions receive a submission confirmation email? What&apos;s
         the best UX for someone to correct submission values that were processed
-        incorrectly? Is traditonal OCR better than visual intelegence for
+        incorrectly? Is traditional OCR better than visual intelligence for
         privacy? What other data privacy issues are there with this?
       </ArticleParagraph>
       <ArticleParagraph>
