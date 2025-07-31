@@ -53,7 +53,8 @@ export default function page() {
       />
       <ArticleParagraph>
         <mark className="w-fit">
-          <span className="font-semibold">DEMO</span>
+          <span className="font-semibold">DEMO</span> (Please don&apos;t use up
+          all my AI credits 🙏)
         </mark>
       </ArticleParagraph>
       <OpenGraphPreview
@@ -181,8 +182,8 @@ export default function page() {
       </ArticleParagraph>
       <ArticleParagraph>
         <mark>Planning Center does a lot of these things,</mark> but many of
-        them it doesn&apos;t do well enough to be a replacement. Instead, it
-        actually just adds one more app/one more place to check.
+        them fall short of being a full replacement. Instead, it actually just
+        adds one more app/one more place to check.
       </ArticleParagraph>
 
       <SectionHeader>
