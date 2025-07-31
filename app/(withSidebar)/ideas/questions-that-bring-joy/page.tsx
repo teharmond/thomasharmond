@@ -64,7 +64,7 @@ export default function page() {
         I didn&apos;t think going to youth group would lead to working in
         ministry. I didn&apos;t think moving to Sydney to be a worship leader
         would end with me working in IT/Digital. I didn&apos;t think my now wife
-        saying no to a second date would three years later lead to an
+        saying no to a second date would two years later lead to an
         international long distance relationship and a beautiful, in-person
         marriage (good riddance long distance). I didn&apos;t think a tech
         director job would lead me to preaching semi-regularly to a
@@ -74,8 +74,9 @@ export default function page() {
         Who knows where today&apos;s decisions will lead.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
-        As I try to mange my stress better, I&apos;m using a simple heuristic to
-        take the next step: <mark>what questions bring me joy to answer?</mark>
+        As I try to manage my stress better, I&apos;m using a simple heuristic
+        to take the next step:{" "}
+        <mark>what questions bring me joy to answer?</mark>
       </ArticleParagraph>
       <ArticleParagraph>
         Right now, that&apos;s how software can help churches, so that&apos;s

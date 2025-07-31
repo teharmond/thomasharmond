@@ -57,8 +57,8 @@ export default function page() {
       </ArticleParagraph>
       <ArticleParagraph>
         It&apos;s easy to be cynical about this, and I see the sentiment online
-        a lot. Catch up with the times. Tell people to pull out their phone and
-        fill it out.
+        a lot: catch up with the times, pull out your phone, and fill in the
+        form.
       </ArticleParagraph>
       <ArticleParagraph>
         But this is far from a compassionate solution. We have to go back to
@@ -85,16 +85,16 @@ export default function page() {
       <ArticleParagraph>
         In my own experience, I fill out paper forms right away whereas the
         digital ones sit on my todo list indefinitely. When I have paper in
-        front of me, I feel an intentionally that I don&apos;t always feel on my
-        phone. And to be honest, I&apos;m more likely to fill out the paper form
-        in the back of the pew when I get bored during the sermon than filling
-        out a digital one if I pull my phone out.
+        front of me, I feel an intentionality that I don&apos;t always feel on
+        my phone. And to be honest, I&apos;m more likely to fill out the paper
+        form in the back of the pew when I get bored during the sermon than
+        filling out a digital one if I pull my phone out.
       </ArticleParagraph>
       <ArticleParagraph>
         <mark className="font-semibold">
           So churches should be using paper forms.
         </mark>{" "}
-        Not in lieu of digital, but as a complement to a well-rounded system.
+        Not in lieu of digital, but as a complement in a well-rounded system.
       </ArticleParagraph>
       <ArticleParagraph>
         But like most things, there&apos;s a catch.
@@ -134,12 +134,12 @@ export default function page() {
       />
       <SectionHeader>TOWARDS A SOLUTION</SectionHeader>
       <ArticleParagraph>
-        To make this work, I first needed to make a way to build digital forms
-        to serve as the backbone. It was easy enough to rework the email builder
-        into a form builder, but I wanted to make this digital builder great,
-        solving both needs a church has. I added in advanced conditional logic,
-        pages, every field type you could need, and content blocks to give extra
-        info and resources to the submitter.
+        To make this work, I first needed a way to build digital forms to serve
+        as the backbone. It was easy enough to rework the email builder into a
+        form builder, but I wanted to make this digital builder great, solving
+        both needs a church has. I added advanced conditional logic, pages,
+        every field type you could need, and content blocks to give extra info
+        and resources to the submitter.
       </ArticleParagraph>
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//form-builder.png"
@@ -156,11 +156,10 @@ export default function page() {
         className="mt-2 mb-10 "
       />
       <ArticleParagraph>
-        I then added in a way to link form fields to Planning Center fields
-        (including custom fields) and to have the form submissions go to a
-        workflow card or profile note in PCO. A core part of the value that
-        Church Space offers is that it keeps PCO as the source of truth for all
-        data. This couldn&apos;t be the exception to that.
+        I then added in a way to link form fields to PCO fields and to have the
+        form submissions go to a workflow card or profile note in PCO. A core
+        part of the value that Church Space offers is that it keeps PCO as the
+        source of truth for all data. This couldn&apos;t be the exception.
       </ArticleParagraph>
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//form-pco-logic-one.png"
@@ -179,10 +178,10 @@ export default function page() {
       <ArticleParagraph>
         Now, we needed a way to get the digital form on paper. For this, I used
         React PDF. Super fun tool. I defined the CSS for how each field type
-        should render, and then I can pass the form schema to the function. We
-        then filter out content blocks (other than text and dividers) and filter
-        out file upload fields. The user can then download this PDF in multiple
-        paper sizes to suit their needs.
+        should render which allows me to pass the form schema to the function.
+        We then filter out content blocks (other than text and dividers) and
+        filter out file upload fields. The user can then download this PDF in
+        multiple paper sizes to suit their needs.
       </ArticleParagraph>
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//paper-form.png"
@@ -233,18 +232,20 @@ export default function page() {
         that direction.
       </ArticleParagraph>
       <ArticleParagraph>
-        I hope this tool helps us in ministry to better care for our people. We
-        don&apos;t collect data to stack up vanity metrics; we do it because
-        everything from a prayer request to an email unsubscribe tells us
-        something about the people that we&apos;ve been entrusted to care for.{" "}
+        I hope this tool helps those of us in ministry to better care for our
+        people. We don&apos;t collect data to stack up vanity metrics; we do it
+        because everything from a prayer request to an email unsubscribe tells
+        us something about the people that we&apos;ve been entrusted to care
+        for.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
         There are still a lot of things to be worked out. What do you do with
         conditional fields on paper? If a JSON response fails the Zod
-        validation, should you use a different model to try the OCR again?
-        Should paper form submissions receive a submission confirmation email?
-        What&apos;s the best UX for someone to correct submission values that
-        were processed incorrectly?
+        validation, should you use a different model to try again? Should paper
+        form submissions receive a submission confirmation email? What&apos;s
+        the best UX for someone to correct submission values that were processed
+        incorrectly? Is traditonal OCR better than visual intelegence for
+        privacy? What other data privacy issues are there with this?
       </ArticleParagraph>
       <ArticleParagraph>
         I&apos;m looking forward to{" "}
