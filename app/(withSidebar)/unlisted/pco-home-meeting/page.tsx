@@ -31,7 +31,7 @@ const articles = [
 ];
 
 export const metadata: Metadata = {
-  title: "PCO Home | July 22, 2025",
+  title: "PCO Home | July 23, 2025",
   description: "Thoughts on PCO Home (and ChMS in general)",
 };
 
@@ -39,7 +39,7 @@ export default function page() {
   return (
     <div className=" gap-4 flex flex-col">
       <ArticleHeader
-        title="PCO Home | July 22, 2025"
+        title="PCO Home | July 23, 2025"
         description="Thoughts on PCO Home (and ChMS in general)"
       />
       <SectionHeader>Links</SectionHeader>
