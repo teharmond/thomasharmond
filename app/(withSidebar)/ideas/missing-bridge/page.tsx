@@ -159,9 +159,9 @@ export default function page() {
       <ArticleParagraph>
         <span className="font-semibold">Option two</span> would be a centralized
         platform. I go to this platform, I search for photography consent forms,
-        and then I can click an import button that will use the platform's API
-        to add it to Planning Center, Formstack, The Church Co, or whatever my
-        form tool of choice is. This has the added benefit that it&apos;s not
+        and then I can click an import button that will use the platform&apos;s
+        API to add it to Planning Center, Formstack, The Church Co, or whatever
+        my form tool of choice is. This has the added benefit that it&apos;s not
         tied to one platform. This means more churches could share their
         resources with more people. There would be some technical challenges
         with getting schemas to match and handling cases where one platform

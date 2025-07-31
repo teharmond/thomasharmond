@@ -6,6 +6,8 @@ import ArticleList from "../../../../components/ArticleList";
 import { Metadata } from "next";
 import { OpenGraphPreview } from "@/components/OpenGraphPreview";
 import Image from "next/image";
+import { ExternalLink } from "lucide-react";
+import Link from "next/link";
 
 const articles = [
   {
@@ -499,9 +501,16 @@ export default function page() {
                 I&apos;ve built this one out as well, but I would love to have a
                 content platform where I can do team trainings, make and host
                 small group content, and be able to share resources with and
-                access resources from other churches. (Article on this concept
-                and how it can be used with forms, website pages, content, etc.
-                soon.)
+                access resources from other churches. (See{" "}
+                <Link
+                  href="/ideas/missing-bridge"
+                  target="_blank"
+                  className="underline hover:text-primary italic font-medium underline-offset-4"
+                >
+                  The missing bridge in Church software
+                  <ExternalLink className="h-4 w-4 inline ml-1 mb-1" />
+                </Link>{" "}
+                )
               </span>
             </li>
           </ArticleList>
