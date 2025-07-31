@@ -3,8 +3,8 @@ import ArticleHeader from "../../../../components/ArticleHeader";
 import ArticleParagraph from "../../../../components/ArticleParagraph";
 
 export const metadata: Metadata = {
-  title: "On Planning Center Home",
-  description: "The meta-layer of Planning Center",
+  title: "Answer questions that bring you joy",
+  description: "A simple heuristic for the next step",
 };
 
 const articles = [
@@ -35,7 +35,7 @@ export default function page() {
     <div className=" gap-4 flex flex-col">
       <ArticleHeader
         title="Answer questions that bring you joy"
-        description="A simple heuristic for the next step."
+        description="A simple heuristic for the next step"
       />
       <ArticleParagraph>
         Launching Church Space has led to a lot of reflecting on what I want for
@@ -89,7 +89,8 @@ export default function page() {
       <div className="flex gap-2 border-l-8 rounded-l border-primary py-3 ml-4">
         <ArticleParagraph className="">
           <span className="font-semibold ">
-            "All shall be well and all manner of things shall be well.”
+            &quot;All shall be well and all manner of things shall be
+            well.&quot;
           </span>
           <br />
           <span className="italic pl-2 ">— Julian of Norwich</span>

@@ -1,11 +1,16 @@
 import React from "react";
 
 const articles = [
-  // {
-  //   title: "Churches Need Paper Forms",
-  //   description: "How I'm building paper forms for Church Space",
-  //   link: "/ideas/paper-forms",
-  // },
+  {
+    title: "Churches Need Paper Forms",
+    description: "Starting over from first principles to meet real needs",
+    link: "/ideas/paper-forms",
+  },
+  {
+    title: "Answer questions that bring you joy",
+    description: "A simple heuristic for the next step",
+    link: "/ideas/questions-that-bring-joy",
+  },
   {
     title: "On Planning Center Home",
     description: "The meta-layer of Planning Center",

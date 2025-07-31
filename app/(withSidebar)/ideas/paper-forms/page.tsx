@@ -1,11 +1,10 @@
-import React from "react";
-import ArticleHeader from "../../../../components/ArticleHeader";
-import ArticleParagraph from "../../../../components/ArticleParagraph";
-import ArticleList from "../../../../components/ArticleList";
-import { Metadata } from "next";
 import SectionHeader from "@/components/SectionHeader";
+import { ExternalLink } from "lucide-react";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import ArticleHeader from "../../../../components/ArticleHeader";
+import ArticleParagraph from "../../../../components/ArticleParagraph";
 
 const articles = [
   {
@@ -32,7 +31,7 @@ const articles = [
 
 export const metadata: Metadata = {
   title: "Churches Need Paper Forms",
-  description: "How I'm building paper forms for Church Space",
+  description: "Starting over from first principles to meet real needs",
 };
 
 export default function page() {
@@ -40,7 +39,7 @@ export default function page() {
     <div className=" gap-4 flex flex-col">
       <ArticleHeader
         title="Churches Need Paper Forms"
-        description="How I'm building paper forms for Church Space"
+        description="Starting over from first principles to meet real needs"
       />
       <SectionHeader>INTRODUCTION</SectionHeader>
 
@@ -235,9 +234,9 @@ export default function page() {
       </ArticleParagraph>
       <ArticleParagraph>
         I hope this tool helps us in ministry to better care for our people. We
-        don't collect data to stack up vanity metrics; we do it because
+        don&apos;t collect data to stack up vanity metrics; we do it because
         everything from a prayer request to an email unsubscribe tells us
-        something about the people that we've been entrusted to care for.{" "}
+        something about the people that we&apos;ve been entrusted to care for.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
         There are still a lot of things to be worked out. What do you do with
@@ -248,11 +247,19 @@ export default function page() {
         were processed incorrectly?
       </ArticleParagraph>
       <ArticleParagraph>
-        I&apos;m looking forward to answering these questions in the coming
-        weeks as we get ready to roll it out to more churches.
+        I&apos;m looking forward to{" "}
+        <Link
+          href="/ideas/questions-that-bring-joy"
+          target="_blank"
+          className="underline hover:text-primary italic font-medium underline-offset-4"
+        >
+          answering these questions
+          <ExternalLink className="h-4 w-4 inline ml-1 mb-1" />
+        </Link>{" "}
+        in the coming weeks as we get ready to roll it out to more churches.
       </ArticleParagraph>
       <ArticleParagraph>
-        If you have any ideas or want to access to the alpha, reach out to me at{" "}
+        If you have any ideas or want access to the alpha, reach out to me at{" "}
         <a href="mailto:hey@thomasharmond.com" className="underline">
           hey@thomasharmond.com
         </a>
