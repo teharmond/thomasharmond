@@ -3,7 +3,7 @@ import React from "react";
 const articles = [
   {
     title: "The missing bridge in Church software",
-    description: "Why we need a GitHub for minsitry resources",
+    description: "Why we need a GitHub for ministry resources",
     link: "/ideas/missing-bridge",
   },
   {

@@ -7,7 +7,7 @@ import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "The missing bridge in Church software",
-  description: "Why we need a GitHub for minsitry resources",
+  description: "Why we need a GitHub for ministry resources",
 };
 
 const articles = [
@@ -43,7 +43,7 @@ export default function page() {
     <div className=" gap-4 flex flex-col">
       <ArticleHeader
         title="The missing bridge in Church software"
-        description="Why we need a GitHub for minsitry resources"
+        description="Why we need a GitHub for ministry resources"
       />
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//church-connections.png"

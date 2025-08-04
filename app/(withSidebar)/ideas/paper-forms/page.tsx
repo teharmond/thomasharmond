@@ -9,7 +9,7 @@ import ArticleParagraph from "../../../../components/ArticleParagraph";
 const articles = [
   {
     title: "The missing bridge in Church software",
-    description: "Why we need a GitHub for minsitry resources",
+    description: "Why we need a GitHub for ministry resources",
     link: "/ideas/missing-bridge",
   },
   {
