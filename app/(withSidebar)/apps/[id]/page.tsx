@@ -9,10 +9,11 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 
 interface AppPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-export default function AppPage({ params }: AppPageProps) {
+export default async function AppPage(props: AppPageProps) {
+  const params = await props.params;
   const app = appsData.find((app) => app.id === params.id);
 
   if (!app) {
