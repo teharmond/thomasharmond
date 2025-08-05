@@ -77,7 +77,6 @@ export function TaskDetail({
 
   if (!task) return null;
 
-
   const formatDate = (timestamp: number) => {
     return new Date(timestamp).toLocaleDateString("en-US", {
       month: "short",
@@ -96,7 +95,7 @@ export function TaskDetail({
           variant="ghost"
           size="icon"
           onClick={onClose}
-          className="h-8 w-8"
+          className="h-8 w-8 "
         >
           <X className="h-4 w-4" />
         </Button>
@@ -156,7 +155,6 @@ export function TaskDetail({
             onChange={(e) => handleDueDateChange(e.target.value)}
           />
         </div>
-
 
         <div className="pt-4 border-t">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ConvexHttpClient } from 'convex/browser';
 import { api } from '../../../convex/_generated/api';
+import { TaskStatus } from '../../(os)/tasks/status-select';
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
@@ -39,10 +40,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const taskId = await convex.mutation(api.tasks.createTaskWithApiKey, {
+    const taskData: { text: string; userId: string; status?: TaskStatus } = {
       text: body.title,
       userId: body.userId,
-    });
+    };
+
+    if (body.status) {
+      taskData.status = body.status;
+    }
+
+    const taskId = await convex.mutation(api.tasks.createTaskWithApiKey, taskData);
 
     return NextResponse.json({
       success: true,

@@ -29,7 +29,6 @@ import {
   XCircle,
   Copy,
 } from "lucide-react";
-import { TaskItem } from "./task-item";
 import { TaskStatus, StatusSelect } from "./status-select";
 import { TaskPriority, PrioritySelect } from "./priority-select";
 import { TaskDetail } from "./task-detail";
@@ -39,10 +38,8 @@ import {
   getCoreRowModel,
   getGroupedRowModel,
   getExpandedRowModel,
-  createColumnHelper,
   flexRender,
   ColumnDef,
-  Row,
   ExpandedState,
 } from "@tanstack/react-table";
 
@@ -57,44 +54,45 @@ type Task = {
   createdAt: number;
 };
 
-const statusGroups: Record<TaskStatus, {
-  label: string;
-  icon: React.ReactNode;
-  color: string;
-}> = {
-  backlog: {
-    label: "Backlog",
-    icon: <Archive className="h-4 w-4" />,
-    color: "text-gray-500",
+const statusGroups: Record<
+  TaskStatus,
+  {
+    label: string;
+    icon: React.ReactNode;
+    color: string;
+  }
+> = {
+  in_progress: {
+    label: "In Progress",
+    icon: <Loader2 className="h-4 w-4" />,
+    color: "text-yellow-500",
   },
   todo: {
     label: "Todo",
     icon: <Circle className="h-4 w-4" />,
     color: "text-blue-500",
   },
-  in_progress: {
-    label: "In Progress",
-    icon: <Loader2 className="h-4 w-4" />,
-    color: "text-yellow-500",
+  backlog: {
+    label: "Backlog",
+    icon: <Archive className="h-4 w-4" />,
+    color: "text-gray-500",
   },
   completed: {
     label: "Completed",
     icon: <CheckCircle2 className="h-4 w-4" />,
     color: "text-green-500",
   },
-  duplicate: {
-    label: "Duplicate",
-    icon: <Copy className="h-4 w-4" />,
-    color: "text-purple-500",
-  },
   canceled: {
     label: "Canceled",
     icon: <XCircle className="h-4 w-4" />,
     color: "text-red-500",
   },
+  duplicate: {
+    label: "Duplicate",
+    icon: <Copy className="h-4 w-4" />,
+    color: "text-purple-500",
+  },
 };
-
-const columnHelper = createColumnHelper<Task>();
 
 export default function TasksPage() {
   const { isSignedIn, isLoaded } = useUser();
@@ -104,18 +102,18 @@ export default function TasksPage() {
   const [isDesktop, setIsDesktop] = useState(false);
   const [deletingTasks, setDeletingTasks] = useState<Set<string>>(new Set());
   const [groupExpanded, setGroupExpanded] = useState<ExpandedState>(() => {
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
       return {
-        backlog: true,
-        todo: true,
         in_progress: true,
+        todo: true,
+        backlog: true,
         completed: false,
-        duplicate: false,
         canceled: false,
+        duplicate: false,
       };
     }
-    
-    const stored = localStorage.getItem('task-section-expanded');
+
+    const stored = localStorage.getItem("task-section-expanded");
     if (stored) {
       try {
         return JSON.parse(stored);
@@ -123,14 +121,14 @@ export default function TasksPage() {
         // Fall back to defaults if parsing fails
       }
     }
-    
+
     return {
-      backlog: true,
-      todo: true,
       in_progress: true,
+      todo: true,
+      backlog: true,
       completed: false,
-      duplicate: false,
       canceled: false,
+      duplicate: false,
     };
   });
 
@@ -146,7 +144,10 @@ export default function TasksPage() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('task-section-expanded', JSON.stringify(groupExpanded));
+    localStorage.setItem(
+      "task-section-expanded",
+      JSON.stringify(groupExpanded)
+    );
   }, [groupExpanded]);
 
   const tasksFromDb = useQuery(
@@ -216,14 +217,13 @@ export default function TasksPage() {
     });
   };
 
-
   const handleDeleteTask = (id: string) => {
     // Prevent multiple delete calls for the same task
     if (deletingTasks.has(id)) {
       return;
     }
 
-    setDeletingTasks(prev => new Set([...prev, id]));
+    setDeletingTasks((prev) => new Set([...prev, id]));
 
     startTransition(async () => {
       try {
@@ -242,7 +242,7 @@ export default function TasksPage() {
         console.error("Failed to delete task:", error);
       } finally {
         // Remove from deleting set
-        setDeletingTasks(prev => {
+        setDeletingTasks((prev) => {
           const next = new Set(prev);
           next.delete(id);
           return next;
@@ -273,72 +273,79 @@ export default function TasksPage() {
     setSelectedTask(null);
   };
 
-  const columns = useMemo<ColumnDef<Task, any>[]>(() => [
-    {
-      id: 'status',
-      accessorKey: 'status',
-      header: 'Status',
-      cell: () => null,
-      enableGrouping: true,
-    } as ColumnDef<Task, any>,
-    {
-      id: 'title',
-      accessorKey: 'text',
-      header: 'Title',
-      cell: ({ row }) => (
-        <div 
-          className="cursor-pointer hover:bg-accent/50 p-2 rounded transition-colors"
-          onClick={() => handleTaskClick(row.original)}
-        >
-          <div className="font-medium">{row.original.text}</div>
-          {row.original.description && (
-            <div className="text-sm text-muted-foreground mt-1">
-              {row.original.description}
-            </div>
-          )}
-        </div>
-      ),
-    } as ColumnDef<Task, any>,
-    {
-      id: 'priority',
-      accessorKey: 'priority',
-      header: 'Priority',
-      cell: ({ row }) => (
-        <div className="flex items-center justify-center">
-          <PrioritySelect
-            value={row.original.priority}
-            onValueChange={(priority: TaskPriority) => handleUpdatePriority(row.original._id, priority)}
-          />
-        </div>
-      ),
-    } as ColumnDef<Task, any>,
-    {
-      id: 'dueDate',
-      accessorKey: 'dueDate',
-      header: 'Due Date',
-      cell: ({ row }) => (
-        <div className="text-center">
-          {row.original.dueDate ? (
-            new Date(row.original.dueDate).toLocaleDateString()
-          ) : (
-            <span className="text-muted-foreground">-</span>
-          )}
-        </div>
-      ),
-    } as ColumnDef<Task, any>,
-    {
-      id: 'actions',
-      header: 'Actions',
-      cell: ({ row }) => (
-        <div className="flex items-center justify-center gap-2">
-          <StatusSelect
-            value={row.original.status}
-            onValueChange={(status: TaskStatus) => handleUpdateStatus(row.original._id, status)}
-          />
-        </div>
-      ),
-    } as ColumnDef<Task, any>,
-  ], [handleUpdateStatus, handleUpdatePriority, handleTaskClick]);
+  const columns = useMemo<ColumnDef<Task, any>[]>(
+    () => [
+      {
+        id: "status",
+        accessorKey: "status",
+        header: "Status",
+        cell: () => null,
+        enableGrouping: true,
+      } as ColumnDef<Task, any>,
+      {
+        id: "title",
+        accessorKey: "text",
+        header: "Title",
+        cell: ({ row }) => (
+          <div
+            className="cursor-pointer hover:bg-accent/50 p-2 rounded transition-colors"
+            onClick={() => handleTaskClick(row.original)}
+          >
+            <div className="font-medium text-sm">{row.original.text}</div>
+            {row.original.description && (
+              <div className="text-sm text-muted-foreground mt-1">
+                {row.original.description}
+              </div>
+            )}
+          </div>
+        ),
+      } as ColumnDef<Task, any>,
+      {
+        id: "priority",
+        accessorKey: "priority",
+        header: "Priority",
+        cell: ({ row }) => (
+          <div className="flex items-center justify-center">
+            <PrioritySelect
+              value={row.original.priority}
+              onValueChange={(priority: TaskPriority) =>
+                handleUpdatePriority(row.original._id, priority)
+              }
+            />
+          </div>
+        ),
+      } as ColumnDef<Task, any>,
+      {
+        id: "dueDate",
+        accessorKey: "dueDate",
+        header: "Due Date",
+        cell: ({ row }) => (
+          <div className="text-center">
+            {row.original.dueDate ? (
+              new Date(row.original.dueDate).toLocaleDateString()
+            ) : (
+              <span className="text-muted-foreground">-</span>
+            )}
+          </div>
+        ),
+      } as ColumnDef<Task, any>,
+      {
+        id: "actions",
+        header: "Actions",
+        cell: ({ row }) => (
+          <div className="flex items-center justify-center gap-2">
+            <StatusSelect
+              value={row.original.status}
+              onValueChange={(status: TaskStatus) =>
+                handleUpdateStatus(row.original._id, status)
+              }
+            />
+          </div>
+        ),
+      } as ColumnDef<Task, any>,
+    ],
+    [handleUpdateStatus, handleUpdatePriority, handleTaskClick]
+  );
 
   const table = useReactTable({
     data: optimisticTasks || [],
@@ -347,7 +354,7 @@ export default function TasksPage() {
     getGroupedRowModel: getGroupedRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
     initialState: {
-      grouping: ['status'],
+      grouping: ["status"],
       expanded: groupExpanded,
     },
     state: {
@@ -382,7 +389,7 @@ export default function TasksPage() {
         animate={{
           marginRight: selectedTask && isDesktop ? "512px" : "0px",
         }}
-        transition={{ type: "spring", damping: 30, stiffness: 400 }}
+        transition={{ type: "spring", damping: 50, stiffness: 1000 }}
         className="flex-1 h-full"
         onClick={() => selectedTask && handleCloseDetail()}
       >
@@ -404,16 +411,23 @@ export default function TasksPage() {
               </form>
             </div>
 
-            <div className="flex-1 overflow-auto" onClick={(e) => e.stopPropagation()}>
+            <div
+              className="flex-1 overflow-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
               {optimisticTasks.length === 0 ? (
                 <div className="text-center py-12">
-                  <p className="text-muted-foreground text-lg">No tasks yet. Add one above!</p>
+                  <p className="text-muted-foreground text-lg">
+                    No tasks yet. Add one above!
+                  </p>
                 </div>
               ) : (
                 <div className="space-y-6">
                   {table.getRowModel().rows.map((row) => {
                     if (row.getIsGrouped()) {
-                      const groupValue = row.getGroupingValue('status') as TaskStatus;
+                      const groupValue = row.getGroupingValue(
+                        "status"
+                      ) as TaskStatus;
                       const group = statusGroups[groupValue];
                       const isExpanded = row.getIsExpanded();
                       const tasksCount = row.subRows.length;
@@ -434,12 +448,17 @@ export default function TasksPage() {
                               ) : (
                                 <ChevronRight className="h-5 w-5" />
                               )}
-                              <div className={`flex items-center gap-3 ${group.color}`}>
+                              <div
+                                className={`flex items-center gap-3 ${group.color}`}
+                              >
                                 {group.icon}
-                                <span className="font-semibold text-lg">{group.label}</span>
+                                <span className="font-semibold text-lg">
+                                  {group.label}
+                                </span>
                               </div>
                               <span className="text-muted-foreground text-sm ml-auto bg-muted px-2 py-1 rounded">
-                                {tasksCount} {tasksCount === 1 ? 'task' : 'tasks'}
+                                {tasksCount}{" "}
+                                {tasksCount === 1 ? "task" : "tasks"}
                               </span>
                             </CollapsibleTrigger>
                             <CollapsibleContent>
@@ -448,37 +467,56 @@ export default function TasksPage() {
                                   <table className="w-full">
                                     <thead>
                                       <tr className="border-b bg-muted/50">
-                                        <th className="text-left p-3 font-medium text-sm">Title</th>
-                                        <th className="text-center p-3 font-medium text-sm w-32">Priority</th>
-                                        <th className="text-center p-3 font-medium text-sm w-32">Due Date</th>
-                                        <th className="text-center p-3 font-medium text-sm w-40">Status</th>
+                                        <th className="text-left p-3 font-medium text-sm">
+                                          Title
+                                        </th>
+                                        <th className="text-center p-3 font-medium text-sm w-32">
+                                          Priority
+                                        </th>
+                                        <th className="text-center p-3 font-medium text-sm w-32">
+                                          Due Date
+                                        </th>
+                                        <th className="text-center p-3 font-medium text-sm w-40">
+                                          Status
+                                        </th>
                                       </tr>
                                     </thead>
                                     <tbody>
                                       {row.subRows.map((subRow, index) => (
-                                        <tr key={subRow.id} className={`border-b last:border-b-0 hover:bg-muted/30 transition-colors ${index % 2 === 0 ? 'bg-muted/10' : ''}`}>
+                                        <tr
+                                          key={subRow.id}
+                                          className={`border-b last:border-b-0 hover:bg-muted/30 transition-colors ${index % 2 === 0 ? "bg-muted/10" : ""}`}
+                                        >
                                           <td className="p-3">
                                             {flexRender(
                                               columns[1].cell,
-                                              subRow.getVisibleCells()[1].getContext()
+                                              subRow
+                                                .getVisibleCells()[1]
+                                                .getContext()
                                             )}
                                           </td>
                                           <td className="p-3 text-center">
                                             {flexRender(
                                               columns[2].cell,
-                                              subRow.getVisibleCells()[2].getContext()
+                                              subRow
+                                                .getVisibleCells()[2]
+                                                .getContext()
                                             )}
                                           </td>
                                           <td className="p-3 text-center">
                                             {flexRender(
                                               columns[3].cell,
-                                              subRow.getVisibleCells()[3].getContext()
+                                              subRow
+                                                .getVisibleCells()[3]
+                                                .getContext()
                                             )}
                                           </td>
                                           <td className="p-3 text-center">
                                             {flexRender(
                                               columns[4].cell,
-                                              subRow.getVisibleCells()[4].getContext()
+                                              subRow
+                                                .getVisibleCells()[4]
+                                                .getContext()
                                             )}
                                           </td>
                                         </tr>
@@ -508,7 +546,7 @@ export default function TasksPage() {
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
-            transition={{ type: "spring", damping: 40, stiffness: 500 }}
+            transition={{ type: "spring", damping: 50, stiffness: 1000 }}
             className="hidden md:block fixed top-0 right-0 w-[32rem] h-full border-l bg-background shadow-xl z-50"
           >
             <TaskDetail
