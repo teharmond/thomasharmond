@@ -107,7 +107,7 @@ export function OpenGraphPreview({
     if (variant === "compact") {
       return (
         <Card
-          className={`group mx-2 hover:shadow-md transition-all duration-200 cursor-pointer border hover:border-border/80 ${className}`}
+          className={`group mx-2 hover:shadow-md transition-all duration-200 cursor-pointer border hover:border-gray-300 ${className}`}
           onClick={handleClick}
         >
           <CardContent className="p-3">
