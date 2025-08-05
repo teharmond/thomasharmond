@@ -15,17 +15,22 @@ interface TaskItemProps {
   onDelete: (id: string) => void;
 }
 
-export function TaskItem({ task, onUpdateStatus, onUpdatePriority, onDelete }: TaskItemProps) {
+export function TaskItem({
+  task,
+  onUpdateStatus,
+  onUpdatePriority,
+  onDelete,
+}: TaskItemProps) {
   return (
-    <div className="flex items-center gap-3 p-3 border rounded-lg">
-      <div className="flex-1">
+    <div className="flex items-center gap-3 p-3 border rounded-lg ">
+      <div className="flex-1 text-sm">
         <span
           className={
             task.status === "completed"
               ? "line-through text-muted-foreground"
               : task.status === "canceled"
-              ? "line-through text-muted-foreground opacity-50"
-              : ""
+                ? "line-through text-muted-foreground opacity-50"
+                : ""
           }
         >
           {task.text}
@@ -39,11 +44,7 @@ export function TaskItem({ task, onUpdateStatus, onUpdatePriority, onDelete }: T
         value={task.status}
         onValueChange={(status) => onUpdateStatus(task._id, status)}
       />
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={() => onDelete(task._id)}
-      >
+      <Button variant="outline" size="sm" onClick={() => onDelete(task._id)}>
         <Trash2 className="h-4 w-4" />
       </Button>
     </div>

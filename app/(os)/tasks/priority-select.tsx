@@ -14,39 +14,43 @@ interface PrioritySelectProps {
   onValueChange: (value: TaskPriority) => void;
 }
 
-const priorityConfig: Record<TaskPriority, { label: string; icon: React.ReactNode; color: string }> = {
-  low: { 
-    label: "Low", 
+const priorityConfig: Record<
+  TaskPriority,
+  { label: string; icon: React.ReactNode; color: string }
+> = {
+  low: {
+    label: "Low",
     icon: <ArrowDown className="h-4 w-4" />,
-    color: "text-gray-500" 
+    color: "text-gray-500",
   },
-  medium: { 
-    label: "Medium", 
+  medium: {
+    label: "Medium",
     icon: <Minus className="h-4 w-4" />,
-    color: "text-blue-500" 
+    color: "text-blue-500",
   },
-  high: { 
-    label: "High", 
+  high: {
+    label: "High",
     icon: <ArrowUp className="h-4 w-4" />,
-    color: "text-orange-500" 
+    color: "text-orange-500",
   },
-  urgent: { 
-    label: "Urgent", 
+  urgent: {
+    label: "Urgent",
     icon: <AlertCircle className="h-4 w-4" />,
-    color: "text-red-500" 
+    color: "text-red-500",
   },
 };
 
 export function PrioritySelect({ value, onValueChange }: PrioritySelectProps) {
   const currentValue = value || "medium";
-  
+
   return (
     <Select value={currentValue} onValueChange={onValueChange}>
-      <SelectTrigger className="w-[120px]">
+      <SelectTrigger className="w-[40px] rounded-full" hideIcon>
         <SelectValue>
-          <div className={`flex items-center gap-1 ${priorityConfig[currentValue].color}`}>
+          <div
+            className={`flex items-center justify-center ${priorityConfig[currentValue].color}`}
+          >
             {priorityConfig[currentValue].icon}
-            <span>{priorityConfig[currentValue].label}</span>
           </div>
         </SelectValue>
       </SelectTrigger>
