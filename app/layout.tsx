@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ClerkProvider } from "@clerk/nextjs";
+import ConvexClientProvider from "@/wrappers/convex-provider-with-clerk";
 
 export const metadata: Metadata = {
   title: "Thomas Harmond",
@@ -16,14 +17,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={GeistMono.className}>
-          {children}
-          <Toaster />
-          <Analytics />
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      <body className={GeistMono.className}>
+        <ClerkProvider>
+          <ConvexClientProvider>
+            {children}
+            <Toaster />
+            <Analytics />
+          </ConvexClientProvider>
+        </ClerkProvider>
+      </body>
+    </html>
   );
 }
