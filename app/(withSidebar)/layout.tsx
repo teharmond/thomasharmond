@@ -10,7 +10,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
           <Link href="/" className=" font-medium ">
             Thomas Harmond
           </Link>
-          <div className=" text-[hsl(var(--muted-foreground))] ">
+          <div className=" text-muted-foreground ">
             <div className="flex items-center gap-1">
               <p>This is my notebook.</p>
               <div className="h-5 w-1 rounded-full bg-blue-500 animate-blink" />
@@ -20,15 +20,15 @@ export default function layout({ children }: { children: React.ReactNode }) {
 
         {children}
         <Substack />
-        <footer className="text-xs text-[hsl(var(--muted-foreground))] my-12 flex  gap-3 px-2">
+        <footer className="text-xs text-muted-foreground my-12 flex  gap-3 px-2">
           <Link href="/" className="hover:underline">
             Home
           </Link>
-          <span className="text-[hsl(var(--muted-foreground))]">|</span>
+          <span className="text-muted-foreground">|</span>
           <Link href="/about" className="hover:underline">
             About
           </Link>
-          <span className="text-[hsl(var(--muted-foreground))]">|</span>
+          <span className="text-muted-foreground">|</span>
           <Link href="mailto:hey@thomasharmond.com" className="hover:underline">
             hey@thomasharmond.com
           </Link>

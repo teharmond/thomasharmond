@@ -1,22 +1,53 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useOptimistic, useTransition } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Trash2, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
+import { TaskItem } from "./task-item";
+import { TaskStatus } from "./status-select";
+import { TaskPriority } from "./priority-select";
+
+type Task = {
+  _id: string;
+  text: string;
+  status: TaskStatus;
+  priority: TaskPriority;
+  userId: string;
+  createdAt: number;
+};
 
 export default function TasksPage() {
   const { isSignedIn, isLoaded } = useUser();
   const [newTask, setNewTask] = useState("");
+  const [isPending, startTransition] = useTransition();
 
-  const tasks = useQuery(api.tasks.getTasks, isSignedIn ? undefined : "skip");
+  const tasksFromDb = useQuery(api.tasks.getTasks, isSignedIn ? undefined : "skip");
   const createTask = useMutation(api.tasks.createTask);
   const updateTask = useMutation(api.tasks.updateTask);
   const deleteTask = useMutation(api.tasks.deleteTask);
+
+  const [optimisticTasks, setOptimisticTasks] = useOptimistic(
+    tasksFromDb || [],
+    (state: Task[], update: { type: string; id?: string; task?: Partial<Task> }) => {
+      switch (update.type) {
+        case "update":
+          return state.map(task => 
+            task._id === update.id 
+              ? { ...task, ...update.task } 
+              : task
+          );
+        case "delete":
+          return state.filter(task => task._id !== update.id);
+        default:
+          return state;
+      }
+    }
+  );
 
   if (!isLoaded) {
     return <div className="p-6">Loading...</div>;
@@ -37,21 +68,59 @@ export default function TasksPage() {
   const handleAddTask = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newTask.trim()) {
-      await createTask({ text: newTask.trim() });
+      await createTask({ 
+        text: newTask.trim(),
+        status: "todo",
+        priority: "medium"
+      });
       setNewTask("");
     }
   };
 
-  const handleToggleTask = async (id: string, completed: boolean) => {
-    await updateTask({ id: id as any, completed: !completed });
+  const handleUpdateStatus = (id: string, status: TaskStatus) => {
+    startTransition(async () => {
+      // Optimistically update the UI
+      setOptimisticTasks({ type: "update", id, task: { status } });
+      
+      try {
+        await updateTask({ id: id as any, status });
+      } catch (error) {
+        // The UI will automatically revert when tasksFromDb updates
+        console.error("Failed to update status:", error);
+      }
+    });
   };
 
-  const handleDeleteTask = async (id: string) => {
-    await deleteTask({ id: id as any });
+  const handleUpdatePriority = (id: string, priority: TaskPriority) => {
+    startTransition(async () => {
+      // Optimistically update the UI
+      setOptimisticTasks({ type: "update", id, task: { priority } });
+      
+      try {
+        await updateTask({ id: id as any, priority });
+      } catch (error) {
+        // The UI will automatically revert when tasksFromDb updates
+        console.error("Failed to update priority:", error);
+      }
+    });
+  };
+
+  const handleDeleteTask = (id: string) => {
+    startTransition(async () => {
+      // Optimistically remove from UI
+      setOptimisticTasks({ type: "delete", id });
+      
+      try {
+        await deleteTask({ id: id as any });
+      } catch (error) {
+        // The UI will automatically revert when tasksFromDb updates
+        console.error("Failed to delete task:", error);
+      }
+    });
   };
 
   return (
-    <div className="p-6 max-w-2xl mx-auto">
+    <div className="p-6 max-w-4xl mx-auto">
       <Card>
         <CardHeader>
           <CardTitle>My Tasks</CardTitle>
@@ -65,41 +134,22 @@ export default function TasksPage() {
               className="flex-1"
             />
             <Button type="submit" disabled={!newTask.trim()}>
-              <Plus className="h-4 w-4" />
+              <Plus className="h-4 w-4 mr-1" />
+              Add Task
             </Button>
           </form>
 
           <div className="space-y-2">
-            {tasks?.map((task) => (
-              <div
+            {optimisticTasks.map((task) => (
+              <TaskItem
                 key={task._id}
-                className="flex items-center gap-3 p-3 border rounded-lg"
-              >
-                <input
-                  type="checkbox"
-                  checked={task.completed}
-                  onChange={() => handleToggleTask(task._id, task.completed)}
-                  className="h-4 w-4"
-                />
-                <span
-                  className={`flex-1 ${
-                    task.completed
-                      ? "line-through text-muted-foreground"
-                      : ""
-                  }`}
-                >
-                  {task.text}
-                </span>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleDeleteTask(task._id)}
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </div>
+                task={task}
+                onUpdateStatus={handleUpdateStatus}
+                onUpdatePriority={handleUpdatePriority}
+                onDelete={handleDeleteTask}
+              />
             ))}
-            {tasks?.length === 0 && (
+            {optimisticTasks.length === 0 && (
               <p className="text-muted-foreground text-center py-4">
                 No tasks yet. Add one above!
               </p>

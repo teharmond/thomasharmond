@@ -56,7 +56,7 @@ export default function Home() {
           <h2 className="transition-colors group-hover:text-blue-600 ">
             {article.title}
           </h2>
-          <p className="text-sm text-[hsl(var(--muted-foreground))] font-light">
+          <p className="text-sm text-muted-foreground font-light">
             {article.description}
           </p>
         </a>
