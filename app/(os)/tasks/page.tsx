@@ -102,6 +102,7 @@ export default function TasksPage() {
   const [, startTransition] = useTransition();
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [deletingTasks, setDeletingTasks] = useState<Set<string>>(new Set());
   const [groupExpanded, setGroupExpanded] = useState<ExpandedState>(() => {
     if (typeof window === 'undefined') {
       return {
@@ -215,16 +216,37 @@ export default function TasksPage() {
     });
   };
 
-  const handleDeleteTask = (id: string) => {
-    startTransition(async () => {
-      // Optimistically remove from UI
-      setOptimisticTasks({ type: "delete", id });
 
+  const handleDeleteTask = (id: string) => {
+    // Prevent multiple delete calls for the same task
+    if (deletingTasks.has(id)) {
+      return;
+    }
+
+    setDeletingTasks(prev => new Set([...prev, id]));
+
+    startTransition(async () => {
       try {
+        // Close the detail panel immediately to prevent race conditions
+        if (selectedTask?._id === id) {
+          setSelectedTask(null);
+        }
+
+        // Optimistically remove from UI
+        setOptimisticTasks({ type: "delete", id });
+
+        // Perform the actual delete
         await deleteTask({ id: id as any });
       } catch (error) {
         // The UI will automatically revert when tasksFromDb updates
         console.error("Failed to delete task:", error);
+      } finally {
+        // Remove from deleting set
+        setDeletingTasks(prev => {
+          const next = new Set(prev);
+          next.delete(id);
+          return next;
+        });
       }
     });
   };
@@ -319,7 +341,7 @@ export default function TasksPage() {
   ], [handleUpdateStatus, handleUpdatePriority, handleTaskClick]);
 
   const table = useReactTable({
-    data: optimisticTasks,
+    data: optimisticTasks || [],
     columns,
     getCoreRowModel: getCoreRowModel(),
     getGroupedRowModel: getGroupedRowModel(),
@@ -333,6 +355,8 @@ export default function TasksPage() {
     },
     onExpandedChange: setGroupExpanded,
     groupedColumnMode: false,
+    autoResetExpanded: false,
+    autoResetPageIndex: false,
   });
 
   if (!isLoaded) {

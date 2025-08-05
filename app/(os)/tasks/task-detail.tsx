@@ -169,10 +169,7 @@ export function TaskDetail({
       <div className="flex gap-2 p-4 border-t">
         <Button
           variant="destructive"
-          onClick={() => {
-            onDelete(task._id);
-            onClose();
-          }}
+          onClick={() => onDelete(task._id)}
           className="w-full"
         >
           Delete Task
