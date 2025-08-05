@@ -5,6 +5,7 @@ import React, {
   useOptimistic,
   useTransition,
   useEffect,
+  useMemo,
 } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useQuery, useMutation } from "convex/react";
@@ -29,10 +30,21 @@ import {
   Copy,
 } from "lucide-react";
 import { TaskItem } from "./task-item";
-import { TaskStatus } from "./status-select";
-import { TaskPriority } from "./priority-select";
+import { TaskStatus, StatusSelect } from "./status-select";
+import { TaskPriority, PrioritySelect } from "./priority-select";
 import { TaskDetail } from "./task-detail";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  useReactTable,
+  getCoreRowModel,
+  getGroupedRowModel,
+  getExpandedRowModel,
+  createColumnHelper,
+  flexRender,
+  ColumnDef,
+  Row,
+  ExpandedState,
+} from "@tanstack/react-table";
 
 type Task = {
   _id: string;
@@ -45,59 +57,59 @@ type Task = {
   createdAt: number;
 };
 
-const statusGroups: {
-  key: TaskStatus;
+const statusGroups: Record<TaskStatus, {
   label: string;
   icon: React.ReactNode;
   color: string;
-}[] = [
-  {
-    key: "backlog",
+}> = {
+  backlog: {
     label: "Backlog",
     icon: <Archive className="h-4 w-4" />,
     color: "text-gray-500",
   },
-  {
-    key: "todo",
+  todo: {
     label: "Todo",
     icon: <Circle className="h-4 w-4" />,
     color: "text-blue-500",
   },
-  {
-    key: "in_progress",
+  in_progress: {
     label: "In Progress",
     icon: <Loader2 className="h-4 w-4" />,
     color: "text-yellow-500",
   },
-  {
-    key: "completed",
+  completed: {
     label: "Completed",
     icon: <CheckCircle2 className="h-4 w-4" />,
     color: "text-green-500",
   },
-  {
-    key: "duplicate",
+  duplicate: {
     label: "Duplicate",
     icon: <Copy className="h-4 w-4" />,
     color: "text-purple-500",
   },
-  {
-    key: "canceled",
+  canceled: {
     label: "Canceled",
     icon: <XCircle className="h-4 w-4" />,
     color: "text-red-500",
   },
-];
+};
+
+const columnHelper = createColumnHelper<Task>();
 
 export default function TasksPage() {
   const { isSignedIn, isLoaded } = useUser();
   const [newTask, setNewTask] = useState("");
   const [, startTransition] = useTransition();
-  const [collapsedSections, setCollapsedSections] = useState<Set<TaskStatus>>(
-    new Set(["completed", "duplicate", "canceled"])
-  );
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [groupExpanded, setGroupExpanded] = useState<ExpandedState>({
+    backlog: true,
+    todo: true,
+    in_progress: true,
+    completed: false,
+    duplicate: false,
+    canceled: false,
+  });
 
   useEffect(() => {
     const checkIsDesktop = () => {
@@ -136,22 +148,6 @@ export default function TasksPage() {
       }
     }
   );
-
-  if (!isLoaded) {
-    return <div className="p-6">Loading...</div>;
-  }
-
-  if (!isSignedIn) {
-    return (
-      <div className="p-6">
-        <Card>
-          <CardContent className="p-6">
-            <p>Please sign in to access your tasks.</p>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
 
   const handleAddTask = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -229,6 +225,106 @@ export default function TasksPage() {
     setSelectedTask(null);
   };
 
+  const columns = useMemo<ColumnDef<Task, any>[]>(() => [
+    {
+      id: 'status',
+      accessorKey: 'status',
+      header: 'Status',
+      cell: () => null,
+      enableGrouping: true,
+    } as ColumnDef<Task, any>,
+    {
+      id: 'title',
+      accessorKey: 'text',
+      header: 'Title',
+      cell: ({ row }) => (
+        <div 
+          className="cursor-pointer hover:bg-accent/50 p-2 rounded transition-colors"
+          onClick={() => handleTaskClick(row.original)}
+        >
+          <div className="font-medium">{row.original.text}</div>
+          {row.original.description && (
+            <div className="text-sm text-muted-foreground mt-1">
+              {row.original.description}
+            </div>
+          )}
+        </div>
+      ),
+    } as ColumnDef<Task, any>,
+    {
+      id: 'priority',
+      accessorKey: 'priority',
+      header: 'Priority',
+      cell: ({ row }) => (
+        <div className="flex items-center justify-center">
+          <PrioritySelect
+            value={row.original.priority}
+            onValueChange={(priority: TaskPriority) => handleUpdatePriority(row.original._id, priority)}
+          />
+        </div>
+      ),
+    } as ColumnDef<Task, any>,
+    {
+      id: 'dueDate',
+      accessorKey: 'dueDate',
+      header: 'Due Date',
+      cell: ({ row }) => (
+        <div className="text-center">
+          {row.original.dueDate ? (
+            new Date(row.original.dueDate).toLocaleDateString()
+          ) : (
+            <span className="text-muted-foreground">-</span>
+          )}
+        </div>
+      ),
+    } as ColumnDef<Task, any>,
+    {
+      id: 'actions',
+      header: 'Actions',
+      cell: ({ row }) => (
+        <div className="flex items-center justify-center gap-2">
+          <StatusSelect
+            value={row.original.status}
+            onValueChange={(status: TaskStatus) => handleUpdateStatus(row.original._id, status)}
+          />
+        </div>
+      ),
+    } as ColumnDef<Task, any>,
+  ], [handleUpdateStatus, handleUpdatePriority, handleTaskClick]);
+
+  const table = useReactTable({
+    data: optimisticTasks,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getGroupedRowModel: getGroupedRowModel(),
+    getExpandedRowModel: getExpandedRowModel(),
+    initialState: {
+      grouping: ['status'],
+      expanded: groupExpanded,
+    },
+    state: {
+      expanded: groupExpanded,
+    },
+    onExpandedChange: setGroupExpanded,
+    groupedColumnMode: false,
+  });
+
+  if (!isLoaded) {
+    return <div className="p-6">Loading...</div>;
+  }
+
+  if (!isSignedIn) {
+    return (
+      <div className="p-6">
+        <Card>
+          <CardContent className="p-6">
+            <p>Please sign in to access your tasks.</p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Main task list area - shifts over on desktop */}
@@ -236,95 +332,122 @@ export default function TasksPage() {
         animate={{
           marginRight: selectedTask && isDesktop ? "512px" : "0px",
         }}
-        transition={{ type: "spring", damping: 25, stiffness: 200 }}
+        transition={{ type: "spring", damping: 30, stiffness: 400 }}
         className="flex-1 h-full"
+        onClick={() => selectedTask && handleCloseDetail()}
       >
-        <div className="md:p-6 p-0 max-w-4xl mx-auto h-full">
-          <Card className="border-none shadow-none h-full">
-            <CardHeader className="p-3">
-              <CardTitle>My Tasks</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4 p-3 overflow-y-auto">
+        <div className="w-full h-full p-6">
+          <div className="h-full flex flex-col">
+            <div className="mb-6">
+              <h1 className="text-2xl font-bold mb-4">My Tasks</h1>
               <form onSubmit={handleAddTask} className="flex gap-2">
                 <Input
                   value={newTask}
                   onChange={(e) => setNewTask(e.target.value)}
                   placeholder="Add a new task..."
-                  className="flex-1 h-9"
+                  className="flex-1"
                 />
-                <Button
-                  size="icon"
-                  className="h-8.8 w-9"
-                  type="submit"
-                  disabled={!newTask.trim()}
-                >
-                  <Plus className="h-4 w-4" />
+                <Button type="submit" disabled={!newTask.trim()}>
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add Task
                 </Button>
               </form>
+            </div>
 
-              <div className="space-y-4">
-                {statusGroups.map((group) => {
-                  const tasksInGroup = optimisticTasks.filter(
-                    (task) => task.status === group.key
-                  );
-                  if (tasksInGroup.length === 0) return null;
+            <div className="flex-1 overflow-auto" onClick={(e) => e.stopPropagation()}>
+              {optimisticTasks.length === 0 ? (
+                <div className="text-center py-12">
+                  <p className="text-muted-foreground text-lg">No tasks yet. Add one above!</p>
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  {table.getRowModel().rows.map((row) => {
+                    if (row.getIsGrouped()) {
+                      const groupValue = row.getGroupingValue('status') as TaskStatus;
+                      const group = statusGroups[groupValue];
+                      const isExpanded = row.getIsExpanded();
+                      const tasksCount = row.subRows.length;
 
-                  const isCollapsed = collapsedSections.has(group.key);
+                      if (tasksCount === 0) return null;
 
-                  return (
-                    <div key={group.key} className="space-y-2">
-                      <Collapsible
-                        open={!isCollapsed}
-                        onOpenChange={(open) => {
-                          const newCollapsed = new Set(collapsedSections);
-                          if (open) {
-                            newCollapsed.delete(group.key);
-                          } else {
-                            newCollapsed.add(group.key);
-                          }
-                          setCollapsedSections(newCollapsed);
-                        }}
-                      >
-                        <CollapsibleTrigger className="flex items-center gap-2 w-full p-2 hover:bg-accent rounded-md transition-colors">
-                          {isCollapsed ? (
-                            <ChevronRight className="h-4 w-4" />
-                          ) : (
-                            <ChevronDown className="h-4 w-4" />
-                          )}
-                          <div
-                            className={`flex items-center gap-2 ${group.color}`}
+                      return (
+                        <div key={row.id} className="bg-card rounded-lg border">
+                          <Collapsible
+                            open={isExpanded}
+                            onOpenChange={(open) => {
+                              row.toggleExpanded(open);
+                            }}
                           >
-                            {group.icon}
-                            <span className="font-medium">{group.label}</span>
-                          </div>
-                          <span className="text-muted-foreground text-sm ml-auto">
-                            {tasksInGroup.length}
-                          </span>
-                        </CollapsibleTrigger>
-                        <CollapsibleContent className="space-y-2 mt-2">
-                          {tasksInGroup.map((task) => (
-                            <TaskItem
-                              key={task._id}
-                              task={task}
-                              onUpdateStatus={handleUpdateStatus}
-                              onUpdatePriority={handleUpdatePriority}
-                              onDelete={handleDeleteTask}
-                              onClick={() => handleTaskClick(task)}
-                            />
-                          ))}
-                        </CollapsibleContent>
-                      </Collapsible>
-                    </div>
-                  );
-                })}
-                {optimisticTasks.length === 0 && (
-                  <p className="text-muted-foreground text-center py-4">
-                    No tasks yet. Add one above!
-                  </p>
-                )}
-              </div>
-            </CardContent>
-          </Card>
+                            <CollapsibleTrigger className="flex items-center gap-3 w-full p-4 hover:bg-accent transition-colors">
+                              {isExpanded ? (
+                                <ChevronDown className="h-5 w-5" />
+                              ) : (
+                                <ChevronRight className="h-5 w-5" />
+                              )}
+                              <div className={`flex items-center gap-3 ${group.color}`}>
+                                {group.icon}
+                                <span className="font-semibold text-lg">{group.label}</span>
+                              </div>
+                              <span className="text-muted-foreground text-sm ml-auto bg-muted px-2 py-1 rounded">
+                                {tasksCount} {tasksCount === 1 ? 'task' : 'tasks'}
+                              </span>
+                            </CollapsibleTrigger>
+                            <CollapsibleContent>
+                              <div className="px-4 pb-4">
+                                <div className="bg-background rounded border">
+                                  <table className="w-full">
+                                    <thead>
+                                      <tr className="border-b bg-muted/50">
+                                        <th className="text-left p-3 font-medium text-sm">Title</th>
+                                        <th className="text-center p-3 font-medium text-sm w-32">Priority</th>
+                                        <th className="text-center p-3 font-medium text-sm w-32">Due Date</th>
+                                        <th className="text-center p-3 font-medium text-sm w-40">Status</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {row.subRows.map((subRow, index) => (
+                                        <tr key={subRow.id} className={`border-b last:border-b-0 hover:bg-muted/30 transition-colors ${index % 2 === 0 ? 'bg-muted/10' : ''}`}>
+                                          <td className="p-3">
+                                            {flexRender(
+                                              columns[1].cell,
+                                              subRow.getVisibleCells()[1].getContext()
+                                            )}
+                                          </td>
+                                          <td className="p-3 text-center">
+                                            {flexRender(
+                                              columns[2].cell,
+                                              subRow.getVisibleCells()[2].getContext()
+                                            )}
+                                          </td>
+                                          <td className="p-3 text-center">
+                                            {flexRender(
+                                              columns[3].cell,
+                                              subRow.getVisibleCells()[3].getContext()
+                                            )}
+                                          </td>
+                                          <td className="p-3 text-center">
+                                            {flexRender(
+                                              columns[4].cell,
+                                              subRow.getVisibleCells()[4].getContext()
+                                            )}
+                                          </td>
+                                        </tr>
+                                      ))}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </CollapsibleContent>
+                          </Collapsible>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </motion.div>
 
@@ -335,7 +458,7 @@ export default function TasksPage() {
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
-            transition={{ type: "spring", damping: 35, stiffness: 300 }}
+            transition={{ type: "spring", damping: 40, stiffness: 500 }}
             className="hidden md:block fixed top-0 right-0 w-[32rem] h-full border-l bg-background shadow-xl z-50"
           >
             <TaskDetail
@@ -353,22 +476,33 @@ export default function TasksPage() {
       {/* Mobile bottom sheet */}
       <AnimatePresence>
         {selectedTask && (
-          <motion.div
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "100%" }}
-            transition={{ type: "spring", damping: 35, stiffness: 300 }}
-            className="md:hidden fixed inset-0 bg-background shadow-xl z-50 overflow-y-auto"
-          >
-            <TaskDetail
-              task={selectedTask}
-              onClose={handleCloseDetail}
-              onUpdateStatus={handleUpdateStatus}
-              onUpdatePriority={handleUpdatePriority}
-              onUpdateTask={handleUpdateTask}
-              onDelete={handleDeleteTask}
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="md:hidden fixed inset-0 bg-black/50 z-40"
+              onClick={handleCloseDetail}
             />
-          </motion.div>
+            {/* Sheet */}
+            <motion.div
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 40, stiffness: 500 }}
+              className="md:hidden fixed inset-0 bg-background shadow-xl z-50 overflow-y-auto"
+            >
+              <TaskDetail
+                task={selectedTask}
+                onClose={handleCloseDetail}
+                onUpdateStatus={handleUpdateStatus}
+                onUpdatePriority={handleUpdatePriority}
+                onUpdateTask={handleUpdateTask}
+                onDelete={handleDeleteTask}
+              />
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </div>

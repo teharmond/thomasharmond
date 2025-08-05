@@ -12,6 +12,7 @@
     "@clerk/nextjs": "^6.28.1",
     "@radix-ui/react-visually-hidden": "^1.2.3",
     "@tailwindcss/postcss": "^4.1.11",
+    "@tanstack/react-table": "^8.21.3",
     "@types/lodash": "^4.17.20",
     "@vercel/analytics": "^1.5.0",
     "class-variance-authority": "^0.7.0",

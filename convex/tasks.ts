@@ -108,3 +108,19 @@ export const deleteTask = mutation({
     return await ctx.db.delete(args.id);
   },
 });
+
+export const createTaskWithApiKey = mutation({
+  args: { 
+    text: v.string(),
+    userId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    return await ctx.db.insert("tasks", {
+      text: args.text,
+      status: "todo",
+      priority: "medium",
+      userId: args.userId,
+      createdAt: Date.now(),
+    });
+  },
+});

@@ -56,17 +56,23 @@ export function TaskDetail({
 
   const handleTextChange = (value: string) => {
     setEditedText(value);
-    debouncedUpdate(task._id, { text: value });
+    if (task) {
+      debouncedUpdate(task._id, { text: value });
+    }
   };
 
   const handleDescriptionChange = (value: string) => {
     setEditedDescription(value);
-    debouncedUpdate(task._id, { description: value });
+    if (task) {
+      debouncedUpdate(task._id, { description: value });
+    }
   };
 
   const handleDueDateChange = (value: string) => {
     setEditedDueDate(value);
-    debouncedUpdate(task._id, { dueDate: value });
+    if (task) {
+      debouncedUpdate(task._id, { dueDate: value });
+    }
   };
 
   if (!task) return null;
