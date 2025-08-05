@@ -7,8 +7,22 @@ import { api } from "@/convex/_generated/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Plus, ChevronDown, ChevronRight, Archive, Circle, Loader2, CheckCircle2, XCircle, Copy } from "lucide-react";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import {
+  Plus,
+  ChevronDown,
+  ChevronRight,
+  Archive,
+  Circle,
+  Loader2,
+  CheckCircle2,
+  XCircle,
+  Copy,
+} from "lucide-react";
 import { TaskItem } from "./task-item";
 import { TaskStatus } from "./status-select";
 import { TaskPriority } from "./priority-select";
@@ -22,38 +36,79 @@ type Task = {
   createdAt: number;
 };
 
-const statusGroups: { key: TaskStatus; label: string; icon: React.ReactNode; color: string }[] = [
-  { key: "backlog", label: "Backlog", icon: <Archive className="h-4 w-4" />, color: "text-gray-500" },
-  { key: "todo", label: "Todo", icon: <Circle className="h-4 w-4" />, color: "text-blue-500" },
-  { key: "in_progress", label: "In Progress", icon: <Loader2 className="h-4 w-4" />, color: "text-yellow-500" },
-  { key: "completed", label: "Completed", icon: <CheckCircle2 className="h-4 w-4" />, color: "text-green-500" },
-  { key: "duplicate", label: "Duplicate", icon: <Copy className="h-4 w-4" />, color: "text-purple-500" },
-  { key: "canceled", label: "Canceled", icon: <XCircle className="h-4 w-4" />, color: "text-red-500" },
+const statusGroups: {
+  key: TaskStatus;
+  label: string;
+  icon: React.ReactNode;
+  color: string;
+}[] = [
+  {
+    key: "backlog",
+    label: "Backlog",
+    icon: <Archive className="h-4 w-4" />,
+    color: "text-gray-500",
+  },
+  {
+    key: "todo",
+    label: "Todo",
+    icon: <Circle className="h-4 w-4" />,
+    color: "text-blue-500",
+  },
+  {
+    key: "in_progress",
+    label: "In Progress",
+    icon: <Loader2 className="h-4 w-4" />,
+    color: "text-yellow-500",
+  },
+  {
+    key: "completed",
+    label: "Completed",
+    icon: <CheckCircle2 className="h-4 w-4" />,
+    color: "text-green-500",
+  },
+  {
+    key: "duplicate",
+    label: "Duplicate",
+    icon: <Copy className="h-4 w-4" />,
+    color: "text-purple-500",
+  },
+  {
+    key: "canceled",
+    label: "Canceled",
+    icon: <XCircle className="h-4 w-4" />,
+    color: "text-red-500",
+  },
 ];
 
 export default function TasksPage() {
   const { isSignedIn, isLoaded } = useUser();
   const [newTask, setNewTask] = useState("");
   const [isPending, startTransition] = useTransition();
-  const [collapsedSections, setCollapsedSections] = useState<Set<TaskStatus>>(new Set(["completed", "duplicate", "canceled"]));
+  const [collapsedSections, setCollapsedSections] = useState<Set<TaskStatus>>(
+    new Set(["completed", "duplicate", "canceled"])
+  );
 
-  const tasksFromDb = useQuery(api.tasks.getTasks, isSignedIn ? undefined : "skip");
+  const tasksFromDb = useQuery(
+    api.tasks.getTasks,
+    isSignedIn ? undefined : "skip"
+  );
   const createTask = useMutation(api.tasks.createTask);
   const updateTask = useMutation(api.tasks.updateTask);
   const deleteTask = useMutation(api.tasks.deleteTask);
 
   const [optimisticTasks, setOptimisticTasks] = useOptimistic(
     tasksFromDb || [],
-    (state: Task[], update: { type: string; id?: string; task?: Partial<Task> }) => {
+    (
+      state: Task[],
+      update: { type: string; id?: string; task?: Partial<Task> }
+    ) => {
       switch (update.type) {
         case "update":
-          return state.map(task => 
-            task._id === update.id 
-              ? { ...task, ...update.task } 
-              : task
+          return state.map((task) =>
+            task._id === update.id ? { ...task, ...update.task } : task
           );
         case "delete":
-          return state.filter(task => task._id !== update.id);
+          return state.filter((task) => task._id !== update.id);
         default:
           return state;
       }
@@ -79,10 +134,10 @@ export default function TasksPage() {
   const handleAddTask = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newTask.trim()) {
-      await createTask({ 
+      await createTask({
         text: newTask.trim(),
         status: "todo",
-        priority: "medium"
+        priority: "medium",
       });
       setNewTask("");
     }
@@ -92,7 +147,7 @@ export default function TasksPage() {
     startTransition(async () => {
       // Optimistically update the UI
       setOptimisticTasks({ type: "update", id, task: { status } });
-      
+
       try {
         await updateTask({ id: id as any, status });
       } catch (error) {
@@ -106,7 +161,7 @@ export default function TasksPage() {
     startTransition(async () => {
       // Optimistically update the UI
       setOptimisticTasks({ type: "update", id, task: { priority } });
-      
+
       try {
         await updateTask({ id: id as any, priority });
       } catch (error) {
@@ -120,7 +175,7 @@ export default function TasksPage() {
     startTransition(async () => {
       // Optimistically remove from UI
       setOptimisticTasks({ type: "delete", id });
-      
+
       try {
         await deleteTask({ id: id as any });
       } catch (error) {
@@ -131,32 +186,38 @@ export default function TasksPage() {
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <Card>
-        <CardHeader>
+    <div className="md:p-6 p-0 max-w-4xl mx-auto">
+      <Card className="border-none shadow-none ">
+        <CardHeader className="p-3">
           <CardTitle>My Tasks</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <form onSubmit={handleAddTask} className="flex gap-2">
+        <CardContent className="space-y-4 p-3">
+          <form onSubmit={handleAddTask} className="flex gap-2 ">
             <Input
               value={newTask}
               onChange={(e) => setNewTask(e.target.value)}
               placeholder="Add a new task..."
-              className="flex-1"
+              className="flex-1 h-9"
             />
-            <Button type="submit" disabled={!newTask.trim()}>
-              <Plus className="h-4 w-4 mr-1" />
-              Add Task
+            <Button
+              size="icon"
+              className="h-8.8 w-9 "
+              type="submit"
+              disabled={!newTask.trim()}
+            >
+              <Plus className="h-4 w-4" />
             </Button>
           </form>
 
           <div className="space-y-4">
             {statusGroups.map((group) => {
-              const tasksInGroup = optimisticTasks.filter(task => task.status === group.key);
+              const tasksInGroup = optimisticTasks.filter(
+                (task) => task.status === group.key
+              );
               if (tasksInGroup.length === 0) return null;
-              
+
               const isCollapsed = collapsedSections.has(group.key);
-              
+
               return (
                 <div key={group.key} className="space-y-2">
                   <Collapsible
@@ -172,7 +233,11 @@ export default function TasksPage() {
                     }}
                   >
                     <CollapsibleTrigger className="flex items-center gap-2 w-full p-2 hover:bg-accent rounded-md transition-colors">
-                      {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                      {isCollapsed ? (
+                        <ChevronRight className="h-4 w-4" />
+                      ) : (
+                        <ChevronDown className="h-4 w-4" />
+                      )}
                       <div className={`flex items-center gap-2 ${group.color}`}>
                         {group.icon}
                         <span className="font-medium">{group.label}</span>

@@ -22,7 +22,11 @@ export function TaskItem({
   onDelete,
 }: TaskItemProps) {
   return (
-    <div className="flex items-center gap-3 p-3 border rounded-lg ">
+    <div className="flex items-center gap-2 px-3 py-0 ">
+      <StatusSelect
+        value={task.status}
+        onValueChange={(status) => onUpdateStatus(task._id, status)}
+      />
       <div className="flex-1 text-sm">
         <span
           className={
@@ -40,11 +44,13 @@ export function TaskItem({
         value={task.priority}
         onValueChange={(priority) => onUpdatePriority(task._id, priority)}
       />
-      <StatusSelect
-        value={task.status}
-        onValueChange={(status) => onUpdateStatus(task._id, status)}
-      />
-      <Button variant="outline" size="sm" onClick={() => onDelete(task._id)}>
+
+      <Button
+        variant="outline"
+        size="sm"
+        className="hidden md:flex"
+        onClick={() => onDelete(task._id)}
+      >
         <Trash2 className="h-4 w-4" />
       </Button>
     </div>

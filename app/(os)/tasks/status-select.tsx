@@ -33,32 +33,32 @@ const statusConfig: Record<
 > = {
   backlog: {
     label: "Backlog",
-    icon: <Archive className="h-4 w-4" />,
+    icon: <Archive className="h-3.5 w-3.5" />,
     color: "text-gray-500",
   },
   todo: {
     label: "Todo",
-    icon: <Circle className="h-4 w-4" />,
+    icon: <Circle className="h-3.5 w-3.5" />,
     color: "text-blue-500",
   },
   in_progress: {
     label: "In Progress",
-    icon: <Loader2 className="h-4 w-4" />,
+    icon: <Loader2 className="h-3.5 w-3.5" />,
     color: "text-yellow-500",
   },
   completed: {
     label: "Completed",
-    icon: <CheckCircle2 className="h-4 w-4" />,
+    icon: <CheckCircle2 className="h-3.5 w-3.5" />,
     color: "text-green-500",
   },
   canceled: {
     label: "Canceled",
-    icon: <XCircle className="h-4 w-4" />,
+    icon: <XCircle className="h-3.5 w-3.5" />,
     color: "text-red-500",
   },
   duplicate: {
     label: "Duplicate",
-    icon: <Copy className="h-4 w-4" />,
+    icon: <Copy className="h-3.5 w-3.5" />,
     color: "text-purple-500",
   },
 };
@@ -68,7 +68,10 @@ export function StatusSelect({ value, onValueChange }: StatusSelectProps) {
 
   return (
     <Select value={currentValue} onValueChange={onValueChange}>
-      <SelectTrigger className="w-[40px] rounded-full" hideIcon>
+      <SelectTrigger
+        className="w-[20px] h-[20px] border-none p-0 items-center justify-center"
+        hideIcon
+      >
         <SelectValue>
           <div
             className={`flex items-center justify-center ${statusConfig[currentValue].color}`}
