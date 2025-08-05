@@ -50,11 +50,13 @@ export default function Home() {
       {articles.map((article, index) => (
         <a
           href={article.link}
-          className="text-pretty hover:bg-blue-100 font-medium hover:text-blue-600 px-2 py-1 rounded-md transition-colors"
+          className="text-pretty group duration-200 hover:bg-blue-100 font-medium  px-2 py-1 rounded-md transition-colors"
           key={index}
         >
-          <h2>{article.title}</h2>
-          <p className="text-sm text-muted-foreground font-light">
+          <h2 className="transition-colors group-hover:text-blue-600 ">
+            {article.title}
+          </h2>
+          <p className="text-sm text-[hsl(var(--muted-foreground))] font-light">
             {article.description}
           </p>
         </a>
