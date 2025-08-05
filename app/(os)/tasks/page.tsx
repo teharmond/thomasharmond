@@ -102,13 +102,35 @@ export default function TasksPage() {
   const [, startTransition] = useTransition();
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
-  const [groupExpanded, setGroupExpanded] = useState<ExpandedState>({
-    backlog: true,
-    todo: true,
-    in_progress: true,
-    completed: false,
-    duplicate: false,
-    canceled: false,
+  const [groupExpanded, setGroupExpanded] = useState<ExpandedState>(() => {
+    if (typeof window === 'undefined') {
+      return {
+        backlog: true,
+        todo: true,
+        in_progress: true,
+        completed: false,
+        duplicate: false,
+        canceled: false,
+      };
+    }
+    
+    const stored = localStorage.getItem('task-section-expanded');
+    if (stored) {
+      try {
+        return JSON.parse(stored);
+      } catch {
+        // Fall back to defaults if parsing fails
+      }
+    }
+    
+    return {
+      backlog: true,
+      todo: true,
+      in_progress: true,
+      completed: false,
+      duplicate: false,
+      canceled: false,
+    };
   });
 
   useEffect(() => {
@@ -121,6 +143,10 @@ export default function TasksPage() {
 
     return () => window.removeEventListener("resize", checkIsDesktop);
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('task-section-expanded', JSON.stringify(groupExpanded));
+  }, [groupExpanded]);
 
   const tasksFromDb = useQuery(
     api.tasks.getTasks,
