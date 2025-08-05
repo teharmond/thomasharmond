@@ -39,6 +39,8 @@ type Task = {
   text: string;
   status: TaskStatus;
   priority: TaskPriority;
+  description?: string;
+  dueDate?: string;
   userId: string;
   createdAt: number;
 };
@@ -90,7 +92,7 @@ const statusGroups: {
 export default function TasksPage() {
   const { isSignedIn, isLoaded } = useUser();
   const [newTask, setNewTask] = useState("");
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
   const [collapsedSections, setCollapsedSections] = useState<Set<TaskStatus>>(
     new Set(["completed", "duplicate", "canceled"])
   );
@@ -201,6 +203,20 @@ export default function TasksPage() {
       } catch (error) {
         // The UI will automatically revert when tasksFromDb updates
         console.error("Failed to delete task:", error);
+      }
+    });
+  };
+
+  const handleUpdateTask = (id: string, updates: Partial<Task>) => {
+    startTransition(async () => {
+      // Optimistically update the UI
+      setOptimisticTasks({ type: "update", id, task: updates });
+
+      try {
+        await updateTask({ id: id as any, ...updates });
+      } catch (error) {
+        // The UI will automatically revert when tasksFromDb updates
+        console.error("Failed to update task:", error);
       }
     });
   };
@@ -327,6 +343,7 @@ export default function TasksPage() {
               onClose={handleCloseDetail}
               onUpdateStatus={handleUpdateStatus}
               onUpdatePriority={handleUpdatePriority}
+              onUpdateTask={handleUpdateTask}
               onDelete={handleDeleteTask}
             />
           </motion.div>
@@ -348,6 +365,7 @@ export default function TasksPage() {
               onClose={handleCloseDetail}
               onUpdateStatus={handleUpdateStatus}
               onUpdatePriority={handleUpdatePriority}
+              onUpdateTask={handleUpdateTask}
               onDelete={handleDeleteTask}
             />
           </motion.div>

@@ -67,6 +67,8 @@ export const updateTask = mutation({
     status: v.optional(statusValues),
     priority: v.optional(priorityValues),
     text: v.optional(v.string()),
+    description: v.optional(v.string()),
+    dueDate: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -83,6 +85,8 @@ export const updateTask = mutation({
     if (args.status !== undefined) updates.status = args.status;
     if (args.priority !== undefined) updates.priority = args.priority;
     if (args.text !== undefined) updates.text = args.text;
+    if (args.description !== undefined) updates.description = args.description;
+    if (args.dueDate !== undefined) updates.dueDate = args.dueDate;
 
     return await ctx.db.patch(args.id, updates);
   },

@@ -18,6 +18,8 @@ export default defineSchema({
       v.literal("high"),
       v.literal("urgent")
     )),
+    description: v.optional(v.string()),
+    dueDate: v.optional(v.string()),
     userId: v.string(),
     createdAt: v.number(),
     completed: v.optional(v.boolean()),

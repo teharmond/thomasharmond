@@ -7,7 +7,8 @@ import { Label } from "@/components/ui/label";
 import { X, Calendar, Clock, FileText, Tag } from "lucide-react";
 import { StatusSelect, TaskStatus } from "./status-select";
 import { PrioritySelect, TaskPriority } from "./priority-select";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { debounce } from "lodash";
 
 interface TaskDetailProps {
   task: {
@@ -18,12 +19,11 @@ interface TaskDetailProps {
     createdAt: number;
     description?: string;
     dueDate?: string;
-    tags?: string[];
   } | null;
   onClose: () => void;
   onUpdateStatus: (id: string, status: TaskStatus) => void;
   onUpdatePriority: (id: string, priority: TaskPriority) => void;
-  onUpdateTask?: (id: string, updates: any) => void;
+  onUpdateTask: (id: string, updates: any) => void;
   onDelete: (id: string) => void;
 }
 
@@ -38,41 +38,39 @@ export function TaskDetail({
   const [editedText, setEditedText] = useState("");
   const [editedDescription, setEditedDescription] = useState("");
   const [editedDueDate, setEditedDueDate] = useState("");
-  const [editedTags, setEditedTags] = useState<string[]>([]);
-  const [newTag, setNewTag] = useState("");
 
   useEffect(() => {
     if (task) {
       setEditedText(task.text);
       setEditedDescription(task.description || "");
       setEditedDueDate(task.dueDate || "");
-      setEditedTags(task.tags || []);
     }
   }, [task]);
 
+  const debouncedUpdate = useCallback(
+    debounce((id: string, updates: any) => {
+      onUpdateTask(id, updates);
+    }, 500),
+    [onUpdateTask]
+  );
+
+  const handleTextChange = (value: string) => {
+    setEditedText(value);
+    debouncedUpdate(task._id, { text: value });
+  };
+
+  const handleDescriptionChange = (value: string) => {
+    setEditedDescription(value);
+    debouncedUpdate(task._id, { description: value });
+  };
+
+  const handleDueDateChange = (value: string) => {
+    setEditedDueDate(value);
+    debouncedUpdate(task._id, { dueDate: value });
+  };
+
   if (!task) return null;
 
-  const handleSave = () => {
-    if (onUpdateTask) {
-      onUpdateTask(task._id, {
-        text: editedText,
-        description: editedDescription,
-        dueDate: editedDueDate,
-        tags: editedTags,
-      });
-    }
-  };
-
-  const handleAddTag = () => {
-    if (newTag.trim() && !editedTags.includes(newTag.trim())) {
-      setEditedTags([...editedTags, newTag.trim()]);
-      setNewTag("");
-    }
-  };
-
-  const handleRemoveTag = (tagToRemove: string) => {
-    setEditedTags(editedTags.filter(tag => tag !== tagToRemove));
-  };
 
   const formatDate = (timestamp: number) => {
     return new Date(timestamp).toLocaleDateString("en-US", {
@@ -104,7 +102,7 @@ export function TaskDetail({
           <Input
             id="task-title"
             value={editedText}
-            onChange={(e) => setEditedText(e.target.value)}
+            onChange={(e) => handleTextChange(e.target.value)}
             placeholder="Task title"
           />
         </div>
@@ -134,7 +132,7 @@ export function TaskDetail({
           <Textarea
             id="task-description"
             value={editedDescription}
-            onChange={(e) => setEditedDescription(e.target.value)}
+            onChange={(e) => handleDescriptionChange(e.target.value)}
             placeholder="Add a description..."
             rows={4}
           />
@@ -149,48 +147,10 @@ export function TaskDetail({
             id="due-date"
             type="date"
             value={editedDueDate}
-            onChange={(e) => setEditedDueDate(e.target.value)}
+            onChange={(e) => handleDueDateChange(e.target.value)}
           />
         </div>
 
-        <div className="space-y-2">
-          <Label>
-            <Tag className="inline h-4 w-4 mr-1" />
-            Tags
-          </Label>
-          <div className="flex gap-2">
-            <Input
-              value={newTag}
-              onChange={(e) => setNewTag(e.target.value)}
-              placeholder="Add a tag..."
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  e.preventDefault();
-                  handleAddTag();
-                }
-              }}
-            />
-            <Button onClick={handleAddTag} size="sm">
-              Add
-            </Button>
-          </div>
-          <div className="flex flex-wrap gap-2 mt-2">
-            {editedTags.map((tag) => (
-              <span
-                key={tag}
-                className="inline-flex items-center gap-1 px-2 py-1 text-xs bg-secondary rounded-md"
-              >
-                {tag}
-                <button
-                  onClick={() => handleRemoveTag(tag)}
-                  className="hover:text-destructive"
-                >
-                  <X className="h-3 w-3" />
-                </button>
-              </span>
-            ))}
-          </div>
-        </div>
 
         <div className="pt-4 border-t">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -201,17 +161,15 @@ export function TaskDetail({
       </div>
 
       <div className="flex gap-2 p-4 border-t">
-        <Button onClick={handleSave} className="flex-1">
-          Save Changes
-        </Button>
         <Button
           variant="destructive"
           onClick={() => {
             onDelete(task._id);
             onClose();
           }}
+          className="w-full"
         >
-          Delete
+          Delete Task
         </Button>
       </div>
     </div>
