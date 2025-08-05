@@ -26,7 +26,7 @@ export function TaskItem({
       <div className="flex-1 text-sm">
         <span
           className={
-            task.status === "completed"
+            task.status === "completed" || task.status === "duplicate"
               ? "line-through text-muted-foreground"
               : task.status === "canceled"
                 ? "line-through text-muted-foreground opacity-50"
