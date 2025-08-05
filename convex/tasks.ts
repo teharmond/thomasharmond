@@ -113,11 +113,12 @@ export const createTaskWithApiKey = mutation({
   args: { 
     text: v.string(),
     userId: v.string(),
+    status: v.optional(statusValues),
   },
   handler: async (ctx, args) => {
     return await ctx.db.insert("tasks", {
       text: args.text,
-      status: "todo",
+      status: args.status || "todo",
       priority: "medium",
       userId: args.userId,
       createdAt: Date.now(),

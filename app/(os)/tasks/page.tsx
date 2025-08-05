@@ -38,6 +38,7 @@ import {
   getCoreRowModel,
   getGroupedRowModel,
   getExpandedRowModel,
+  getSortedRowModel,
   flexRender,
   ColumnDef,
   ExpandedState,
@@ -93,6 +94,9 @@ const statusGroups: Record<
     color: "text-purple-500",
   },
 };
+
+// Define the desired order for status groups
+const statusOrder: TaskStatus[] = ['in_progress', 'todo', 'backlog', 'completed', 'canceled', 'duplicate'];
 
 export default function TasksPage() {
   const { isSignedIn, isLoaded } = useUser();
@@ -281,6 +285,13 @@ export default function TasksPage() {
         header: "Status",
         cell: () => null,
         enableGrouping: true,
+        sortingFn: (rowA, rowB) => {
+          const statusA = rowA.original.status;
+          const statusB = rowB.original.status;
+          const indexA = statusOrder.indexOf(statusA);
+          const indexB = statusOrder.indexOf(statusB);
+          return indexA - indexB;
+        },
       } as ColumnDef<Task, any>,
       {
         id: "title",
@@ -353,12 +364,15 @@ export default function TasksPage() {
     getCoreRowModel: getCoreRowModel(),
     getGroupedRowModel: getGroupedRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
+    getSortedRowModel: getSortedRowModel(),
     initialState: {
       grouping: ["status"],
       expanded: groupExpanded,
+      sorting: [{ id: "status", desc: false }],
     },
     state: {
       expanded: groupExpanded,
+      sorting: [{ id: "status", desc: false }],
     },
     onExpandedChange: setGroupExpanded,
     groupedColumnMode: false,
