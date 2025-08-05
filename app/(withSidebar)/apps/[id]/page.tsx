@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import { appsData } from "../appData";
-import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { SquareArrowOutUpRight } from "lucide-react";
 import Link from "next/link";
@@ -16,9 +15,7 @@ export default async function AppPage(props: AppPageProps) {
   const params = await props.params;
   const app = appsData.find((app) => app.id === params.id);
 
-  if (!app) {
-    notFound();
-  }
+  if (!app) return <div>App not found</div>;
 
   return (
     <div className="p-3 pt-8 max-w-xl w-full mx-auto">
