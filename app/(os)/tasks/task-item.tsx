@@ -13,6 +13,7 @@ interface TaskItemProps {
   onUpdateStatus: (id: string, status: TaskStatus) => void;
   onUpdatePriority: (id: string, priority: TaskPriority) => void;
   onDelete: (id: string) => void;
+  onClick?: () => void;
 }
 
 export function TaskItem({
@@ -20,13 +21,19 @@ export function TaskItem({
   onUpdateStatus,
   onUpdatePriority,
   onDelete,
+  onClick,
 }: TaskItemProps) {
   return (
-    <div className="flex items-center gap-2 px-3 py-0 ">
-      <StatusSelect
-        value={task.status}
-        onValueChange={(status) => onUpdateStatus(task._id, status)}
-      />
+    <div 
+      className="flex items-center gap-2 px-3 py-2 hover:bg-accent rounded-md cursor-pointer transition-colors"
+      onClick={onClick}
+    >
+      <div onClick={(e) => e.stopPropagation()}>
+        <StatusSelect
+          value={task.status}
+          onValueChange={(status) => onUpdateStatus(task._id, status)}
+        />
+      </div>
       <div className="flex-1 text-sm">
         <span
           className={
@@ -40,16 +47,21 @@ export function TaskItem({
           {task.text}
         </span>
       </div>
-      <PrioritySelect
-        value={task.priority}
-        onValueChange={(priority) => onUpdatePriority(task._id, priority)}
-      />
+      <div onClick={(e) => e.stopPropagation()}>
+        <PrioritySelect
+          value={task.priority}
+          onValueChange={(priority) => onUpdatePriority(task._id, priority)}
+        />
+      </div>
 
       <Button
         variant="outline"
         size="sm"
         className="hidden md:flex"
-        onClick={() => onDelete(task._id)}
+        onClick={(e) => {
+          e.stopPropagation();
+          onDelete(task._id);
+        }}
       >
         <Trash2 className="h-4 w-4" />
       </Button>

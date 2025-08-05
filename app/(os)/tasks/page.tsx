@@ -1,6 +1,11 @@
 "use client";
 
-import React, { useState, useOptimistic, useTransition } from "react";
+import React, {
+  useState,
+  useOptimistic,
+  useTransition,
+  useEffect,
+} from "react";
 import { useUser } from "@clerk/nextjs";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
@@ -26,6 +31,8 @@ import {
 import { TaskItem } from "./task-item";
 import { TaskStatus } from "./status-select";
 import { TaskPriority } from "./priority-select";
+import { TaskDetail } from "./task-detail";
+import { motion, AnimatePresence } from "framer-motion";
 
 type Task = {
   _id: string;
@@ -87,6 +94,19 @@ export default function TasksPage() {
   const [collapsedSections, setCollapsedSections] = useState<Set<TaskStatus>>(
     new Set(["completed", "duplicate", "canceled"])
   );
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const checkIsDesktop = () => {
+      setIsDesktop(window.innerWidth >= 768); // md breakpoint
+    };
+
+    checkIsDesktop();
+    window.addEventListener("resize", checkIsDesktop);
+
+    return () => window.removeEventListener("resize", checkIsDesktop);
+  }, []);
 
   const tasksFromDb = useQuery(
     api.tasks.getTasks,
@@ -185,90 +205,154 @@ export default function TasksPage() {
     });
   };
 
+  const handleTaskClick = (task: Task) => {
+    setSelectedTask(task);
+  };
+
+  const handleCloseDetail = () => {
+    setSelectedTask(null);
+  };
+
   return (
-    <div className="md:p-6 p-0 max-w-4xl mx-auto">
-      <Card className="border-none shadow-none ">
-        <CardHeader className="p-3">
-          <CardTitle>My Tasks</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4 p-3">
-          <form onSubmit={handleAddTask} className="flex gap-2 ">
-            <Input
-              value={newTask}
-              onChange={(e) => setNewTask(e.target.value)}
-              placeholder="Add a new task..."
-              className="flex-1 h-9"
+    <div className="flex h-screen overflow-hidden">
+      {/* Main task list area - shifts over on desktop */}
+      <motion.div
+        animate={{
+          marginRight: selectedTask && isDesktop ? "512px" : "0px",
+        }}
+        transition={{ type: "spring", damping: 25, stiffness: 200 }}
+        className="flex-1 h-full"
+      >
+        <div className="md:p-6 p-0 max-w-4xl mx-auto h-full">
+          <Card className="border-none shadow-none h-full">
+            <CardHeader className="p-3">
+              <CardTitle>My Tasks</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4 p-3 overflow-y-auto">
+              <form onSubmit={handleAddTask} className="flex gap-2">
+                <Input
+                  value={newTask}
+                  onChange={(e) => setNewTask(e.target.value)}
+                  placeholder="Add a new task..."
+                  className="flex-1 h-9"
+                />
+                <Button
+                  size="icon"
+                  className="h-8.8 w-9"
+                  type="submit"
+                  disabled={!newTask.trim()}
+                >
+                  <Plus className="h-4 w-4" />
+                </Button>
+              </form>
+
+              <div className="space-y-4">
+                {statusGroups.map((group) => {
+                  const tasksInGroup = optimisticTasks.filter(
+                    (task) => task.status === group.key
+                  );
+                  if (tasksInGroup.length === 0) return null;
+
+                  const isCollapsed = collapsedSections.has(group.key);
+
+                  return (
+                    <div key={group.key} className="space-y-2">
+                      <Collapsible
+                        open={!isCollapsed}
+                        onOpenChange={(open) => {
+                          const newCollapsed = new Set(collapsedSections);
+                          if (open) {
+                            newCollapsed.delete(group.key);
+                          } else {
+                            newCollapsed.add(group.key);
+                          }
+                          setCollapsedSections(newCollapsed);
+                        }}
+                      >
+                        <CollapsibleTrigger className="flex items-center gap-2 w-full p-2 hover:bg-accent rounded-md transition-colors">
+                          {isCollapsed ? (
+                            <ChevronRight className="h-4 w-4" />
+                          ) : (
+                            <ChevronDown className="h-4 w-4" />
+                          )}
+                          <div
+                            className={`flex items-center gap-2 ${group.color}`}
+                          >
+                            {group.icon}
+                            <span className="font-medium">{group.label}</span>
+                          </div>
+                          <span className="text-muted-foreground text-sm ml-auto">
+                            {tasksInGroup.length}
+                          </span>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="space-y-2 mt-2">
+                          {tasksInGroup.map((task) => (
+                            <TaskItem
+                              key={task._id}
+                              task={task}
+                              onUpdateStatus={handleUpdateStatus}
+                              onUpdatePriority={handleUpdatePriority}
+                              onDelete={handleDeleteTask}
+                              onClick={() => handleTaskClick(task)}
+                            />
+                          ))}
+                        </CollapsibleContent>
+                      </Collapsible>
+                    </div>
+                  );
+                })}
+                {optimisticTasks.length === 0 && (
+                  <p className="text-muted-foreground text-center py-4">
+                    No tasks yet. Add one above!
+                  </p>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </motion.div>
+
+      {/* Desktop side panel */}
+      <AnimatePresence>
+        {selectedTask && (
+          <motion.div
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "spring", damping: 35, stiffness: 300 }}
+            className="hidden md:block fixed top-0 right-0 w-[32rem] h-full border-l bg-background shadow-xl z-50"
+          >
+            <TaskDetail
+              task={selectedTask}
+              onClose={handleCloseDetail}
+              onUpdateStatus={handleUpdateStatus}
+              onUpdatePriority={handleUpdatePriority}
+              onDelete={handleDeleteTask}
             />
-            <Button
-              size="icon"
-              className="h-8.8 w-9 "
-              type="submit"
-              disabled={!newTask.trim()}
-            >
-              <Plus className="h-4 w-4" />
-            </Button>
-          </form>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-          <div className="space-y-4">
-            {statusGroups.map((group) => {
-              const tasksInGroup = optimisticTasks.filter(
-                (task) => task.status === group.key
-              );
-              if (tasksInGroup.length === 0) return null;
-
-              const isCollapsed = collapsedSections.has(group.key);
-
-              return (
-                <div key={group.key} className="space-y-2">
-                  <Collapsible
-                    open={!isCollapsed}
-                    onOpenChange={(open) => {
-                      const newCollapsed = new Set(collapsedSections);
-                      if (open) {
-                        newCollapsed.delete(group.key);
-                      } else {
-                        newCollapsed.add(group.key);
-                      }
-                      setCollapsedSections(newCollapsed);
-                    }}
-                  >
-                    <CollapsibleTrigger className="flex items-center gap-2 w-full p-2 hover:bg-accent rounded-md transition-colors">
-                      {isCollapsed ? (
-                        <ChevronRight className="h-4 w-4" />
-                      ) : (
-                        <ChevronDown className="h-4 w-4" />
-                      )}
-                      <div className={`flex items-center gap-2 ${group.color}`}>
-                        {group.icon}
-                        <span className="font-medium">{group.label}</span>
-                      </div>
-                      <span className="text-muted-foreground text-sm ml-auto">
-                        {tasksInGroup.length}
-                      </span>
-                    </CollapsibleTrigger>
-                    <CollapsibleContent className="space-y-2 mt-2">
-                      {tasksInGroup.map((task) => (
-                        <TaskItem
-                          key={task._id}
-                          task={task}
-                          onUpdateStatus={handleUpdateStatus}
-                          onUpdatePriority={handleUpdatePriority}
-                          onDelete={handleDeleteTask}
-                        />
-                      ))}
-                    </CollapsibleContent>
-                  </Collapsible>
-                </div>
-              );
-            })}
-            {optimisticTasks.length === 0 && (
-              <p className="text-muted-foreground text-center py-4">
-                No tasks yet. Add one above!
-              </p>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+      {/* Mobile bottom sheet */}
+      <AnimatePresence>
+        {selectedTask && (
+          <motion.div
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: "spring", damping: 35, stiffness: 300 }}
+            className="md:hidden fixed inset-0 bg-background shadow-xl z-50 overflow-y-auto"
+          >
+            <TaskDetail
+              task={selectedTask}
+              onClose={handleCloseDetail}
+              onUpdateStatus={handleUpdateStatus}
+              onUpdatePriority={handleUpdatePriority}
+              onDelete={handleDeleteTask}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
