@@ -29,6 +29,7 @@ import {
   XCircle,
   Copy,
   Triangle,
+  PlusIcon,
 } from "lucide-react";
 import { TaskStatus, StatusSelect } from "./status-select";
 import { TaskPriority, PrioritySelect } from "./priority-select";
@@ -480,22 +481,35 @@ export default function TasksPage() {
                               row.toggleExpanded(open);
                             }}
                           >
-                            <CollapsibleTrigger className="flex items-center group/collapsible-trigger gap-2 w-full p-4 py-1 text-sm hover:bg-accent bg-muted transition-colors">
-                              {isExpanded ? (
-                                <Triangle className="h-2 w-2 mr-1 rotate-180 text-muted-foreground fill-muted-foreground group-hover/collapsible-trigger:fill-foreground group-hover/collapsible-trigger:text-foreground" />
-                              ) : (
-                                <Triangle className="h-2 w-2 mr-1 fill-foreground text-foreground rotate-90" />
-                              )}
-                              <div className={`flex items-center gap-2 `}>
-                                <span className={`${group.color}`}>
-                                  {group.icon}
-                                </span>
-                                <span>{group.label}</span>
-                                <span className="text-muted-foreground text-sm ml-auto bg-muted px-2 py-1 rounded">
-                                  {tasksCount}
-                                </span>
+                            <div className="flex items-center justify-between w-full bg-muted h-9">
+                              <div className="flex items-center gap-2">
+                                <CollapsibleTrigger className="flex items-center group/collapsible-trigger gap-2  pl-4 pr-0 w-8 py-1 text-sm hover:bg-accent bg-muted transition-colors justify-between">
+                                  {isExpanded ? (
+                                    <Triangle className="h-2 w-2  rotate-180 text-muted-foreground fill-muted-foreground group-hover/collapsible-trigger:fill-foreground group-hover/collapsible-trigger:text-foreground" />
+                                  ) : (
+                                    <Triangle className="h-2 w-2 mr-1 fill-foreground text-foreground rotate-90" />
+                                  )}
+                                </CollapsibleTrigger>
+                                <div className={`flex items-center gap-2 `}>
+                                  <span className={`${group.color}`}>
+                                    {group.icon}
+                                  </span>
+                                  <span className="text-sm text-secondary-foreground">
+                                    {group.label}
+                                  </span>
+                                  <span className="text-muted-foreground text-sm ml-auto bg-muted px-2 py-1 rounded">
+                                    {tasksCount}
+                                  </span>
+                                </div>
                               </div>
-                            </CollapsibleTrigger>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="mr-2 hover:bg-foreground/10 text-muted-foreground hover:text-foreground"
+                              >
+                                <PlusIcon className="h-4 w-4" />
+                              </Button>
+                            </div>
                             <CollapsibleContent>
                               <div className="">
                                 <div className="bg-background ">
