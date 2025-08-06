@@ -414,7 +414,7 @@ export default function TasksPage() {
         className="flex-1 h-full"
         onClick={() => selectedTask && handleCloseDetail()}
       >
-        <div className="w-full h-full p-6">
+        <div className="w-full h-full py-6">
           <div className="h-full flex flex-col">
             <div className="mb-6">
               <h1 className="text-2xl font-bold mb-4">My Tasks</h1>
@@ -432,10 +432,7 @@ export default function TasksPage() {
               </form>
             </div>
 
-            <div
-              className="flex-1 overflow-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
+            <div className="flex-1 overflow-auto">
               {optimisticTasks.length === 0 ? (
                 <div className="text-center py-12">
                   <p className="text-muted-foreground text-lg">
@@ -443,8 +440,11 @@ export default function TasksPage() {
                   </p>
                 </div>
               ) : (
-                <div className="space-y-6">
-                  {table.getRowModel().rows.map((row) => {
+                <div
+                  className="space-y-0 "
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {table.getRowModel().rows.map((row, index, rows) => {
                     if (row.getIsGrouped()) {
                       const groupValue = row.getGroupingValue(
                         "status"
@@ -455,74 +455,102 @@ export default function TasksPage() {
 
                       if (tasksCount === 0) return null;
 
+                      // Find if this is the first/last section with tasks
+                      const visibleRowsWithTasks = rows.filter(
+                        (r) => r.getIsGrouped() && r.subRows.length > 0
+                      );
+                      const firstVisibleIndex = rows.findIndex(
+                        (r) => r.getIsGrouped() && r.subRows.length > 0
+                      );
+                      const lastVisibleIndex = rows.findLastIndex(
+                        (r) => r.getIsGrouped() && r.subRows.length > 0
+                      );
+                      const isFirstVisible = index === firstVisibleIndex;
+                      const isLastVisible = index === lastVisibleIndex;
+
                       return (
-                        <div key={row.id} className="bg-card rounded-lg border">
+                        <div
+                          key={row.id}
+                          className={`bg-card ${!isLastVisible ? "border-b" : ""} `}
+                        >
                           <Collapsible
                             open={isExpanded}
                             onOpenChange={(open) => {
                               row.toggleExpanded(open);
                             }}
                           >
-                            <CollapsibleTrigger className="flex items-center gap-3 w-full p-4 hover:bg-accent transition-colors">
+                            <CollapsibleTrigger className="flex items-center gap-2 w-full p-4 py-1 text-sm hover:bg-accent bg-muted transition-colors">
                               {isExpanded ? (
-                                <ChevronDown className="h-5 w-5" />
+                                <ChevronDown className="h-3 w-3" />
                               ) : (
-                                <ChevronRight className="h-5 w-5" />
+                                <ChevronRight className="h-3 w-3" />
                               )}
                               <div
                                 className={`flex items-center gap-3 ${group.color}`}
                               >
                                 {group.icon}
-                                <span className="font-semibold text-lg">
+                                <span className="font-semibold ">
                                   {group.label}
                                 </span>
+                                <span className="text-muted-foreground text-sm ml-auto bg-muted px-2 py-1 rounded">
+                                  {tasksCount}
+                                </span>
                               </div>
-                              <span className="text-muted-foreground text-sm ml-auto bg-muted px-2 py-1 rounded">
-                                {tasksCount}{" "}
-                                {tasksCount === 1 ? "task" : "tasks"}
-                              </span>
                             </CollapsibleTrigger>
                             <CollapsibleContent>
                               <div className="">
-                                <div className="bg-background rounded-lg">
+                                <div className="bg-background ">
                                   <div className="w-full">
                                     {row.subRows.map((subRow, index) => (
                                       <div
                                         key={subRow.id}
-                                        className={`border-b last:border-b-0 hover:bg-muted/30 transition-colors p-3 ${index % 2 === 0 ? "bg-muted/10" : ""}`}
+                                        className={`border-b last:border-b-0 hover:bg-muted/30 transition-colors p-3 py-1 ${index % 2 === 0 ? "bg-muted/10" : ""}`}
                                       >
                                         <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                                           <div className="flex items-center gap-2 flex-1 min-w-0">
                                             <StatusSelect
                                               value={subRow.original.status}
-                                              onValueChange={(status: TaskStatus) =>
-                                                handleUpdateStatus(subRow.original._id, status)
+                                              onValueChange={(
+                                                status: TaskStatus
+                                              ) =>
+                                                handleUpdateStatus(
+                                                  subRow.original._id,
+                                                  status
+                                                )
                                               }
                                             />
                                             <div
                                               className="cursor-pointer hover:bg-accent/50 p-2 rounded transition-colors flex-1 min-w-0"
-                                              onClick={() => handleTaskClick(subRow.original)}
+                                              onClick={() =>
+                                                handleTaskClick(subRow.original)
+                                              }
                                             >
-                                              <div className="font-medium text-sm line-clamp-1">{subRow.original.text}</div>
-                                              {subRow.original.description && (
-                                                <div className="text-sm text-muted-foreground mt-1 line-clamp-2">
-                                                  {subRow.original.description}
-                                                </div>
-                                              )}
+                                              <div className=" text-sm line-clamp-1">
+                                                {subRow.original.text}
+                                              </div>
                                             </div>
                                           </div>
                                           <div className="flex items-center gap-3 ml-10 sm:ml-0">
                                             <PrioritySelect
                                               value={subRow.original.priority}
-                                              onValueChange={(priority: TaskPriority) =>
-                                                handleUpdatePriority(subRow.original._id, priority)
+                                              onValueChange={(
+                                                priority: TaskPriority
+                                              ) =>
+                                                handleUpdatePriority(
+                                                  subRow.original._id,
+                                                  priority
+                                                )
                                               }
                                             />
                                             <div className="text-sm whitespace-nowrap">
                                               {subRow.original.dueDate ? (
-                                                new Date(subRow.original.dueDate).toLocaleDateString()
+                                                new Date(
+                                                  subRow.original.dueDate
+                                                ).toLocaleDateString()
                                               ) : (
-                                                <span className="text-muted-foreground">No date</span>
+                                                <span className="text-muted-foreground">
+                                                  No date
+                                                </span>
                                               )}
                                             </div>
                                           </div>

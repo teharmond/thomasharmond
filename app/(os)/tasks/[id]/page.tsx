@@ -9,13 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  ArrowLeft,
-  Calendar,
-  Clock,
-  FileText,
-  Trash2,
-} from "lucide-react";
+import { ArrowLeft, Calendar, Clock, FileText, Trash2 } from "lucide-react";
 import { StatusSelect, TaskStatus } from "../status-select";
 import { PrioritySelect, TaskPriority } from "../priority-select";
 import { useRouter, useParams } from "next/navigation";
@@ -162,7 +156,8 @@ export default function TaskPage() {
           <CardContent className="p-6 text-center">
             <h2 className="text-xl font-semibold mb-2">Task not found</h2>
             <p className="text-muted-foreground mb-4">
-              The task you're looking for doesn't exist or you don't have access to it.
+              The task you&apos;re looking for doesn&apos;t exist or you
+              don&apos;t have access to it.
             </p>
             <Button onClick={() => router.push("/tasks")}>
               <ArrowLeft className="h-4 w-4 mr-2" />
