@@ -20,8 +20,6 @@ import {
 } from "@/components/ui/collapsible";
 import {
   Plus,
-  ChevronDown,
-  ChevronRight,
   Archive,
   Circle,
   Loader2,
@@ -45,6 +43,14 @@ import {
   ColumnDef,
   ExpandedState,
 } from "@tanstack/react-table";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 type Task = {
   _id: string;
@@ -110,6 +116,7 @@ const statusOrder: TaskStatus[] = [
 export default function TasksPage() {
   const { isSignedIn, isLoaded } = useUser();
   const [newTask, setNewTask] = useState("");
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [, startTransition] = useTransition();
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
@@ -199,6 +206,7 @@ export default function TasksPage() {
         priority: "medium",
       });
       setNewTask("");
+      setDialogOpen(false);
     }
   };
 
@@ -416,24 +424,53 @@ export default function TasksPage() {
         className="flex-1 h-full"
         onClick={() => selectedTask && handleCloseDetail()}
       >
-        <div className="w-full h-full py-6">
-          <div className="h-full flex flex-col">
-            <div className="mb-6">
-              <h1 className="text-2xl font-bold mb-4">My Tasks</h1>
-              <form onSubmit={handleAddTask} className="flex gap-2">
-                <Input
-                  value={newTask}
-                  onChange={(e) => setNewTask(e.target.value)}
-                  placeholder="Add a new task..."
-                  className="flex-1"
-                />
-                <Button type="submit" disabled={!newTask.trim()}>
-                  <Plus className="h-4 w-4 mr-2" />
+        <div className="w-full h-full">
+          <header className="border-b h-10 pl-9 pr-6 flex items-center justify-between">
+            <span className="text-sm text-secondary-foreground font-medium">
+              Tasks
+            </span>
+            <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+              <DialogTrigger asChild>
+                <Button size="sm" className="h-7 text-xs px-3">
+                  <Plus className="h-3.5 w-3.5 mr-1.5" />
                   Add Task
                 </Button>
-              </form>
-            </div>
-
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Add New Task</DialogTitle>
+                  <DialogDescription>
+                    Create a new task to add to your list.
+                  </DialogDescription>
+                </DialogHeader>
+                <form onSubmit={handleAddTask} className="space-y-4">
+                  <Input
+                    value={newTask}
+                    onChange={(e) => setNewTask(e.target.value)}
+                    placeholder="Enter task description..."
+                    className="w-full"
+                    autoFocus
+                  />
+                  <div className="flex justify-end gap-2">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => {
+                        setNewTask("");
+                        setDialogOpen(false);
+                      }}
+                    >
+                      Cancel
+                    </Button>
+                    <Button type="submit" disabled={!newTask.trim()}>
+                      Add Task
+                    </Button>
+                  </div>
+                </form>
+              </DialogContent>
+            </Dialog>
+          </header>
+          <div className="h-full flex flex-col">
             <div className="flex-1 overflow-auto">
               {optimisticTasks.length === 0 ? (
                 <div className="text-center py-12">
@@ -481,9 +518,9 @@ export default function TasksPage() {
                               row.toggleExpanded(open);
                             }}
                           >
-                            <div className="flex items-center justify-between w-full bg-muted h-9">
-                              <div className="flex items-center gap-2">
-                                <CollapsibleTrigger className="flex items-center group/collapsible-trigger gap-2  pl-4 pr-0 w-8 py-1 text-sm hover:bg-accent bg-muted transition-colors justify-between">
+                            <div className="flex items-center justify-between w-full bg-muted h-9 border-b pr-6 ">
+                              <div className="flex items-center gap-1.5">
+                                <CollapsibleTrigger className="flex items-center group/collapsible-trigger gap-2  pl-3 pr-0 w-7 py-1 text-sm hover:bg-accent bg-muted transition-colors justify-between">
                                   {isExpanded ? (
                                     <Triangle className="h-2 w-2  rotate-180 text-muted-foreground fill-muted-foreground group-hover/collapsible-trigger:fill-foreground group-hover/collapsible-trigger:text-foreground" />
                                   ) : (
@@ -505,7 +542,7 @@ export default function TasksPage() {
                               <Button
                                 variant="ghost"
                                 size="icon"
-                                className="mr-2 hover:bg-foreground/10 text-muted-foreground hover:text-foreground"
+                                className=" hover:bg-foreground/10 text-muted-foreground hover:text-foreground"
                               >
                                 <PlusIcon className="h-4 w-4" />
                               </Button>
@@ -517,7 +554,7 @@ export default function TasksPage() {
                                     {row.subRows.map((subRow, index) => (
                                       <div
                                         key={subRow.id}
-                                        className={`border-b last:border-b-0 hover:bg-muted/30 transition-colors p-3 py-1 ${index % 2 === 0 ? "bg-muted/10" : ""}`}
+                                        className={`border-b last:border-b-0 hover:bg-muted/30 transition-colors pr-6 pl-8 py-1 ${index % 2 === 0 ? "bg-muted/10" : ""}`}
                                       >
                                         <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                                           <div className="flex items-center gap-2 flex-1 min-w-0">
