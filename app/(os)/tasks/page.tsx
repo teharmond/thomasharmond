@@ -96,7 +96,14 @@ const statusGroups: Record<
 };
 
 // Define the desired order for status groups
-const statusOrder: TaskStatus[] = ['in_progress', 'todo', 'backlog', 'completed', 'canceled', 'duplicate'];
+const statusOrder: TaskStatus[] = [
+  "in_progress",
+  "todo",
+  "backlog",
+  "completed",
+  "canceled",
+  "duplicate",
+];
 
 export default function TasksPage() {
   const { isSignedIn, isLoaded } = useUser();
@@ -476,67 +483,53 @@ export default function TasksPage() {
                               </span>
                             </CollapsibleTrigger>
                             <CollapsibleContent>
-                              <div className="px-4 pb-4">
-                                <div className="bg-background rounded border">
-                                  <table className="w-full">
-                                    <thead>
-                                      <tr className="border-b bg-muted/50">
-                                        <th className="text-left p-3 font-medium text-sm">
-                                          Title
-                                        </th>
-                                        <th className="text-center p-3 font-medium text-sm w-32">
-                                          Priority
-                                        </th>
-                                        <th className="text-center p-3 font-medium text-sm w-32">
-                                          Due Date
-                                        </th>
-                                        <th className="text-center p-3 font-medium text-sm w-40">
-                                          Status
-                                        </th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      {row.subRows.map((subRow, index) => (
-                                        <tr
-                                          key={subRow.id}
-                                          className={`border-b last:border-b-0 hover:bg-muted/30 transition-colors ${index % 2 === 0 ? "bg-muted/10" : ""}`}
-                                        >
-                                          <td className="p-3">
-                                            {flexRender(
-                                              columns[1].cell,
-                                              subRow
-                                                .getVisibleCells()[1]
-                                                .getContext()
-                                            )}
-                                          </td>
-                                          <td className="p-3 text-center">
-                                            {flexRender(
-                                              columns[2].cell,
-                                              subRow
-                                                .getVisibleCells()[2]
-                                                .getContext()
-                                            )}
-                                          </td>
-                                          <td className="p-3 text-center">
-                                            {flexRender(
-                                              columns[3].cell,
-                                              subRow
-                                                .getVisibleCells()[3]
-                                                .getContext()
-                                            )}
-                                          </td>
-                                          <td className="p-3 text-center">
-                                            {flexRender(
-                                              columns[4].cell,
-                                              subRow
-                                                .getVisibleCells()[4]
-                                                .getContext()
-                                            )}
-                                          </td>
-                                        </tr>
-                                      ))}
-                                    </tbody>
-                                  </table>
+                              <div className="">
+                                <div className="bg-background rounded-lg">
+                                  <div className="w-full">
+                                    {row.subRows.map((subRow, index) => (
+                                      <div
+                                        key={subRow.id}
+                                        className={`border-b last:border-b-0 hover:bg-muted/30 transition-colors p-3 ${index % 2 === 0 ? "bg-muted/10" : ""}`}
+                                      >
+                                        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                                          <div className="flex items-center gap-2 flex-1 min-w-0">
+                                            <StatusSelect
+                                              value={subRow.original.status}
+                                              onValueChange={(status: TaskStatus) =>
+                                                handleUpdateStatus(subRow.original._id, status)
+                                              }
+                                            />
+                                            <div
+                                              className="cursor-pointer hover:bg-accent/50 p-2 rounded transition-colors flex-1 min-w-0"
+                                              onClick={() => handleTaskClick(subRow.original)}
+                                            >
+                                              <div className="font-medium text-sm line-clamp-1">{subRow.original.text}</div>
+                                              {subRow.original.description && (
+                                                <div className="text-sm text-muted-foreground mt-1 line-clamp-2">
+                                                  {subRow.original.description}
+                                                </div>
+                                              )}
+                                            </div>
+                                          </div>
+                                          <div className="flex items-center gap-3 ml-10 sm:ml-0">
+                                            <PrioritySelect
+                                              value={subRow.original.priority}
+                                              onValueChange={(priority: TaskPriority) =>
+                                                handleUpdatePriority(subRow.original._id, priority)
+                                              }
+                                            />
+                                            <div className="text-sm whitespace-nowrap">
+                                              {subRow.original.dueDate ? (
+                                                new Date(subRow.original.dueDate).toLocaleDateString()
+                                              ) : (
+                                                <span className="text-muted-foreground">No date</span>
+                                              )}
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
                                 </div>
                               </div>
                             </CollapsibleContent>
