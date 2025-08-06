@@ -11,8 +11,7 @@ import { useUser } from "@clerk/nextjs";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Collapsible,
   CollapsibleContent,
@@ -39,18 +38,10 @@ import {
   getGroupedRowModel,
   getExpandedRowModel,
   getSortedRowModel,
-  flexRender,
   ColumnDef,
   ExpandedState,
 } from "@tanstack/react-table";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { useQueryState } from "nuqs";
 
 type Task = {
   _id: string;
@@ -115,8 +106,14 @@ const statusOrder: TaskStatus[] = [
 
 export default function TasksPage() {
   const { isSignedIn, isLoaded } = useUser();
-  const [newTask, setNewTask] = useState("");
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useQueryState("newTask", {
+    defaultValue: "",
+    clearOnDefault: true,
+  });
+  const [, setPresetStatus] = useQueryState("status", {
+    defaultValue: "",
+    clearOnDefault: true,
+  });
   const [, startTransition] = useTransition();
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
@@ -174,7 +171,6 @@ export default function TasksPage() {
     api.tasks.getTasks,
     isSignedIn ? undefined : "skip"
   );
-  const createTask = useMutation(api.tasks.createTask);
   const updateTask = useMutation(api.tasks.updateTask);
   const deleteTask = useMutation(api.tasks.deleteTask);
 
@@ -197,17 +193,11 @@ export default function TasksPage() {
     }
   );
 
-  const handleAddTask = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newTask.trim()) {
-      await createTask({
-        text: newTask.trim(),
-        status: "todo",
-        priority: "medium",
-      });
-      setNewTask("");
-      setDialogOpen(false);
+  const openDialogWithStatus = (status?: TaskStatus) => {
+    if (status) {
+      setPresetStatus(status);
     }
+    setDialogOpen("open");
   };
 
   const handleUpdateStatus = (id: string, status: TaskStatus) => {
@@ -372,7 +362,7 @@ export default function TasksPage() {
         ),
       } as ColumnDef<Task, any>,
     ],
-    [handleUpdateStatus, handleUpdatePriority, handleTaskClick]
+    [handleUpdateStatus, handleUpdatePriority, handleTaskClick, openDialogWithStatus]
   );
 
   const table = useReactTable({
@@ -429,46 +419,14 @@ export default function TasksPage() {
             <span className="text-sm text-secondary-foreground font-medium">
               Tasks
             </span>
-            <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-              <DialogTrigger asChild>
-                <Button size="sm" className="h-7 text-xs px-3">
-                  <Plus className="h-3.5 w-3.5 mr-1.5" />
-                  Add Task
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Add New Task</DialogTitle>
-                  <DialogDescription>
-                    Create a new task to add to your list.
-                  </DialogDescription>
-                </DialogHeader>
-                <form onSubmit={handleAddTask} className="space-y-4">
-                  <Input
-                    value={newTask}
-                    onChange={(e) => setNewTask(e.target.value)}
-                    placeholder="Enter task description..."
-                    className="w-full"
-                    autoFocus
-                  />
-                  <div className="flex justify-end gap-2">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => {
-                        setNewTask("");
-                        setDialogOpen(false);
-                      }}
-                    >
-                      Cancel
-                    </Button>
-                    <Button type="submit" disabled={!newTask.trim()}>
-                      Add Task
-                    </Button>
-                  </div>
-                </form>
-              </DialogContent>
-            </Dialog>
+            <Button 
+              size="sm" 
+              className="h-7 text-xs px-3"
+              onClick={() => openDialogWithStatus()}
+            >
+              <Plus className="h-3.5 w-3.5 mr-1.5" />
+              Add Task
+            </Button>
           </header>
           <div className="h-full flex flex-col">
             <div className="flex-1 overflow-auto">
@@ -494,13 +452,7 @@ export default function TasksPage() {
 
                       if (tasksCount === 0) return null;
 
-                      // Find if this is the first/last section with tasks
-                      const visibleRowsWithTasks = rows.filter(
-                        (r) => r.getIsGrouped() && r.subRows.length > 0
-                      );
-                      const firstVisibleIndex = rows.findIndex(
-                        (r) => r.getIsGrouped() && r.subRows.length > 0
-                      );
+                      // Find if this is the last section with tasks
                       const lastVisibleIndex = rows.findLastIndex(
                         (r) => r.getIsGrouped() && r.subRows.length > 0
                       );
@@ -542,6 +494,7 @@ export default function TasksPage() {
                                 variant="ghost"
                                 size="icon"
                                 className=" hover:bg-foreground/10 text-muted-foreground hover:text-foreground"
+                                onClick={() => openDialogWithStatus(groupValue)}
                               >
                                 <PlusIcon className="h-4 w-4" />
                               </Button>

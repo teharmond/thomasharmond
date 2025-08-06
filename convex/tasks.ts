@@ -66,6 +66,8 @@ export const createTask = mutation({
     text: v.string(),
     status: v.optional(statusValues),
     priority: v.optional(priorityValues),
+    description: v.optional(v.string()),
+    dueDate: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -77,6 +79,8 @@ export const createTask = mutation({
       text: args.text,
       status: args.status || "todo",
       priority: args.priority || "medium",
+      description: args.description,
+      dueDate: args.dueDate,
       userId: identity.subject,
       createdAt: Date.now(),
     });
