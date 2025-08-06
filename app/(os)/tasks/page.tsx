@@ -28,6 +28,7 @@ import {
   CheckCircle2,
   XCircle,
   Copy,
+  Triangle,
 } from "lucide-react";
 import { TaskStatus, StatusSelect } from "./status-select";
 import { TaskPriority, PrioritySelect } from "./priority-select";
@@ -479,19 +480,17 @@ export default function TasksPage() {
                               row.toggleExpanded(open);
                             }}
                           >
-                            <CollapsibleTrigger className="flex items-center gap-2 w-full p-4 py-1 text-sm hover:bg-accent bg-muted transition-colors">
+                            <CollapsibleTrigger className="flex items-center group/collapsible-trigger gap-2 w-full p-4 py-1 text-sm hover:bg-accent bg-muted transition-colors">
                               {isExpanded ? (
-                                <ChevronDown className="h-3 w-3" />
+                                <Triangle className="h-2 w-2 mr-1 rotate-180 text-muted-foreground fill-muted-foreground group-hover/collapsible-trigger:fill-foreground group-hover/collapsible-trigger:text-foreground" />
                               ) : (
-                                <ChevronRight className="h-3 w-3" />
+                                <Triangle className="h-2 w-2 mr-1 fill-foreground text-foreground rotate-90" />
                               )}
-                              <div
-                                className={`flex items-center gap-3 ${group.color}`}
-                              >
-                                {group.icon}
-                                <span className="font-semibold ">
-                                  {group.label}
+                              <div className={`flex items-center gap-2 `}>
+                                <span className={`${group.color}`}>
+                                  {group.icon}
                                 </span>
+                                <span>{group.label}</span>
                                 <span className="text-muted-foreground text-sm ml-auto bg-muted px-2 py-1 rounded">
                                   {tasksCount}
                                 </span>
