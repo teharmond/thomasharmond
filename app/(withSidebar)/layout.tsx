@@ -32,6 +32,13 @@ export default function layout({ children }: { children: React.ReactNode }) {
           <Link href="mailto:hey@thomasharmond.com" className="hover:underline">
             hey@thomasharmond.com
           </Link>
+          <span className="text-muted-foreground">|</span>
+          <Link
+            href="https://github.com/teharmond/thomasharmond"
+            className="hover:underline"
+          >
+            GitHub
+          </Link>
         </footer>
       </div>
     </main>

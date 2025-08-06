@@ -39,6 +39,28 @@ export const getTasks = query({
   },
 });
 
+export const getTaskById = query({
+  args: { id: v.id("tasks") },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    const task = await ctx.db.get(args.id);
+    if (!task || task.userId !== identity.subject) {
+      throw new Error("Task not found or unauthorized");
+    }
+
+    // Add defaults for old tasks that don't have status/priority
+    return {
+      ...task,
+      status: task.status || (task.completed ? "completed" : "todo"),
+      priority: task.priority || "medium"
+    };
+  },
+});
+
 export const createTask = mutation({
   args: { 
     text: v.string(),
@@ -114,12 +136,17 @@ export const createTaskWithApiKey = mutation({
     text: v.string(),
     userId: v.string(),
     status: v.optional(statusValues),
+    priority: v.optional(priorityValues),
+    description: v.optional(v.string()),
+    dueDate: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     return await ctx.db.insert("tasks", {
       text: args.text,
       status: args.status || "todo",
-      priority: "medium",
+      priority: args.priority || "medium",
+      description: args.description,
+      dueDate: args.dueDate,
       userId: args.userId,
       createdAt: Date.now(),
     });

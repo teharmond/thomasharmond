@@ -4,11 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { X, Calendar, Clock, FileText, Tag } from "lucide-react";
+import { X, Calendar, Clock, FileText, Tag, Expand } from "lucide-react";
 import { StatusSelect, TaskStatus } from "./status-select";
 import { PrioritySelect, TaskPriority } from "./priority-select";
 import { useState, useEffect, useCallback } from "react";
 import { debounce } from "lodash";
+import { useRouter } from "next/navigation";
 
 interface TaskDetailProps {
   task: {
@@ -35,6 +36,7 @@ export function TaskDetail({
   onUpdateTask,
   onDelete,
 }: TaskDetailProps) {
+  const router = useRouter();
   const [editedText, setEditedText] = useState("");
   const [editedDescription, setEditedDescription] = useState("");
   const [editedDueDate, setEditedDueDate] = useState("");
@@ -91,14 +93,25 @@ export function TaskDetail({
     <div className="flex flex-col h-full">
       <div className="flex items-center justify-between p-4 border-b">
         <h3 className="font-semibold text-lg">Task Details</h3>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={onClose}
-          className="h-8 w-8 "
-        >
-          <X className="h-4 w-4" />
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => router.push(`/tasks/${task._id}`)}
+            className="h-8 w-8"
+            title="Expand to full page"
+          >
+            <Expand className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={onClose}
+            className="h-8 w-8"
+          >
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
       </div>
 
       <div className="flex-1 overflow-y-auto p-4 space-y-6">

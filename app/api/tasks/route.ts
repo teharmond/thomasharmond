@@ -40,13 +40,29 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const taskData: { text: string; userId: string; status?: TaskStatus } = {
+    const taskData: { 
+      text: string; 
+      userId: string; 
+      status?: TaskStatus;
+      priority?: "low" | "medium" | "high" | "urgent";
+      description?: string;
+      dueDate?: string;
+    } = {
       text: body.title,
       userId: body.userId,
     };
 
     if (body.status) {
       taskData.status = body.status;
+    }
+    if (body.priority) {
+      taskData.priority = body.priority;
+    }
+    if (body.description) {
+      taskData.description = body.description;
+    }
+    if (body.dueDate) {
+      taskData.dueDate = body.dueDate;
     }
 
     const taskId = await convex.mutation(api.tasks.createTaskWithApiKey, taskData);
