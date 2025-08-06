@@ -504,13 +504,12 @@ export default function TasksPage() {
                       const lastVisibleIndex = rows.findLastIndex(
                         (r) => r.getIsGrouped() && r.subRows.length > 0
                       );
-                      const isFirstVisible = index === firstVisibleIndex;
                       const isLastVisible = index === lastVisibleIndex;
 
                       return (
                         <div
                           key={row.id}
-                          className={`bg-card ${!isLastVisible ? "border-b" : ""} `}
+                          className={`bg-card ${!isLastVisible && isExpanded ? "border-b" : ""} `}
                         >
                           <Collapsible
                             open={isExpanded}
@@ -592,17 +591,13 @@ export default function TasksPage() {
                                                 )
                                               }
                                             />
-                                            <div className="text-sm whitespace-nowrap">
-                                              {subRow.original.dueDate ? (
-                                                new Date(
+                                            {subRow.original.dueDate && (
+                                              <div className="text-sm whitespace-nowrap">
+                                                {new Date(
                                                   subRow.original.dueDate
-                                                ).toLocaleDateString()
-                                              ) : (
-                                                <span className="text-muted-foreground">
-                                                  No date
-                                                </span>
-                                              )}
-                                            </div>
+                                                ).toLocaleDateString()}
+                                              </div>
+                                            )}
                                           </div>
                                         </div>
                                       </div>
