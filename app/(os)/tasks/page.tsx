@@ -14,6 +14,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { api } from "@/convex/_generated/api";
 import { useUser } from "@clerk/nextjs";
 import {
@@ -38,7 +46,6 @@ import {
   Triangle,
   XCircle,
   Trash2,
-  Edit3,
   X,
 } from "lucide-react";
 import { useQueryState } from "nuqs";
@@ -116,7 +123,7 @@ const statusOrder: TaskStatus[] = [
 
 export default function TasksPage() {
   const { isSignedIn, isLoaded } = useUser();
-  const [dialogOpen, setDialogOpen] = useQueryState("newTask", {
+  const [, setDialogOpen] = useQueryState("newTask", {
     defaultValue: "",
     clearOnDefault: true,
   });
@@ -129,6 +136,7 @@ export default function TasksPage() {
   const [isDesktop, setIsDesktop] = useState(false);
   const [deletingTasks, setDeletingTasks] = useState<Set<string>>(new Set());
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [groupExpanded, setGroupExpanded] = useState<ExpandedState>(() => {
     if (typeof window === "undefined") {
       return {
@@ -302,6 +310,7 @@ export default function TasksPage() {
     
     const idsToDelete = Array.from(selectedRows);
     setSelectedRows(new Set());
+    setShowDeleteDialog(false);
     
     startTransition(async () => {
       try {
@@ -774,7 +783,7 @@ export default function TasksPage() {
                   <Button
                     variant="destructive"
                     size="sm"
-                    onClick={handleBulkDelete}
+                    onClick={() => setShowDeleteDialog(true)}
                   >
                     <Trash2 className="h-4 w-4 mr-1" />
                     Delete
@@ -785,6 +794,33 @@ export default function TasksPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Delete confirmation dialog */}
+      <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Confirm deletion</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete {selectedRows.size} task{selectedRows.size > 1 ? "s" : ""}?
+              This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setShowDeleteDialog(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleBulkDelete}
+            >
+              Delete {selectedRows.size} task{selectedRows.size > 1 ? "s" : ""}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
