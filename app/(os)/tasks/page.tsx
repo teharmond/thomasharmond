@@ -1,15 +1,5 @@
 "use client";
 
-import React, {
-  useState,
-  useOptimistic,
-  useTransition,
-  useEffect,
-  useMemo,
-} from "react";
-import { useUser } from "@clerk/nextjs";
-import { useQuery, useMutation } from "convex/react";
-import { api } from "@/convex/_generated/api";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -18,30 +8,50 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import {
-  Plus,
-  Archive,
-  Circle,
-  Loader2,
-  CheckCircle2,
-  XCircle,
-  Copy,
-  Triangle,
-  PlusIcon,
-} from "lucide-react";
-import { TaskStatus, StatusSelect } from "./status-select";
-import { TaskPriority, PrioritySelect } from "./priority-select";
-import { TaskDetail } from "./task-detail";
-import { motion, AnimatePresence } from "framer-motion";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { api } from "@/convex/_generated/api";
+import { useUser } from "@clerk/nextjs";
 import {
-  useReactTable,
-  getCoreRowModel,
-  getGroupedRowModel,
-  getExpandedRowModel,
-  getSortedRowModel,
   ColumnDef,
   ExpandedState,
+  getCoreRowModel,
+  getExpandedRowModel,
+  getGroupedRowModel,
+  getSortedRowModel,
+  useReactTable,
 } from "@tanstack/react-table";
+import { useMutation, useQuery } from "convex/react";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  Archive,
+  CheckCircle2,
+  Circle,
+  Copy,
+  Loader2,
+  Plus,
+  PlusIcon,
+  Triangle,
+  XCircle,
+  Trash2,
+  Edit3,
+  X,
+} from "lucide-react";
 import { useQueryState } from "nuqs";
+import React, {
+  useEffect,
+  useMemo,
+  useOptimistic,
+  useState,
+  useTransition,
+} from "react";
+import { PrioritySelect, TaskPriority } from "./priority-select";
+import { StatusSelect, TaskStatus } from "./status-select";
+import { TaskDetail } from "./task-detail";
 
 type Task = {
   _id: string;
@@ -118,6 +128,7 @@ export default function TasksPage() {
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
   const [deletingTasks, setDeletingTasks] = useState<Set<string>>(new Set());
+  const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const [groupExpanded, setGroupExpanded] = useState<ExpandedState>(() => {
     if (typeof window === "undefined") {
       return {
@@ -173,6 +184,8 @@ export default function TasksPage() {
   );
   const updateTask = useMutation(api.tasks.updateTask);
   const deleteTask = useMutation(api.tasks.deleteTask);
+  const bulkDeleteTasks = useMutation(api.tasks.bulkDeleteTasks);
+  const bulkUpdateStatus = useMutation(api.tasks.bulkUpdateStatus);
 
   const [optimisticTasks, setOptimisticTasks] = useOptimistic(
     tasksFromDb || [],
@@ -284,6 +297,48 @@ export default function TasksPage() {
     setSelectedTask(null);
   };
 
+  const handleBulkDelete = async () => {
+    if (selectedRows.size === 0) return;
+    
+    const idsToDelete = Array.from(selectedRows);
+    setSelectedRows(new Set());
+    
+    startTransition(async () => {
+      try {
+        // Optimistically remove from UI
+        idsToDelete.forEach(id => {
+          setOptimisticTasks({ type: "delete", id });
+        });
+        
+        // Perform the actual bulk delete
+        await bulkDeleteTasks({ ids: idsToDelete as any });
+      } catch (error) {
+        console.error("Failed to bulk delete tasks:", error);
+      }
+    });
+  };
+
+  const handleBulkUpdateStatus = async (status: TaskStatus) => {
+    if (selectedRows.size === 0) return;
+    
+    const idsToUpdate = Array.from(selectedRows);
+    setSelectedRows(new Set());
+    
+    startTransition(async () => {
+      try {
+        // Optimistically update the UI
+        idsToUpdate.forEach(id => {
+          setOptimisticTasks({ type: "update", id, task: { status } });
+        });
+        
+        // Perform the actual bulk update
+        await bulkUpdateStatus({ ids: idsToUpdate as any, status });
+      } catch (error) {
+        console.error("Failed to bulk update status:", error);
+      }
+    });
+  };
+
   const columns = useMemo<ColumnDef<Task, any>[]>(
     () => [
       {
@@ -362,7 +417,12 @@ export default function TasksPage() {
         ),
       } as ColumnDef<Task, any>,
     ],
-    [handleUpdateStatus, handleUpdatePriority, handleTaskClick, openDialogWithStatus]
+    [
+      handleUpdateStatus,
+      handleUpdatePriority,
+      handleTaskClick,
+      openDialogWithStatus,
+    ]
   );
 
   const table = useReactTable({
@@ -419,8 +479,8 @@ export default function TasksPage() {
             <span className="text-sm text-secondary-foreground font-medium">
               Tasks
             </span>
-            <Button 
-              size="sm" 
+            <Button
+              size="sm"
               className="h-7 text-xs px-3"
               onClick={() => openDialogWithStatus()}
             >
@@ -503,58 +563,103 @@ export default function TasksPage() {
                               <div className="">
                                 <div className="bg-background ">
                                   <div className="w-full">
-                                    {row.subRows.map((subRow, index) => (
-                                      <div
-                                        key={subRow.id}
-                                        className={`border-b last:border-b-0 hover:bg-muted/30 transition-colors pr-6 pl-8 py-1 ${index % 2 === 0 ? "bg-muted/10" : ""}`}
-                                      >
-                                        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                                          <div className="flex items-center gap-2 flex-1 min-w-0">
-                                            <StatusSelect
-                                              value={subRow.original.status}
-                                              onValueChange={(
-                                                status: TaskStatus
-                                              ) =>
-                                                handleUpdateStatus(
-                                                  subRow.original._id,
-                                                  status
-                                                )
-                                              }
-                                            />
-                                            <div
-                                              className="cursor-pointer hover:bg-accent/50 p-2 rounded transition-colors flex-1 min-w-0"
-                                              onClick={() =>
-                                                handleTaskClick(subRow.original)
-                                              }
-                                            >
-                                              <div className=" text-sm line-clamp-1">
-                                                {subRow.original.text}
+                                    {row.subRows.map((subRow, index) => {
+                                      const isSelected = selectedRows.has(
+                                        subRow.original._id
+                                      );
+                                      return (
+                                        <div
+                                          key={subRow.id}
+                                          className={`border-b last:border-b-0 hover:bg-muted/30 transition-colors pr-6 pl-1 py-1 ${
+                                            isSelected
+                                              ? "bg-secondary/30 hover:bg-secondary/30"
+                                              : index % 2 === 0
+                                                ? "bg-muted/10"
+                                                : ""
+                                          }`}
+                                        >
+                                          <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                                            <div className="flex items-center gap-1 flex-1 min-w-0">
+                                              <div className="w-6 flex items-center justify-center group/checkbox">
+                                                <input
+                                                  type="checkbox"
+                                                  checked={isSelected}
+                                                  onChange={(e) => {
+                                                    e.stopPropagation();
+                                                    setSelectedRows((prev) => {
+                                                      const next = new Set(
+                                                        prev
+                                                      );
+                                                      if (
+                                                        next.has(
+                                                          subRow.original._id
+                                                        )
+                                                      ) {
+                                                        next.delete(
+                                                          subRow.original._id
+                                                        );
+                                                      } else {
+                                                        next.add(
+                                                          subRow.original._id
+                                                        );
+                                                      }
+                                                      return next;
+                                                    });
+                                                  }}
+                                                  className="opacity-0 group-hover/checkbox:opacity-100 checked:opacity-100 transition-opacity"
+                                                  onClick={(e) =>
+                                                    e.stopPropagation()
+                                                  }
+                                                />
+                                              </div>
+                                              <StatusSelect
+                                                value={subRow.original.status}
+                                                onValueChange={(
+                                                  status: TaskStatus
+                                                ) =>
+                                                  handleUpdateStatus(
+                                                    subRow.original._id,
+                                                    status
+                                                  )
+                                                }
+                                              />
+                                              <div
+                                                className="cursor-pointer hover:bg-accent/50 p-2 rounded transition-colors flex-1 min-w-0"
+                                                onClick={() =>
+                                                  handleTaskClick(
+                                                    subRow.original
+                                                  )
+                                                }
+                                              >
+                                                <div className=" text-sm line-clamp-1">
+                                                  {subRow.original.text}
+                                                </div>
                                               </div>
                                             </div>
-                                          </div>
-                                          <div className="flex items-center gap-3 ml-10 sm:ml-0">
-                                            <PrioritySelect
-                                              value={subRow.original.priority}
-                                              onValueChange={(
-                                                priority: TaskPriority
-                                              ) =>
-                                                handleUpdatePriority(
-                                                  subRow.original._id,
-                                                  priority
-                                                )
-                                              }
-                                            />
-                                            {subRow.original.dueDate && (
-                                              <div className="text-sm whitespace-nowrap">
-                                                {new Date(
-                                                  subRow.original.dueDate
-                                                ).toLocaleDateString()}
-                                              </div>
-                                            )}
+                                            <div className="flex items-center gap-3 ml-10 sm:ml-0">
+                                              <PrioritySelect
+                                                value={subRow.original.priority}
+                                                onValueChange={(
+                                                  priority: TaskPriority
+                                                ) =>
+                                                  handleUpdatePriority(
+                                                    subRow.original._id,
+                                                    priority
+                                                  )
+                                                }
+                                              />
+                                              {subRow.original.dueDate && (
+                                                <div className="text-sm whitespace-nowrap">
+                                                  {new Date(
+                                                    subRow.original.dueDate
+                                                  ).toLocaleDateString()}
+                                                </div>
+                                              )}
+                                            </div>
                                           </div>
                                         </div>
-                                      </div>
-                                    ))}
+                                      );
+                                    })}
                                   </div>
                                 </div>
                               </div>
@@ -624,6 +729,60 @@ export default function TasksPage() {
               />
             </motion.div>
           </>
+        )}
+      </AnimatePresence>
+
+      {/* Bulk action bar */}
+      <AnimatePresence>
+        {selectedRows.size > 0 && (
+          <motion.div
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: "spring", damping: 30, stiffness: 400 }}
+            className="fixed bottom-0 left-0 right-0 bg-background border-t shadow-lg z-30"
+          >
+            <div className="px-6 py-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <span className="text-sm font-medium">
+                    {selectedRows.size} task{selectedRows.size > 1 ? "s" : ""} selected
+                  </span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setSelectedRows(new Set())}
+                  >
+                    <X className="h-4 w-4 mr-1" />
+                    Clear selection
+                  </Button>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Select onValueChange={handleBulkUpdateStatus}>
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Update status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="todo">Todo</SelectItem>
+                      <SelectItem value="in_progress">In Progress</SelectItem>
+                      <SelectItem value="backlog">Backlog</SelectItem>
+                      <SelectItem value="completed">Completed</SelectItem>
+                      <SelectItem value="canceled">Canceled</SelectItem>
+                      <SelectItem value="duplicate">Duplicate</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    onClick={handleBulkDelete}
+                  >
+                    <Trash2 className="h-4 w-4 mr-1" />
+                    Delete
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>

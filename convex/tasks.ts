@@ -156,3 +156,56 @@ export const createTaskWithApiKey = mutation({
     });
   },
 });
+
+export const bulkDeleteTasks = mutation({
+  args: { ids: v.array(v.id("tasks")) },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    // Verify all tasks belong to the user before deleting
+    for (const id of args.ids) {
+      const task = await ctx.db.get(id);
+      if (!task || task.userId !== identity.subject) {
+        throw new Error("Task not found or unauthorized");
+      }
+    }
+
+    // Delete all tasks
+    for (const id of args.ids) {
+      await ctx.db.delete(id);
+    }
+
+    return { deleted: args.ids.length };
+  },
+});
+
+export const bulkUpdateStatus = mutation({
+  args: { 
+    ids: v.array(v.id("tasks")),
+    status: statusValues,
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    // Verify all tasks belong to the user before updating
+    for (const id of args.ids) {
+      const task = await ctx.db.get(id);
+      if (!task || task.userId !== identity.subject) {
+        throw new Error("Task not found or unauthorized");
+      }
+    }
+
+    // Update all tasks
+    for (const id of args.ids) {
+      await ctx.db.patch(id, { status: args.status });
+    }
+
+    return { updated: args.ids.length };
+  },
+});

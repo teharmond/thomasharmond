@@ -33,7 +33,7 @@ import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { useQueryState } from "nuqs";
 
-export type TaskStatus = 
+export type TaskStatus =
   | "todo"
   | "in_progress"
   | "backlog"
@@ -62,12 +62,12 @@ const priorityOptions: { value: TaskPriority; label: string }[] = [
 export function CreateTaskDialog() {
   const { isSignedIn } = useUser();
   const createTask = useMutation(api.tasks.createTask);
-  
+
   const [dialogOpen, setDialogOpen] = useQueryState("newTask", {
     defaultValue: "",
     clearOnDefault: true,
   });
-  
+
   const [presetStatus, setPresetStatus] = useQueryState("status", {
     defaultValue: "",
     clearOnDefault: true,
@@ -98,11 +98,11 @@ export function CreateTaskDialog() {
         !e.shiftKey
       ) {
         const target = e.target as HTMLElement;
-        const isTyping = 
+        const isTyping =
           target.tagName === "INPUT" ||
           target.tagName === "TEXTAREA" ||
           target.contentEditable === "true";
-        
+
         if (!isTyping) {
           e.preventDefault();
           setDialogOpen("open");
@@ -127,7 +127,7 @@ export function CreateTaskDialog() {
         priority,
         dueDate: dueDate ? dueDate.toISOString() : undefined,
       });
-      
+
       // Reset form
       setTaskText("");
       setDescription("");
@@ -166,7 +166,8 @@ export function CreateTaskDialog() {
         <DialogHeader>
           <DialogTitle>Create New Task</DialogTitle>
           <DialogDescription>
-            Add a new task to your list. Press 'c' anytime to quickly create a task.
+            Add a new task to your list. Press &apos;c&apos; anytime to quickly
+            create a task.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -196,7 +197,10 @@ export function CreateTaskDialog() {
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="status">Status</Label>
-              <Select value={status} onValueChange={(value) => setStatus(value as TaskStatus)}>
+              <Select
+                value={status}
+                onValueChange={(value) => setStatus(value as TaskStatus)}
+              >
                 <SelectTrigger id="status">
                   <SelectValue />
                 </SelectTrigger>
@@ -212,7 +216,10 @@ export function CreateTaskDialog() {
 
             <div className="space-y-2">
               <Label htmlFor="priority">Priority</Label>
-              <Select value={priority} onValueChange={(value) => setPriority(value as TaskPriority)}>
+              <Select
+                value={priority}
+                onValueChange={(value) => setPriority(value as TaskPriority)}
+              >
                 <SelectTrigger id="priority">
                   <SelectValue />
                 </SelectTrigger>
