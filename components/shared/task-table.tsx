@@ -8,6 +8,7 @@ import {
 import {
   ColumnDef,
   ExpandedState,
+  OnChangeFn,
   getCoreRowModel,
   getExpandedRowModel,
   getGroupedRowModel,
@@ -95,7 +96,7 @@ interface TaskTableProps {
   tasks: Task[];
   groupExpanded: ExpandedState;
   selectedRows: Set<string>;
-  onExpandedChange: (expanded: ExpandedState) => void;
+  onExpandedChange: OnChangeFn<ExpandedState>;
   onTaskClick: (task: Task) => void;
   onUpdateStatus: (id: string, status: TaskStatus) => void;
   onUpdatePriority: (id: string, priority: TaskPriority) => void;
@@ -248,17 +249,13 @@ export function TaskTable({
                                       checked={isSelected}
                                       onChange={(e) => {
                                         e.stopPropagation();
-                                        onSelectedRowsChange(
-                                          (prev) => {
-                                            const next = new Set(prev);
-                                            if (next.has(subRow.original._id)) {
-                                              next.delete(subRow.original._id);
-                                            } else {
-                                              next.add(subRow.original._id);
-                                            }
-                                            return next;
-                                          }
-                                        );
+                                        const next = new Set(selectedRows);
+                                        if (next.has(subRow.original._id)) {
+                                          next.delete(subRow.original._id);
+                                        } else {
+                                          next.add(subRow.original._id);
+                                        }
+                                        onSelectedRowsChange(next);
                                       }}
                                       className="opacity-0 group-hover/checkbox:opacity-100 checked:opacity-100 transition-opacity"
                                       onClick={(e) => e.stopPropagation()}
