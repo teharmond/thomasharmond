@@ -4,7 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { TiptapEditor } from "@/components/ui/tiptap-editor";
-import { X, Calendar, Clock, FileText, Tag, Expand, Plus, CheckSquare, Square, Trash2 } from "lucide-react";
+import {
+  X,
+  Calendar,
+  Clock,
+  FileText,
+  Tag,
+  Expand,
+  Plus,
+  CheckSquare,
+  Square,
+  Trash2,
+} from "lucide-react";
 import { StatusSelect, TaskStatus } from "./status-select";
 import { PrioritySelect, TaskPriority } from "./priority-select";
 import { useState, useEffect, useCallback } from "react";
@@ -42,7 +53,7 @@ export function TaskDetail({
   const [editedText, setEditedText] = useState("");
   const [editedDueDate, setEditedDueDate] = useState("");
   const [newSubtaskText, setNewSubtaskText] = useState("");
-  
+
   const subtasks = useQuery(
     api.subtasks.getSubtasks,
     task ? { taskId: task._id as any } : "skip"
@@ -72,7 +83,6 @@ export function TaskDetail({
     }
   };
 
-
   const handleDueDateChange = (value: string) => {
     setEditedDueDate(value);
     if (task) {
@@ -91,10 +101,10 @@ export function TaskDetail({
       minute: "2-digit",
     });
   };
-  
+
   const handleAddSubtask = async () => {
     if (!task || !newSubtaskText.trim()) return;
-    
+
     try {
       await createSubtask({
         taskId: task._id as any,
@@ -105,8 +115,11 @@ export function TaskDetail({
       console.error("Failed to create subtask:", error);
     }
   };
-  
-  const handleToggleSubtask = async (subtaskId: string, currentStatus: string) => {
+
+  const handleToggleSubtask = async (
+    subtaskId: string,
+    currentStatus: string
+  ) => {
     try {
       await updateSubtaskStatus({
         id: subtaskId as any,
@@ -116,7 +129,7 @@ export function TaskDetail({
       console.error("Failed to update subtask:", error);
     }
   };
-  
+
   const handleDeleteSubtask = async (subtaskId: string) => {
     try {
       await deleteSubtask({ id: subtaskId as any });
@@ -183,7 +196,7 @@ export function TaskDetail({
             <FileText className="inline h-4 w-4 mr-1" />
             Description
           </Label>
-          <TiptapEditor taskId={task._id as any} placeholder="Add a description..." />
+          <TiptapEditor taskId={task._id as any} />
         </div>
 
         <div className="space-y-2">
@@ -213,7 +226,9 @@ export function TaskDetail({
                     className="flex items-center gap-2 p-2 rounded hover:bg-accent/50 group"
                   >
                     <button
-                      onClick={() => handleToggleSubtask(subtask._id, subtask.status)}
+                      onClick={() =>
+                        handleToggleSubtask(subtask._id, subtask.status)
+                      }
                       className="flex items-center gap-2 flex-1 text-left"
                     >
                       {subtask.status === "completed" ? (
