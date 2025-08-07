@@ -893,3 +893,5 @@ export default function TasksWrapper() {
     </Suspense>
   );
 }
+
+export const dynamic = 'force-dynamic';
