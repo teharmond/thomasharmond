@@ -31,12 +31,7 @@ import { api } from "@/convex/_generated/api";
 import { useUser } from "@clerk/nextjs";
 import { useMutation, useQuery } from "convex/react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  FolderOpen,
-  Plus,
-  Trash2,
-  X,
-} from "lucide-react";
+import { FolderOpen, Plus, Trash2, X } from "lucide-react";
 import Link from "next/link";
 import { Suspense, useState, useTransition } from "react";
 import { Id } from "@/convex/_generated/dataModel";
@@ -155,7 +150,7 @@ function ProjectsContent() {
             Add Project
           </Button>
         </header>
-        
+
         <div className="h-full flex flex-col">
           <div className="flex-1 overflow-auto">
             {!projectsFromDb || projectsFromDb.length === 0 ? (
@@ -172,10 +167,15 @@ function ProjectsContent() {
                     <div className="col-span-1">
                       <input
                         type="checkbox"
-                        checked={selectedRows.size > 0 && selectedRows.size === projectsFromDb.length}
+                        checked={
+                          selectedRows.size > 0 &&
+                          selectedRows.size === projectsFromDb.length
+                        }
                         onChange={(e) => {
                           if (e.target.checked) {
-                            setSelectedRows(new Set(projectsFromDb.map(p => p._id)));
+                            setSelectedRows(
+                              new Set(projectsFromDb.map((p) => p._id))
+                            );
                           } else {
                             setSelectedRows(new Set());
                           }
@@ -192,15 +192,19 @@ function ProjectsContent() {
                 <div className="divide-y">
                   {projectsFromDb.map((project, index) => {
                     const isSelected = selectedRows.has(project._id);
-                    const progress = project.taskCount 
-                      ? (project.completedTaskCount || 0) / project.taskCount 
+                    const progress = project.taskCount
+                      ? (project.completedTaskCount || 0) / project.taskCount
                       : 0;
-                    
+
                     return (
                       <div
                         key={project._id}
                         className={`grid grid-cols-12 gap-4 px-6 py-4 hover:bg-muted/30 transition-colors ${
-                          isSelected ? "bg-secondary/30" : index % 2 === 0 ? "bg-muted/10" : ""
+                          isSelected
+                            ? "bg-secondary/30"
+                            : index % 2 === 0
+                              ? "bg-muted/10"
+                              : ""
                         }`}
                       >
                         <div className="col-span-1 flex items-center">
@@ -258,7 +262,8 @@ function ProjectsContent() {
                         </div>
                         <div className="col-span-2 flex items-center">
                           <span className="text-sm text-muted-foreground">
-                            {project.completedTaskCount || 0} / {project.taskCount || 0}
+                            {project.completedTaskCount || 0} /{" "}
+                            {project.taskCount || 0}
                           </span>
                         </div>
                       </div>
@@ -285,8 +290,8 @@ function ProjectsContent() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <span className="text-sm font-medium">
-                    {selectedRows.size} project{selectedRows.size > 1 ? "s" : ""}{" "}
-                    selected
+                    {selectedRows.size} project
+                    {selectedRows.size > 1 ? "s" : ""} selected
                   </span>
                   <Button
                     variant="ghost"
@@ -344,7 +349,10 @@ function ProjectsContent() {
             </div>
             <div className="grid gap-2">
               <Label htmlFor="color">Color</Label>
-              <Select value={newProjectColor} onValueChange={setNewProjectColor}>
+              <Select
+                value={newProjectColor}
+                onValueChange={setNewProjectColor}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Choose a color" />
                 </SelectTrigger>
@@ -352,7 +360,9 @@ function ProjectsContent() {
                   {projectColors.map((color) => (
                     <SelectItem key={color.value} value={color.value}>
                       <div className="flex items-center gap-2">
-                        <div className={`w-3 h-3 rounded-full ${color.value}`} />
+                        <div
+                          className={`w-3 h-3 rounded-full ${color.value}`}
+                        />
                         {color.name}
                       </div>
                     </SelectItem>
@@ -368,7 +378,10 @@ function ProjectsContent() {
             >
               Cancel
             </Button>
-            <Button onClick={handleCreateProject} disabled={!newProjectName.trim()}>
+            <Button
+              onClick={handleCreateProject}
+              disabled={!newProjectName.trim()}
+            >
               Create Project
             </Button>
           </DialogFooter>
@@ -383,8 +396,8 @@ function ProjectsContent() {
             <DialogDescription>
               Are you sure you want to delete {selectedRows.size} project
               {selectedRows.size > 1 ? "s" : ""}? This will remove the project
-              association from all tasks but won't delete the tasks themselves.
-              This action cannot be undone.
+              association from all tasks but won&apos;t delete the tasks
+              themselves. This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
@@ -413,4 +426,4 @@ export default function ProjectsWrapper() {
   );
 }
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
