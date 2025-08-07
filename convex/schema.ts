@@ -2,6 +2,14 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
+  projects: defineTable({
+    name: v.string(),
+    description: v.optional(v.string()),
+    userId: v.string(),
+    createdAt: v.number(),
+    color: v.optional(v.string()),
+  }).index("by_user", ["userId"]),
+  
   tasks: defineTable({
     text: v.string(),
     status: v.optional(v.union(
@@ -24,7 +32,10 @@ export default defineSchema({
     userId: v.string(),
     createdAt: v.number(),
     completed: v.optional(v.boolean()),
-  }).index("by_user", ["userId"]),
+    projectId: v.optional(v.id("projects")),
+  })
+    .index("by_user", ["userId"])
+    .index("by_project", ["projectId"]),
   
   subtasks: defineTable({
     taskId: v.id("tasks"),

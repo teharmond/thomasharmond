@@ -22,6 +22,7 @@
     "@tailwindcss/postcss": "^4.1.11",
     "@tanstack/react-table": "^8.21.3",
     "@tiptap/core": "^2.26.1",
+    "@tiptap/extension-placeholder": "^2.26.1",
     "@tiptap/react": "^2.26.1",
     "@tiptap/starter-kit": "^2.26.1",
     "@types/lodash": "^4.17.20",

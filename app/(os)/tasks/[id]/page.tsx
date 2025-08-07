@@ -9,13 +9,24 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { TiptapEditor } from "@/components/ui/tiptap-editor";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Calendar, Clock, FileText, Trash2, Plus, CheckSquare, Square } from "lucide-react";
+import {
+  ArrowLeft,
+  Calendar,
+  Clock,
+  FileText,
+  FolderOpen,
+  Trash2,
+  Plus,
+  CheckSquare,
+  Square,
+} from "lucide-react";
 import { StatusSelect, TaskStatus } from "../status-select";
 import { PrioritySelect, TaskPriority } from "../priority-select";
 import { useRouter, useParams } from "next/navigation";
 import { Id } from "@/convex/_generated/dataModel";
 import { debounce } from "lodash";
 import { useCallback } from "react";
+import { ProjectSelect } from "@/components/ui/project-select";
 
 export default function TaskPage() {
   const { isSignedIn, isLoaded } = useUser();
@@ -70,7 +81,6 @@ export default function TaskPage() {
     debouncedUpdate({ text: value });
   };
 
-
   const handleDueDateChange = (value: string) => {
     setEditedDueDate(value);
     debouncedUpdate({ dueDate: value });
@@ -100,6 +110,18 @@ export default function TaskPage() {
     }
   };
 
+  const handleUpdateProject = (projectId?: Id<"projects">) => {
+    if (task) {
+      startTransition(async () => {
+        try {
+          await updateTask({ id: task._id, projectId });
+        } catch (error) {
+          console.error("Failed to update project:", error);
+        }
+      });
+    }
+  };
+
   const handleDelete = () => {
     if (task && confirm("Are you sure you want to delete this task?")) {
       startTransition(async () => {
@@ -122,10 +144,10 @@ export default function TaskPage() {
       minute: "2-digit",
     });
   };
-  
+
   const handleAddSubtask = async () => {
     if (!taskId || !newSubtaskText.trim()) return;
-    
+
     try {
       await createSubtask({
         taskId,
@@ -136,8 +158,11 @@ export default function TaskPage() {
       console.error("Failed to create subtask:", error);
     }
   };
-  
-  const handleToggleSubtask = async (subtaskId: Id<"subtasks">, currentStatus: string) => {
+
+  const handleToggleSubtask = async (
+    subtaskId: Id<"subtasks">,
+    currentStatus: string
+  ) => {
     try {
       await updateSubtaskStatus({
         id: subtaskId,
@@ -147,7 +172,7 @@ export default function TaskPage() {
       console.error("Failed to update subtask:", error);
     }
   };
-  
+
   const handleDeleteSubtask = async (subtaskId: Id<"subtasks">) => {
     try {
       await deleteSubtask({ id: subtaskId });
@@ -243,7 +268,7 @@ export default function TaskPage() {
                     <FileText className="inline h-4 w-4 mr-1" />
                     Description
                   </Label>
-                  <TiptapEditor taskId={task._id} placeholder="Add a description..." className="min-h-[200px]" />
+                  <TiptapEditor taskId={task._id} className="min-h-[200px]" />
                 </div>
               </CardContent>
             </Card>
@@ -268,6 +293,17 @@ export default function TaskPage() {
                   <PrioritySelect
                     value={task.priority}
                     onValueChange={handleUpdatePriority}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>
+                    <FolderOpen className="inline h-4 w-4 mr-1" />
+                    Project
+                  </Label>
+                  <ProjectSelect
+                    value={task.projectId}
+                    onValueChange={handleUpdateProject}
+                    placeholder="Select a project"
                   />
                 </div>
               </CardContent>
@@ -299,7 +335,7 @@ export default function TaskPage() {
                 </div>
               </CardContent>
             </Card>
-            
+
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -316,7 +352,9 @@ export default function TaskPage() {
                         className="flex items-center gap-2 p-2 rounded hover:bg-accent/50 group"
                       >
                         <button
-                          onClick={() => handleToggleSubtask(subtask._id, subtask.status)}
+                          onClick={() =>
+                            handleToggleSubtask(subtask._id, subtask.status)
+                          }
                           className="flex items-center gap-2 flex-1 text-left"
                         >
                           {subtask.status === "completed" ? (

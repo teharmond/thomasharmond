@@ -21,6 +21,7 @@ const items = [
     url: "/tasks",
     icon: FileText,
   },
+  { title: "Projects", url: "/projects", icon: FileText },
 ];
 
 export function AppSidebar() {

@@ -9,7 +9,7 @@ import {
   Calendar,
   Clock,
   FileText,
-  Tag,
+  FolderOpen,
   Expand,
   Plus,
   CheckSquare,
@@ -23,6 +23,8 @@ import { debounce } from "lodash";
 import { useRouter } from "next/navigation";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { ProjectSelect } from "@/components/ui/project-select";
+import { Id } from "@/convex/_generated/dataModel";
 
 interface TaskDetailProps {
   task: {
@@ -34,6 +36,7 @@ interface TaskDetailProps {
     description?: string;
     dueDate?: string;
     startDate?: string;
+    projectId?: Id<"projects">;
   } | null;
   onClose: () => void;
   onUpdateStatus: (id: string, status: TaskStatus) => void;
@@ -97,6 +100,12 @@ export function TaskDetail({
     setEditedStartDate(value);
     if (task) {
       debouncedUpdate(task._id, { startDate: value });
+    }
+  };
+
+  const handleProjectChange = (projectId?: Id<"projects">) => {
+    if (task) {
+      onUpdateTask(task._id, { projectId });
     }
   };
 
@@ -199,6 +208,18 @@ export function TaskDetail({
               onValueChange={(priority) => onUpdatePriority(task._id, priority)}
             />
           </div>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="project">
+            <FolderOpen className="inline h-4 w-4 mr-1" />
+            Project
+          </Label>
+          <ProjectSelect
+            value={task.projectId}
+            onValueChange={handleProjectChange}
+            placeholder="Select a project"
+          />
         </div>
 
         <div className="space-y-2">

@@ -54,6 +54,45 @@ export const getTasks = query({
   },
 });
 
+export const getTasksByProject = query({
+  args: { projectId: v.id("projects") },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    const tasks = await ctx.db
+      .query("tasks")
+      .withIndex("by_project", (q) => q.eq("projectId", args.projectId))
+      .filter((q) => q.eq(q.field("userId"), identity.subject))
+      .order("desc")
+      .collect();
+    
+    // Get subtask counts for all tasks
+    const tasksWithSubtaskCounts = await Promise.all(
+      tasks.map(async (task) => {
+        const subtasks = await ctx.db
+          .query("subtasks")
+          .withIndex("by_task", (q) => q.eq("taskId", task._id))
+          .collect();
+        
+        const completedSubtasks = subtasks.filter(s => s.status === "completed").length;
+        
+        return {
+          ...task,
+          status: task.status || (task.completed ? "completed" : "todo"),
+          priority: task.priority || "medium",
+          subtaskCount: subtasks.length,
+          completedSubtaskCount: completedSubtasks
+        };
+      })
+    );
+    
+    return tasksWithSubtaskCounts;
+  },
+});
+
 export const getTaskById = query({
   args: { id: v.id("tasks") },
   handler: async (ctx, args) => {
@@ -94,6 +133,7 @@ export const createTask = mutation({
     description: v.optional(v.string()),
     dueDate: v.optional(v.string()),
     startDate: v.optional(v.string()),
+    projectId: v.optional(v.id("projects")),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -108,6 +148,7 @@ export const createTask = mutation({
       description: args.description,
       dueDate: args.dueDate,
       startDate: args.startDate,
+      projectId: args.projectId,
       userId: identity.subject,
       createdAt: Date.now(),
     });
@@ -123,6 +164,7 @@ export const updateTask = mutation({
     description: v.optional(v.string()),
     dueDate: v.optional(v.string()),
     startDate: v.optional(v.string()),
+    projectId: v.optional(v.id("projects")),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -142,6 +184,7 @@ export const updateTask = mutation({
     if (args.description !== undefined) updates.description = args.description;
     if (args.dueDate !== undefined) updates.dueDate = args.dueDate;
     if (args.startDate !== undefined) updates.startDate = args.startDate;
+    if ("projectId" in args) updates.projectId = args.projectId;
 
     return await ctx.db.patch(args.id, updates);
   },

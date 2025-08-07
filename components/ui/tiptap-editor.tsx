@@ -2,6 +2,7 @@
 
 import { EditorContent, EditorProvider } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import Placeholder from "@tiptap/extension-placeholder";
 import { useTiptapSync } from "@convex-dev/prosemirror-sync/tiptap";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
@@ -10,9 +11,10 @@ import { useEffect } from "react";
 interface TiptapEditorProps {
   taskId: Id<"tasks">;
   className?: string;
+  placeholder?: string;
 }
 
-export function TiptapEditor({ taskId, className }: TiptapEditorProps) {
+export function TiptapEditor({ taskId, className, placeholder }: TiptapEditorProps) {
   // Use the document ID as taskId for collaborative editing
   const documentId = taskId;
   const sync = useTiptapSync(api.prosemirrorSync, documentId);
@@ -36,7 +38,13 @@ export function TiptapEditor({ taskId, className }: TiptapEditorProps) {
     <div className={`border rounded-md relative ${className || ""}`}>
       <EditorProvider
         content={sync.initialContent}
-        extensions={[StarterKit, sync.extension]}
+        extensions={[
+          StarterKit,
+          sync.extension,
+          Placeholder.configure({
+            placeholder: placeholder || "Start typing...",
+          }),
+        ]}
         editorProps={{
           attributes: {
             class: "prose prose-sm focus:outline-none min-h-[100px] p-3 w-full max-w-none prose-headings:mt-0 prose-headings:mb-2 prose-p:my-1",

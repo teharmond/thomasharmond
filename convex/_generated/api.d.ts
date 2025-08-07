@@ -8,6 +8,7 @@
  * @module
  */
 
+import type * as projects from "../projects.js";
 import type * as prosemirrorSync from "../prosemirrorSync.js";
 import type * as subtasks from "../subtasks.js";
 import type * as taskDescriptions from "../taskDescriptions.js";
@@ -28,6 +29,7 @@ import type {
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  projects: typeof projects;
   prosemirrorSync: typeof prosemirrorSync;
   subtasks: typeof subtasks;
   taskDescriptions: typeof taskDescriptions;

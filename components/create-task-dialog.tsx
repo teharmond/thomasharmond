@@ -28,10 +28,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, FolderOpen } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { useQueryState } from "nuqs";
+import { ProjectSelect } from "@/components/ui/project-select";
+import { Id } from "@/convex/_generated/dataModel";
+import { usePathname } from "next/navigation";
 
 export type TaskStatus =
   | "todo"
@@ -62,6 +65,7 @@ const priorityOptions: { value: TaskPriority; label: string }[] = [
 export function CreateTaskDialog() {
   const { isSignedIn } = useUser();
   const createTask = useMutation(api.tasks.createTask);
+  const pathname = usePathname();
 
   const [dialogOpen, setDialogOpen] = useQueryState("newTask", {
     defaultValue: "",
@@ -77,8 +81,15 @@ export function CreateTaskDialog() {
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState<TaskStatus>("todo");
   const [priority, setPriority] = useState<TaskPriority>("medium");
+  const [projectId, setProjectId] = useState<Id<"projects"> | undefined>(undefined);
   const [dueDate, setDueDate] = useState<Date | undefined>();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Extract project ID from pathname if we're on a project page
+  const getCurrentProjectId = (): Id<"projects"> | undefined => {
+    const match = pathname.match(/\/projects\/([^\/]+)/);
+    return match ? match[1] as Id<"projects"> : undefined;
+  };
 
   const isOpen = dialogOpen === "open";
 
@@ -87,6 +98,16 @@ export function CreateTaskDialog() {
       setStatus(presetStatus as TaskStatus);
     }
   }, [isOpen, presetStatus]);
+
+  useEffect(() => {
+    if (isOpen) {
+      // Set the default project if we're on a project page
+      const currentProjectId = getCurrentProjectId();
+      if (currentProjectId) {
+        setProjectId(currentProjectId);
+      }
+    }
+  }, [isOpen, pathname]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -125,6 +146,7 @@ export function CreateTaskDialog() {
         description: description.trim() || undefined,
         status,
         priority,
+        projectId,
         dueDate: dueDate ? dueDate.toISOString() : undefined,
       });
 
@@ -133,6 +155,7 @@ export function CreateTaskDialog() {
       setDescription("");
       setStatus("todo");
       setPriority("medium");
+      setProjectId(undefined);
       setDueDate(undefined);
       setDialogOpen(null);
       setPresetStatus(null);
@@ -152,6 +175,7 @@ export function CreateTaskDialog() {
       setDescription("");
       setStatus("todo");
       setPriority("medium");
+      setProjectId(undefined);
       setDueDate(undefined);
     } else {
       setDialogOpen("open");
@@ -232,6 +256,18 @@ export function CreateTaskDialog() {
                 </SelectContent>
               </Select>
             </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="project">
+              <FolderOpen className="inline h-4 w-4 mr-1" />
+              Project
+            </Label>
+            <ProjectSelect
+              value={projectId}
+              onValueChange={setProjectId}
+              placeholder="Select a project (optional)"
+            />
           </div>
 
           <div className="space-y-2">
