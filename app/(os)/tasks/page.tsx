@@ -55,6 +55,7 @@ import React, {
   useOptimistic,
   useState,
   useTransition,
+  Suspense,
 } from "react";
 import { PrioritySelect, TaskPriority } from "./priority-select";
 import { StatusSelect, TaskStatus } from "./status-select";
@@ -121,7 +122,7 @@ const statusOrder: TaskStatus[] = [
   "duplicate",
 ];
 
-export default function TasksPage() {
+function TasksContent() {
   const { isSignedIn, isLoaded } = useUser();
   const [, setDialogOpen] = useQueryState("newTask", {
     defaultValue: "",
@@ -822,5 +823,13 @@ export default function TasksPage() {
         </DialogContent>
       </Dialog>
     </div>
+  );
+}
+
+export default function TasksPage() {
+  return (
+    <Suspense fallback={<div className="p-6">Loading...</div>}>
+      <TasksContent />
+    </Suspense>
   );
 }
