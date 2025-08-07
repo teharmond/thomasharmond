@@ -4,12 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { X, Calendar, Clock, FileText, Tag, Expand } from "lucide-react";
+import { X, Calendar, Clock, FileText, Tag, Expand, Plus, CheckSquare, Square, Trash2 } from "lucide-react";
 import { StatusSelect, TaskStatus } from "./status-select";
 import { PrioritySelect, TaskPriority } from "./priority-select";
 import { useState, useEffect, useCallback } from "react";
 import { debounce } from "lodash";
 import { useRouter } from "next/navigation";
+import { useQuery, useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 interface TaskDetailProps {
   task: {
@@ -40,6 +42,15 @@ export function TaskDetail({
   const [editedText, setEditedText] = useState("");
   const [editedDescription, setEditedDescription] = useState("");
   const [editedDueDate, setEditedDueDate] = useState("");
+  const [newSubtaskText, setNewSubtaskText] = useState("");
+  
+  const subtasks = useQuery(
+    api.subtasks.getSubtasks,
+    task ? { taskId: task._id as any } : "skip"
+  );
+  const createSubtask = useMutation(api.subtasks.createSubtask);
+  const updateSubtaskStatus = useMutation(api.subtasks.updateSubtaskStatus);
+  const deleteSubtask = useMutation(api.subtasks.deleteSubtask);
 
   useEffect(() => {
     if (task) {
@@ -87,6 +98,39 @@ export function TaskDetail({
       hour: "2-digit",
       minute: "2-digit",
     });
+  };
+  
+  const handleAddSubtask = async () => {
+    if (!task || !newSubtaskText.trim()) return;
+    
+    try {
+      await createSubtask({
+        taskId: task._id as any,
+        text: newSubtaskText.trim(),
+      });
+      setNewSubtaskText("");
+    } catch (error) {
+      console.error("Failed to create subtask:", error);
+    }
+  };
+  
+  const handleToggleSubtask = async (subtaskId: string, currentStatus: string) => {
+    try {
+      await updateSubtaskStatus({
+        id: subtaskId as any,
+        status: currentStatus === "completed" ? "todo" : "completed",
+      });
+    } catch (error) {
+      console.error("Failed to update subtask:", error);
+    }
+  };
+  
+  const handleDeleteSubtask = async (subtaskId: string) => {
+    try {
+      await deleteSubtask({ id: subtaskId as any });
+    } catch (error) {
+      console.error("Failed to delete subtask:", error);
+    }
   };
 
   return (
@@ -167,6 +211,74 @@ export function TaskDetail({
             value={editedDueDate}
             onChange={(e) => handleDueDateChange(e.target.value)}
           />
+        </div>
+
+        <div className="space-y-2">
+          <Label>
+            <CheckSquare className="inline h-4 w-4 mr-1" />
+            Subtasks
+          </Label>
+          <div className="space-y-2">
+            {subtasks && subtasks.length > 0 && (
+              <div className="space-y-1">
+                {subtasks.map((subtask: any) => (
+                  <div
+                    key={subtask._id}
+                    className="flex items-center gap-2 p-2 rounded hover:bg-accent/50 group"
+                  >
+                    <button
+                      onClick={() => handleToggleSubtask(subtask._id, subtask.status)}
+                      className="flex items-center gap-2 flex-1 text-left"
+                    >
+                      {subtask.status === "completed" ? (
+                        <CheckSquare className="h-4 w-4 text-muted-foreground" />
+                      ) : (
+                        <Square className="h-4 w-4 text-muted-foreground" />
+                      )}
+                      <span
+                        className={`text-sm ${
+                          subtask.status === "completed"
+                            ? "line-through text-muted-foreground"
+                            : ""
+                        }`}
+                      >
+                        {subtask.text}
+                      </span>
+                    </button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
+                      onClick={() => handleDeleteSubtask(subtask._id)}
+                    >
+                      <Trash2 className="h-3 w-3" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
+            <div className="flex gap-2">
+              <Input
+                placeholder="Add a subtask..."
+                value={newSubtaskText}
+                onChange={(e) => setNewSubtaskText(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleAddSubtask();
+                  }
+                }}
+                className="flex-1"
+              />
+              <Button
+                size="icon"
+                variant="outline"
+                onClick={handleAddSubtask}
+                disabled={!newSubtaskText.trim()}
+              >
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
         </div>
 
         <div className="pt-4 border-t">

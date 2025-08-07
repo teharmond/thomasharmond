@@ -76,6 +76,8 @@ type Task = {
   dueDate?: string;
   userId: string;
   createdAt: number;
+  subtaskCount?: number;
+  completedSubtaskCount?: number;
 };
 
 const statusGroups: Record<
@@ -380,7 +382,14 @@ export default function TasksClient() {
             className="cursor-pointer hover:bg-accent/50 p-2 rounded transition-colors"
             onClick={() => handleTaskClick(row.original)}
           >
-            <div className="font-medium text-sm">{row.original.text}</div>
+            <div className="flex items-center gap-2">
+              <span className="font-medium text-sm flex-1">{row.original.text}</span>
+              {(row.original.subtaskCount ?? 0) > 0 && (
+                <span className="text-xs text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
+                  {row.original.completedSubtaskCount}/{row.original.subtaskCount}
+                </span>
+              )}
+            </div>
             {row.original.description && (
               <div className="text-sm text-muted-foreground mt-1">
                 {row.original.description}
@@ -654,8 +663,15 @@ export default function TasksClient() {
                                                   )
                                                 }
                                               >
-                                                <div className=" text-sm line-clamp-1">
-                                                  {subRow.original.text}
+                                                <div className="flex items-center gap-2">
+                                                  <span className="text-sm line-clamp-1 flex-1">
+                                                    {subRow.original.text}
+                                                  </span>
+                                                  {(subRow.original.subtaskCount ?? 0) > 0 && (
+                                                    <span className="text-xs text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
+                                                      {subRow.original.completedSubtaskCount}/{subRow.original.subtaskCount}
+                                                    </span>
+                                                  )}
                                                 </div>
                                               </div>
                                             </div>

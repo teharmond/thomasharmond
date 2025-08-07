@@ -30,12 +30,27 @@ export const getTasks = query({
       .order("desc")
       .collect();
     
-    // Add defaults for old tasks that don't have status/priority
-    return tasks.map(task => ({
-      ...task,
-      status: task.status || (task.completed ? "completed" : "todo"),
-      priority: task.priority || "medium"
-    }));
+    // Get subtask counts for all tasks
+    const tasksWithSubtaskCounts = await Promise.all(
+      tasks.map(async (task) => {
+        const subtasks = await ctx.db
+          .query("subtasks")
+          .withIndex("by_task", (q) => q.eq("taskId", task._id))
+          .collect();
+        
+        const completedSubtasks = subtasks.filter(s => s.status === "completed").length;
+        
+        return {
+          ...task,
+          status: task.status || (task.completed ? "completed" : "todo"),
+          priority: task.priority || "medium",
+          subtaskCount: subtasks.length,
+          completedSubtaskCount: completedSubtasks
+        };
+      })
+    );
+    
+    return tasksWithSubtaskCounts;
   },
 });
 
@@ -52,11 +67,21 @@ export const getTaskById = query({
       throw new Error("Task not found or unauthorized");
     }
 
+    // Get subtask counts
+    const subtasks = await ctx.db
+      .query("subtasks")
+      .withIndex("by_task", (q) => q.eq("taskId", args.id))
+      .collect();
+    
+    const completedSubtasks = subtasks.filter(s => s.status === "completed").length;
+
     // Add defaults for old tasks that don't have status/priority
     return {
       ...task,
       status: task.status || (task.completed ? "completed" : "todo"),
-      priority: task.priority || "medium"
+      priority: task.priority || "medium",
+      subtaskCount: subtasks.length,
+      completedSubtaskCount: completedSubtasks
     };
   },
 });

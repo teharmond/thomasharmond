@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Calendar, Clock, FileText, Trash2 } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, FileText, Trash2, Plus, CheckSquare, Square } from "lucide-react";
 import { StatusSelect, TaskStatus } from "../status-select";
 import { PrioritySelect, TaskPriority } from "../priority-select";
 import { useRouter, useParams } from "next/navigation";
@@ -29,12 +29,20 @@ export default function TaskPage() {
     api.tasks.getTaskById,
     isSignedIn && taskId ? { id: taskId } : "skip"
   );
+  const subtasks = useQuery(
+    api.subtasks.getSubtasks,
+    isSignedIn && taskId ? { taskId } : "skip"
+  );
   const updateTask = useMutation(api.tasks.updateTask);
   const deleteTask = useMutation(api.tasks.deleteTask);
+  const createSubtask = useMutation(api.subtasks.createSubtask);
+  const updateSubtaskStatus = useMutation(api.subtasks.updateSubtaskStatus);
+  const deleteSubtask = useMutation(api.subtasks.deleteSubtask);
 
   const [editedText, setEditedText] = useState("");
   const [editedDescription, setEditedDescription] = useState("");
   const [editedDueDate, setEditedDueDate] = useState("");
+  const [newSubtaskText, setNewSubtaskText] = useState("");
 
   React.useEffect(() => {
     if (task) {
@@ -119,6 +127,39 @@ export default function TaskPage() {
       hour: "2-digit",
       minute: "2-digit",
     });
+  };
+  
+  const handleAddSubtask = async () => {
+    if (!taskId || !newSubtaskText.trim()) return;
+    
+    try {
+      await createSubtask({
+        taskId,
+        text: newSubtaskText.trim(),
+      });
+      setNewSubtaskText("");
+    } catch (error) {
+      console.error("Failed to create subtask:", error);
+    }
+  };
+  
+  const handleToggleSubtask = async (subtaskId: Id<"subtasks">, currentStatus: string) => {
+    try {
+      await updateSubtaskStatus({
+        id: subtaskId,
+        status: currentStatus === "completed" ? "todo" : "completed",
+      });
+    } catch (error) {
+      console.error("Failed to update subtask:", error);
+    }
+  };
+  
+  const handleDeleteSubtask = async (subtaskId: Id<"subtasks">) => {
+    try {
+      await deleteSubtask({ id: subtaskId });
+    } catch (error) {
+      console.error("Failed to delete subtask:", error);
+    }
   };
 
   if (!isLoaded) {
@@ -268,6 +309,76 @@ export default function TaskPage() {
                     <Clock className="h-4 w-4" />
                     Created {formatDate(task.createdAt)}
                   </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <CheckSquare className="h-5 w-5" />
+                  Subtasks
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {subtasks && subtasks.length > 0 && (
+                  <div className="space-y-2">
+                    {subtasks.map((subtask: any) => (
+                      <div
+                        key={subtask._id}
+                        className="flex items-center gap-2 p-2 rounded hover:bg-accent/50 group"
+                      >
+                        <button
+                          onClick={() => handleToggleSubtask(subtask._id, subtask.status)}
+                          className="flex items-center gap-2 flex-1 text-left"
+                        >
+                          {subtask.status === "completed" ? (
+                            <CheckSquare className="h-4 w-4 text-muted-foreground" />
+                          ) : (
+                            <Square className="h-4 w-4 text-muted-foreground" />
+                          )}
+                          <span
+                            className={`text-sm ${
+                              subtask.status === "completed"
+                                ? "line-through text-muted-foreground"
+                                : ""
+                            }`}
+                          >
+                            {subtask.text}
+                          </span>
+                        </button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity"
+                          onClick={() => handleDeleteSubtask(subtask._id)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <div className="flex gap-2">
+                  <Input
+                    placeholder="Add a subtask..."
+                    value={newSubtaskText}
+                    onChange={(e) => setNewSubtaskText(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleAddSubtask();
+                      }
+                    }}
+                    className="flex-1"
+                  />
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    onClick={handleAddSubtask}
+                    disabled={!newSubtaskText.trim()}
+                  >
+                    <Plus className="h-4 w-4" />
+                  </Button>
                 </div>
               </CardContent>
             </Card>

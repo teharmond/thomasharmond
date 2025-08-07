@@ -24,4 +24,17 @@ export default defineSchema({
     createdAt: v.number(),
     completed: v.optional(v.boolean()),
   }).index("by_user", ["userId"]),
+  
+  subtasks: defineTable({
+    taskId: v.id("tasks"),
+    text: v.string(),
+    status: v.union(
+      v.literal("todo"),
+      v.literal("completed")
+    ),
+    userId: v.string(),
+    createdAt: v.number(),
+  })
+    .index("by_task", ["taskId"])
+    .index("by_user", ["userId"]),
 });
