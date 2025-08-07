@@ -33,6 +33,7 @@ interface TaskDetailProps {
     createdAt: number;
     description?: string;
     dueDate?: string;
+    startDate?: string;
   } | null;
   onClose: () => void;
   onUpdateStatus: (id: string, status: TaskStatus) => void;
@@ -52,6 +53,7 @@ export function TaskDetail({
   const router = useRouter();
   const [editedText, setEditedText] = useState("");
   const [editedDueDate, setEditedDueDate] = useState("");
+  const [editedStartDate, setEditedStartDate] = useState("");
   const [newSubtaskText, setNewSubtaskText] = useState("");
 
   const subtasks = useQuery(
@@ -66,6 +68,7 @@ export function TaskDetail({
     if (task) {
       setEditedText(task.text);
       setEditedDueDate(task.dueDate || "");
+      setEditedStartDate(task.startDate || "");
     }
   }, [task]);
 
@@ -87,6 +90,13 @@ export function TaskDetail({
     setEditedDueDate(value);
     if (task) {
       debouncedUpdate(task._id, { dueDate: value });
+    }
+  };
+
+  const handleStartDateChange = (value: string) => {
+    setEditedStartDate(value);
+    if (task) {
+      debouncedUpdate(task._id, { startDate: value });
     }
   };
 
@@ -199,17 +209,31 @@ export function TaskDetail({
           <TiptapEditor taskId={task._id as any} />
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="due-date">
-            <Calendar className="inline h-4 w-4 mr-1" />
-            Due Date
-          </Label>
-          <Input
-            id="due-date"
-            type="date"
-            value={editedDueDate}
-            onChange={(e) => handleDueDateChange(e.target.value)}
-          />
+        <div className="flex gap-4">
+          <div className="flex-1 space-y-2">
+            <Label htmlFor="start-date">
+              <Calendar className="inline h-4 w-4 mr-1" />
+              Start Date
+            </Label>
+            <Input
+              id="start-date"
+              type="date"
+              value={editedStartDate}
+              onChange={(e) => handleStartDateChange(e.target.value)}
+            />
+          </div>
+          <div className="flex-1 space-y-2">
+            <Label htmlFor="due-date">
+              <Calendar className="inline h-4 w-4 mr-1" />
+              Due Date
+            </Label>
+            <Input
+              id="due-date"
+              type="date"
+              value={editedDueDate}
+              onChange={(e) => handleDueDateChange(e.target.value)}
+            />
+          </div>
         </div>
 
         <div className="space-y-2">

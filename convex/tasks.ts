@@ -93,6 +93,7 @@ export const createTask = mutation({
     priority: v.optional(priorityValues),
     description: v.optional(v.string()),
     dueDate: v.optional(v.string()),
+    startDate: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -106,6 +107,7 @@ export const createTask = mutation({
       priority: args.priority || "medium",
       description: args.description,
       dueDate: args.dueDate,
+      startDate: args.startDate,
       userId: identity.subject,
       createdAt: Date.now(),
     });
@@ -120,6 +122,7 @@ export const updateTask = mutation({
     text: v.optional(v.string()),
     description: v.optional(v.string()),
     dueDate: v.optional(v.string()),
+    startDate: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -138,6 +141,7 @@ export const updateTask = mutation({
     if (args.text !== undefined) updates.text = args.text;
     if (args.description !== undefined) updates.description = args.description;
     if (args.dueDate !== undefined) updates.dueDate = args.dueDate;
+    if (args.startDate !== undefined) updates.startDate = args.startDate;
 
     return await ctx.db.patch(args.id, updates);
   },
@@ -168,6 +172,7 @@ export const createTaskWithApiKey = mutation({
     priority: v.optional(priorityValues),
     description: v.optional(v.string()),
     dueDate: v.optional(v.string()),
+    startDate: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     return await ctx.db.insert("tasks", {
@@ -176,6 +181,7 @@ export const createTaskWithApiKey = mutation({
       priority: args.priority || "medium",
       description: args.description,
       dueDate: args.dueDate,
+      startDate: args.startDate,
       userId: args.userId,
       createdAt: Date.now(),
     });

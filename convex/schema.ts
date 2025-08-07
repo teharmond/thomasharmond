@@ -20,6 +20,7 @@ export default defineSchema({
     )),
     description: v.optional(v.string()),
     dueDate: v.optional(v.string()),
+    startDate: v.optional(v.string()),
     userId: v.string(),
     createdAt: v.number(),
     completed: v.optional(v.boolean()),
