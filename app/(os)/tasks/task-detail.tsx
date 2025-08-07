@@ -2,8 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { TiptapEditor } from "@/components/ui/tiptap-editor";
 import { X, Calendar, Clock, FileText, Tag, Expand, Plus, CheckSquare, Square, Trash2 } from "lucide-react";
 import { StatusSelect, TaskStatus } from "./status-select";
 import { PrioritySelect, TaskPriority } from "./priority-select";
@@ -40,7 +40,6 @@ export function TaskDetail({
 }: TaskDetailProps) {
   const router = useRouter();
   const [editedText, setEditedText] = useState("");
-  const [editedDescription, setEditedDescription] = useState("");
   const [editedDueDate, setEditedDueDate] = useState("");
   const [newSubtaskText, setNewSubtaskText] = useState("");
   
@@ -55,7 +54,6 @@ export function TaskDetail({
   useEffect(() => {
     if (task) {
       setEditedText(task.text);
-      setEditedDescription(task.description || "");
       setEditedDueDate(task.dueDate || "");
     }
   }, [task]);
@@ -74,12 +72,6 @@ export function TaskDetail({
     }
   };
 
-  const handleDescriptionChange = (value: string) => {
-    setEditedDescription(value);
-    if (task) {
-      debouncedUpdate(task._id, { description: value });
-    }
-  };
 
   const handleDueDateChange = (value: string) => {
     setEditedDueDate(value);
@@ -191,13 +183,7 @@ export function TaskDetail({
             <FileText className="inline h-4 w-4 mr-1" />
             Description
           </Label>
-          <Textarea
-            id="task-description"
-            value={editedDescription}
-            onChange={(e) => handleDescriptionChange(e.target.value)}
-            placeholder="Add a description..."
-            rows={4}
-          />
+          <TiptapEditor taskId={task._id as any} placeholder="Add a description..." />
         </div>
 
         <div className="space-y-2">

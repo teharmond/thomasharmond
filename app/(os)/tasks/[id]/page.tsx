@@ -6,8 +6,8 @@ import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { TiptapEditor } from "@/components/ui/tiptap-editor";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, Calendar, Clock, FileText, Trash2, Plus, CheckSquare, Square } from "lucide-react";
 import { StatusSelect, TaskStatus } from "../status-select";
@@ -40,14 +40,12 @@ export default function TaskPage() {
   const deleteSubtask = useMutation(api.subtasks.deleteSubtask);
 
   const [editedText, setEditedText] = useState("");
-  const [editedDescription, setEditedDescription] = useState("");
   const [editedDueDate, setEditedDueDate] = useState("");
   const [newSubtaskText, setNewSubtaskText] = useState("");
 
   React.useEffect(() => {
     if (task) {
       setEditedText(task.text);
-      setEditedDescription(task.description || "");
       setEditedDueDate(task.dueDate || "");
     }
   }, [task]);
@@ -72,10 +70,6 @@ export default function TaskPage() {
     debouncedUpdate({ text: value });
   };
 
-  const handleDescriptionChange = (value: string) => {
-    setEditedDescription(value);
-    debouncedUpdate({ description: value });
-  };
 
   const handleDueDateChange = (value: string) => {
     setEditedDueDate(value);
@@ -249,14 +243,7 @@ export default function TaskPage() {
                     <FileText className="inline h-4 w-4 mr-1" />
                     Description
                   </Label>
-                  <Textarea
-                    id="task-description"
-                    value={editedDescription}
-                    onChange={(e) => handleDescriptionChange(e.target.value)}
-                    placeholder="Add a description..."
-                    rows={8}
-                    className="resize-none"
-                  />
+                  <TiptapEditor taskId={task._id} placeholder="Add a description..." className="min-h-[200px]" />
                 </div>
               </CardContent>
             </Card>
