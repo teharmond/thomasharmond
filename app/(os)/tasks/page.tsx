@@ -55,7 +55,7 @@ import {
   X,
   XCircle,
 } from "lucide-react";
-import { parseAsString, useQueryState } from "nuqs";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, {
   Suspense,
   useEffect,
@@ -133,23 +133,9 @@ const statusOrder: TaskStatus[] = [
 
 function TasksContent() {
   const { isSignedIn, isLoaded } = useUser();
-  const [, setDialogOpen] = useQueryState(
-    "newTask",
-    parseAsString
-      .withOptions({
-        clearOnDefault: true,
-      })
-      .withDefault("")
-  );
-  const [, setPresetStatus] = useQueryState(
-    "status",
-    parseAsString
-      .withOptions({
-        clearOnDefault: true,
-      })
-      .withDefault("")
-  );
   const [, startTransition] = useTransition();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
   const [deletingTasks, setDeletingTasks] = useState<Set<string>>(new Set());
@@ -231,6 +217,26 @@ function TasksContent() {
       }
     }
   );
+
+  const setDialogOpen = (value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (value) {
+      params.set('newTask', value);
+    } else {
+      params.delete('newTask');
+    }
+    router.push(`?${params.toString()}`);
+  };
+
+  const setPresetStatus = (value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (value) {
+      params.set('status', value);
+    } else {
+      params.delete('status');
+    }
+    router.push(`?${params.toString()}`);
+  };
 
   const openDialogWithStatus = (status?: TaskStatus) => {
     if (status) {
