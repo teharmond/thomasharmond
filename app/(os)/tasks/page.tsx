@@ -60,6 +60,13 @@ import React, {
 import { PrioritySelect, TaskPriority } from "./priority-select";
 import { StatusSelect, TaskStatus } from "./status-select";
 import { TaskDetail } from "./task-detail";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbPage,
+} from "@/components/ui/breadcrumb";
 
 type Task = {
   _id: string;
@@ -308,18 +315,18 @@ function TasksContent() {
 
   const handleBulkDelete = async () => {
     if (selectedRows.size === 0) return;
-    
+
     const idsToDelete = Array.from(selectedRows);
     setSelectedRows(new Set());
     setShowDeleteDialog(false);
-    
+
     startTransition(async () => {
       try {
         // Optimistically remove from UI
-        idsToDelete.forEach(id => {
+        idsToDelete.forEach((id) => {
           setOptimisticTasks({ type: "delete", id });
         });
-        
+
         // Perform the actual bulk delete
         await bulkDeleteTasks({ ids: idsToDelete as any });
       } catch (error) {
@@ -330,17 +337,17 @@ function TasksContent() {
 
   const handleBulkUpdateStatus = async (status: TaskStatus) => {
     if (selectedRows.size === 0) return;
-    
+
     const idsToUpdate = Array.from(selectedRows);
     setSelectedRows(new Set());
-    
+
     startTransition(async () => {
       try {
         // Optimistically update the UI
-        idsToUpdate.forEach(id => {
+        idsToUpdate.forEach((id) => {
           setOptimisticTasks({ type: "update", id, task: { status } });
         });
-        
+
         // Perform the actual bulk update
         await bulkUpdateStatus({ ids: idsToUpdate as any, status });
       } catch (error) {
@@ -485,9 +492,16 @@ function TasksContent() {
         onClick={() => selectedTask && handleCloseDetail()}
       >
         <div className="w-full h-full">
-          <header className="border-b h-10 pl-9 pr-6 flex items-center justify-between">
-            <span className="text-sm text-secondary-foreground font-medium">
-              Tasks
+          <header className="border-b sticky top-0  h-10 pl-2 pr-6 flex items-center justify-between">
+            <span className="text-sm flex gap-3 items-center text-secondary-foreground font-medium">
+              <SidebarTrigger />
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>Tasks</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
             </span>
             <Button
               size="sm"
@@ -756,7 +770,8 @@ function TasksContent() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <span className="text-sm font-medium">
-                    {selectedRows.size} task{selectedRows.size > 1 ? "s" : ""} selected
+                    {selectedRows.size} task{selectedRows.size > 1 ? "s" : ""}{" "}
+                    selected
                   </span>
                   <Button
                     variant="ghost"
@@ -802,8 +817,8 @@ function TasksContent() {
           <DialogHeader>
             <DialogTitle>Confirm deletion</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete {selectedRows.size} task{selectedRows.size > 1 ? "s" : ""}?
-              This action cannot be undone.
+              Are you sure you want to delete {selectedRows.size} task
+              {selectedRows.size > 1 ? "s" : ""}? This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
@@ -813,10 +828,7 @@ function TasksContent() {
             >
               Cancel
             </Button>
-            <Button
-              variant="destructive"
-              onClick={handleBulkDelete}
-            >
+            <Button variant="destructive" onClick={handleBulkDelete}>
               Delete {selectedRows.size} task{selectedRows.size > 1 ? "s" : ""}
             </Button>
           </DialogFooter>
