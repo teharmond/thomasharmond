@@ -131,7 +131,7 @@ const statusOrder: TaskStatus[] = [
   "duplicate",
 ];
 
-export default function TasksWrapper() {
+function TasksContent() {
   const { isSignedIn, isLoaded } = useUser();
   const [, setDialogOpen] = useQueryState(
     "newTask",
@@ -501,8 +501,7 @@ export default function TasksWrapper() {
   }
 
   return (
-    <Suspense fallback={<div className="p-6">Loading...</div>}>
-      <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden">
         {/* Main task list area - shifts over on desktop */}
         <motion.div
           animate={{
@@ -884,6 +883,13 @@ export default function TasksWrapper() {
           </DialogContent>
         </Dialog>
       </div>
+    );
+}
+
+export default function TasksWrapper() {
+  return (
+    <Suspense fallback={<div className="p-6">Loading...</div>}>
+      <TasksContent />
     </Suspense>
   );
 }
