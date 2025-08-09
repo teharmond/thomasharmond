@@ -1,6 +1,6 @@
 "use client";
 
-import { FileText } from "lucide-react";
+import { FileText, Bookmark } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -22,6 +22,7 @@ const items = [
     icon: FileText,
   },
   { title: "Projects", url: "/projects", icon: FileText },
+  { title: "Bookmarks", url: "/bookmarks", icon: Bookmark },
 ];
 
 export function AppSidebar() {

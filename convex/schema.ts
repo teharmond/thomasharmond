@@ -49,4 +49,30 @@ export default defineSchema({
   })
     .index("by_task", ["taskId"])
     .index("by_user", ["userId"]),
+
+  bookmarkFolders: defineTable({
+    name: v.string(),
+    userId: v.string(),
+    parentId: v.optional(v.id("bookmarkFolders")),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+    color: v.optional(v.string()),
+  })
+    .index("by_user", ["userId"])
+    .index("by_parent", ["parentId"]),
+
+  bookmarks: defineTable({
+    url: v.string(),
+    title: v.string(),
+    description: v.optional(v.string()),
+    favicon: v.optional(v.string()),
+    image: v.optional(v.string()),
+    folderId: v.optional(v.id("bookmarkFolders")),
+    userId: v.string(),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_user", ["userId"])
+    .index("by_folder", ["folderId"])
+    .index("by_user_and_folder", ["userId", "folderId"]),
 });
