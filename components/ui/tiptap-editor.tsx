@@ -47,7 +47,7 @@ export function TiptapEditor({ taskId, className, placeholder }: TiptapEditorPro
         ]}
         editorProps={{
           attributes: {
-            class: "prose prose-sm focus:outline-none min-h-[100px] p-3 w-full max-w-none prose-headings:mt-0 prose-headings:mb-2 prose-p:my-1",
+            class: "prose prose-sm focus:outline-none min-h-[100px] p-3 w-full max-w-none",
           },
         }}
       >

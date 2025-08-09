@@ -6,7 +6,8 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Switch } from "@/components/ui/switch";
+import { SimpleTiptapEditor } from "@/components/ui/simple-tiptap-editor";
 import {
   Dialog,
   DialogContent,
@@ -28,7 +29,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { CalendarIcon, FolderOpen } from "lucide-react";
+import { CalendarIcon, FolderOpen, FileText } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { useQueryState } from "nuqs";
@@ -79,11 +80,12 @@ export function CreateTaskDialog() {
 
   const [taskText, setTaskText] = useState("");
   const [description, setDescription] = useState("");
-  const [status, setStatus] = useState<TaskStatus>("todo");
+  const [status, setStatus] = useState<TaskStatus>("backlog");
   const [priority, setPriority] = useState<TaskPriority>("medium");
   const [projectId, setProjectId] = useState<Id<"projects"> | undefined>(undefined);
   const [dueDate, setDueDate] = useState<Date | undefined>();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [createMore, setCreateMore] = useState(false);
 
   // Extract project ID from pathname if we're on a project page
   const getCurrentProjectId = (): Id<"projects"> | undefined => {
@@ -150,15 +152,22 @@ export function CreateTaskDialog() {
         dueDate: dueDate ? dueDate.toISOString() : undefined,
       });
 
-      // Reset form
-      setTaskText("");
-      setDescription("");
-      setStatus("todo");
-      setPriority("medium");
-      setProjectId(undefined);
-      setDueDate(undefined);
-      setDialogOpen(null);
-      setPresetStatus(null);
+      // Reset form based on createMore setting
+      if (createMore) {
+        // Only reset task text and description
+        setTaskText("");
+        setDescription("");
+      } else {
+        // Reset everything and close dialog
+        setTaskText("");
+        setDescription("");
+        setStatus("backlog");
+        setPriority("medium");
+        setProjectId(undefined);
+        setDueDate(undefined);
+        setDialogOpen(null);
+        setPresetStatus(null);
+      }
     } catch (error) {
       console.error("Failed to create task:", error);
     } finally {
@@ -173,10 +182,11 @@ export function CreateTaskDialog() {
       // Reset form when closing
       setTaskText("");
       setDescription("");
-      setStatus("todo");
+      setStatus("backlog");
       setPriority("medium");
       setProjectId(undefined);
       setDueDate(undefined);
+      setCreateMore(false);
     } else {
       setDialogOpen("open");
     }
@@ -186,7 +196,7 @@ export function CreateTaskDialog() {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-[525px]">
+      <DialogContent className="sm:max-w-[525px] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] duration-200">
         <DialogHeader>
           <DialogTitle>Create New Task</DialogTitle>
           <DialogDescription>
@@ -208,13 +218,14 @@ export function CreateTaskDialog() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
-            <Textarea
-              id="description"
+            <Label htmlFor="description">
+              <FileText className="inline h-4 w-4 mr-1" />
+              Description
+            </Label>
+            <SimpleTiptapEditor
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={setDescription}
               placeholder="Add a detailed description..."
-              rows={3}
             />
           </div>
 
@@ -291,13 +302,23 @@ export function CreateTaskDialog() {
                   mode="single"
                   selected={dueDate}
                   onSelect={setDueDate}
-                  initialFocus
                 />
               </PopoverContent>
             </Popover>
           </div>
 
-          <div className="flex justify-end gap-2 pt-2">
+          <div className="space-y-3 pt-2">
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="create-more"
+                checked={createMore}
+                onCheckedChange={setCreateMore}
+              />
+              <Label htmlFor="create-more" className="text-sm font-normal">
+                Create more tasks
+              </Label>
+            </div>
+            <div className="flex justify-end gap-2">
             <Button
               type="button"
               variant="outline"
@@ -307,8 +328,9 @@ export function CreateTaskDialog() {
               Cancel
             </Button>
             <Button type="submit" disabled={!taskText.trim() || isSubmitting}>
-              {isSubmitting ? "Creating..." : "Create Task"}
+              {isSubmitting ? "Creating..." : createMore ? "Create & Continue" : "Create Task"}
             </Button>
+            </div>
           </div>
         </form>
       </DialogContent>
