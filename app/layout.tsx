@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { GeistMono } from "geist/font/mono";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
+import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import { ClerkProvider } from "@clerk/nextjs";
 import ConvexClientProvider from "@/wrappers/convex-provider-with-clerk";
@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   description: "Personal website of Thomas Harmond",
 };
 
+const inter = Inter({ subsets: ["latin"] });
+
 export default function RootLayout({
   children,
 }: {
@@ -18,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={GeistMono.className}>
+      <body className={inter.className}>
         <ClerkProvider>
           <ConvexClientProvider>
             {children}

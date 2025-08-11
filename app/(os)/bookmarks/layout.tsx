@@ -13,12 +13,14 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Id } from "@/convex/_generated/dataModel";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@clerk/nextjs";
 
 export default function BookmarksLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { isLoaded, isSignedIn } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
   const folders = useQuery(api.bookmarks.getFolders);
@@ -51,6 +53,23 @@ export default function BookmarksLayout({
       router.push("/bookmarks");
     }
   };
+
+  // Wait for auth to load
+  if (!isLoaded) {
+    return (
+      <div className="container mx-auto py-6">
+        <div className="flex items-center justify-center py-12">
+          <div className="text-muted-foreground">Loading...</div>
+        </div>
+      </div>
+    );
+  }
+
+  // Redirect if not signed in
+  if (!isSignedIn) {
+    router.push("/");
+    return null;
+  }
 
   return (
     <div className="container mx-auto py-6 space-y-6">

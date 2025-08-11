@@ -5,7 +5,7 @@ export const getFolders = query({
   args: {},
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
-    if (!identity) throw new Error("Not authenticated");
+    if (!identity) return [];
 
     return await ctx.db
       .query("bookmarkFolders")
@@ -21,7 +21,7 @@ export const getBookmarks = query({
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
-    if (!identity) throw new Error("Not authenticated");
+    if (!identity) return [];
 
     if (args.showAll) {
       return await ctx.db

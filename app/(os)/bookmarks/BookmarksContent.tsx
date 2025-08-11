@@ -12,12 +12,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Plus, Link as LinkIcon, MoreHorizontal, Trash2, Move, ExternalLink, Globe, Folder } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Id } from "@/convex/_generated/dataModel";
+import { useAuth } from "@clerk/nextjs";
 
 interface BookmarksContentProps {
   folderId?: string;
 }
 
 export function BookmarksContent({ folderId }: BookmarksContentProps) {
+  const { isLoaded } = useAuth();
   const folders = useQuery(api.bookmarks.getFolders);
   
   const actualFolderId = folderId && folderId !== "all" ? folderId as Id<"bookmarkFolders"> : undefined;
@@ -102,8 +104,8 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
     setMovingBookmark(null);
   };
 
-  // Handle loading state
-  if (bookmarks === undefined) {
+  // Handle loading state - wait for both auth and data
+  if (!isLoaded || bookmarks === undefined) {
     return (
       <div className="flex items-center justify-center py-12">
         <div className="text-muted-foreground">Loading bookmarks...</div>
