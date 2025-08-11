@@ -133,8 +133,11 @@ export const createBookmark = mutation({
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) throw new Error("Not authenticated");
 
+    const defaultTitle = new URL(args.url).hostname;
+
     return await ctx.db.insert("bookmarks", {
       url: args.url,
+      title: defaultTitle,
       folderId: args.folderId,
       userId: identity.subject,
       createdAt: Date.now(),
@@ -213,7 +216,7 @@ export const createBookmarkWithApiKey = mutation({
   handler: async (ctx, args) => {
     // Generate a default title from the URL
     const defaultTitle = new URL(args.url).hostname;
-    
+
     return await ctx.db.insert("bookmarks", {
       url: args.url,
       title: defaultTitle,

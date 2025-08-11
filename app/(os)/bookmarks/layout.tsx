@@ -5,9 +5,27 @@ import { api } from "@/convex/_generated/api";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Folder, FolderPlus, MoreHorizontal, Trash2, Edit3 } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Folder,
+  FolderPlus,
+  MoreHorizontal,
+  Trash2,
+  Edit3,
+} from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
@@ -27,52 +45,53 @@ export default function BookmarksLayout({
   const createFolder = useMutation(api.bookmarks.createFolder);
   const updateFolder = useMutation(api.bookmarks.updateFolder);
   const deleteFolder = useMutation(api.bookmarks.deleteFolder);
-  
+
   const [isAddingFolder, setIsAddingFolder] = useState(false);
   const [newFolderName, setNewFolderName] = useState("");
   const [newFolderColor, setNewFolderColor] = useState("");
-  const [renamingFolder, setRenamingFolder] = useState<Id<"bookmarkFolders"> | null>(null);
+  const [renamingFolder, setRenamingFolder] =
+    useState<Id<"bookmarkFolders"> | null>(null);
   const [renameFolderName, setRenameFolderName] = useState("");
   const [renameFolderColor, setRenameFolderColor] = useState("");
-  
+
   const currentFolderId = pathname.split("/bookmarks/")[1];
   const isAllBookmarks = pathname === "/bookmarks";
-  
+
   const handleCreateFolder = async () => {
     if (!newFolderName) return;
-    
+
     await createFolder({
       name: newFolderName,
       color: newFolderColor || undefined,
     });
-    
+
     setNewFolderName("");
     setNewFolderColor("");
     setIsAddingFolder(false);
   };
-  
+
   const handleDeleteFolder = async (id: Id<"bookmarkFolders">) => {
     await deleteFolder({ id });
     if (currentFolderId === id) {
       router.push("/bookmarks");
     }
   };
-  
+
   const handleStartRename = (folder: any) => {
     setRenamingFolder(folder._id);
     setRenameFolderName(folder.name);
     setRenameFolderColor(folder.color || "");
   };
-  
+
   const handleRenameFolder = async () => {
     if (!renamingFolder || !renameFolderName) return;
-    
+
     await updateFolder({
       id: renamingFolder,
       name: renameFolderName,
       color: renameFolderColor || undefined,
     });
-    
+
     setRenamingFolder(null);
     setRenameFolderName("");
     setRenameFolderColor("");
@@ -134,15 +153,21 @@ export default function BookmarksLayout({
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setIsAddingFolder(false)}>
+              <Button
+                variant="outline"
+                onClick={() => setIsAddingFolder(false)}
+              >
                 Cancel
               </Button>
               <Button onClick={handleCreateFolder}>Create Folder</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
-        
-        <Dialog open={!!renamingFolder} onOpenChange={() => setRenamingFolder(null)}>
+
+        <Dialog
+          open={!!renamingFolder}
+          onOpenChange={() => setRenamingFolder(null)}
+        >
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Rename Folder</DialogTitle>
@@ -161,7 +186,9 @@ export default function BookmarksLayout({
                 />
               </div>
               <div>
-                <Label htmlFor="rename-folder-color">Folder Color (optional)</Label>
+                <Label htmlFor="rename-folder-color">
+                  Folder Color (optional)
+                </Label>
                 <Input
                   id="rename-folder-color"
                   type="color"
@@ -184,22 +211,24 @@ export default function BookmarksLayout({
 
       <div className="grid grid-cols-12 gap-6">
         <div className="col-span-3 space-y-2">
-          <div className="text-sm font-medium text-muted-foreground mb-2">Folders</div>
+          <div className="text-sm font-medium text-muted-foreground mb-2">
+            Folders
+          </div>
           <Link
             href="/bookmarks"
-            className={`flex items-center gap-2 px-3 py-2 rounded-md hover:bg-accent block ${
-              isAllBookmarks ? 'bg-accent' : ''
+            className={`flex items-center gap-2 px-3 py-2 rounded-md hover:bg-accent ${
+              isAllBookmarks ? "bg-accent" : ""
             }`}
           >
             <Folder className="h-4 w-4" />
             <span className="text-sm">All Bookmarks</span>
           </Link>
-          
+
           {folders?.map((folder) => (
             <div
               key={folder._id}
               className={`flex items-center justify-between px-3 py-2 rounded-md hover:bg-accent group ${
-                currentFolderId === folder._id ? 'bg-accent' : ''
+                currentFolderId === folder._id ? "bg-accent" : ""
               }`}
             >
               <Link
@@ -246,10 +275,8 @@ export default function BookmarksLayout({
             </div>
           ))}
         </div>
-        
-        <div className="col-span-9">
-          {children}
-        </div>
+
+        <div className="col-span-9">{children}</div>
       </div>
     </div>
   );
