@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 
 export default function page() {
   return (
-    <div className=" gap-4 flex flex-col">
+    <div className="flex flex-col gap-4">
       <ArticleHeader
         title="Do I really need 14 apps to join the team?"
         description="Who’s going to build Notion for Churches?"
@@ -104,7 +104,8 @@ export default function page() {
       </ArticleList>
       <ArticleParagraph>
         Now, some of this reflects the fact that we were a digital ministry and
-        part of a much larger system. And some of it could’ve been trimmed down.{" "}
+        part of a much larger system. And some of it could’ve been trimmed
+        down.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
         But while this may be an extreme example, it’s not uncommon to have to
@@ -128,7 +129,8 @@ export default function page() {
         information, track projects, and manage communication.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
-        We need a one-login experience for anyone in our church to be involved.{" "}
+        We need a one-login experience for anyone in our church to be
+        involved.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
         We need it to link with all the data we already have. That means it
@@ -136,16 +138,16 @@ export default function page() {
         API. The question is, who will build it?
       </ArticleParagraph>
 
-      <div className="flex flex-col gap-2 bg-muted p-4 rounded-xl mt-12">
-        <h3 className="text-xl font-bold px-2">More</h3>
+      <div className="bg-muted mt-12 flex flex-col gap-2 rounded-xl p-4">
+        <h3 className="px-2 text-xl font-bold">More</h3>
         {articles.map((article, index) => (
           <a
             href={article.link}
-            className="text-pretty hover:bg-blue-100 font-medium hover:text-blue-600 px-2 py-1 rounded-md transition-colors"
+            className="rounded-md px-2 py-1 font-medium text-pretty transition-colors hover:bg-blue-100 hover:text-blue-600"
             key={index}
           >
             <h2>{article.title}</h2>
-            <p className="text-sm text-muted-foreground font-light">
+            <p className="text-muted-foreground text-sm font-light">
               {article.description}
             </p>
           </a>

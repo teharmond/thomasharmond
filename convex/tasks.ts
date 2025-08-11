@@ -7,14 +7,14 @@ const statusValues = v.union(
   v.literal("in_progress"),
   v.literal("completed"),
   v.literal("canceled"),
-  v.literal("duplicate")
+  v.literal("duplicate"),
 );
 
 const priorityValues = v.union(
   v.literal("low"),
   v.literal("medium"),
   v.literal("high"),
-  v.literal("urgent")
+  v.literal("urgent"),
 );
 
 export const getTasks = query({
@@ -29,7 +29,7 @@ export const getTasks = query({
       .withIndex("by_user", (q) => q.eq("userId", identity.subject))
       .order("desc")
       .collect();
-    
+
     // Get subtask counts for all tasks
     const tasksWithSubtaskCounts = await Promise.all(
       tasks.map(async (task) => {
@@ -37,19 +37,21 @@ export const getTasks = query({
           .query("subtasks")
           .withIndex("by_task", (q) => q.eq("taskId", task._id))
           .collect();
-        
-        const completedSubtasks = subtasks.filter(s => s.status === "completed").length;
-        
+
+        const completedSubtasks = subtasks.filter(
+          (s) => s.status === "completed",
+        ).length;
+
         return {
           ...task,
           status: task.status || (task.completed ? "completed" : "todo"),
           priority: task.priority || "medium",
           subtaskCount: subtasks.length,
-          completedSubtaskCount: completedSubtasks
+          completedSubtaskCount: completedSubtasks,
         };
-      })
+      }),
     );
-    
+
     return tasksWithSubtaskCounts;
   },
 });
@@ -68,7 +70,7 @@ export const getTasksByProject = query({
       .filter((q) => q.eq(q.field("userId"), identity.subject))
       .order("desc")
       .collect();
-    
+
     // Get subtask counts for all tasks
     const tasksWithSubtaskCounts = await Promise.all(
       tasks.map(async (task) => {
@@ -76,19 +78,21 @@ export const getTasksByProject = query({
           .query("subtasks")
           .withIndex("by_task", (q) => q.eq("taskId", task._id))
           .collect();
-        
-        const completedSubtasks = subtasks.filter(s => s.status === "completed").length;
-        
+
+        const completedSubtasks = subtasks.filter(
+          (s) => s.status === "completed",
+        ).length;
+
         return {
           ...task,
           status: task.status || (task.completed ? "completed" : "todo"),
           priority: task.priority || "medium",
           subtaskCount: subtasks.length,
-          completedSubtaskCount: completedSubtasks
+          completedSubtaskCount: completedSubtasks,
         };
-      })
+      }),
     );
-    
+
     return tasksWithSubtaskCounts;
   },
 });
@@ -111,8 +115,10 @@ export const getTaskById = query({
       .query("subtasks")
       .withIndex("by_task", (q) => q.eq("taskId", args.id))
       .collect();
-    
-    const completedSubtasks = subtasks.filter(s => s.status === "completed").length;
+
+    const completedSubtasks = subtasks.filter(
+      (s) => s.status === "completed",
+    ).length;
 
     // Add defaults for old tasks that don't have status/priority
     return {
@@ -120,13 +126,13 @@ export const getTaskById = query({
       status: task.status || (task.completed ? "completed" : "todo"),
       priority: task.priority || "medium",
       subtaskCount: subtasks.length,
-      completedSubtaskCount: completedSubtasks
+      completedSubtaskCount: completedSubtasks,
     };
   },
 });
 
 export const createTask = mutation({
-  args: { 
+  args: {
     text: v.string(),
     status: v.optional(statusValues),
     priority: v.optional(priorityValues),
@@ -156,8 +162,8 @@ export const createTask = mutation({
 });
 
 export const updateTask = mutation({
-  args: { 
-    id: v.id("tasks"), 
+  args: {
+    id: v.id("tasks"),
     status: v.optional(statusValues),
     priority: v.optional(priorityValues),
     text: v.optional(v.string()),
@@ -208,7 +214,7 @@ export const deleteTask = mutation({
 });
 
 export const createTaskWithApiKey = mutation({
-  args: { 
+  args: {
     text: v.string(),
     userId: v.string(),
     status: v.optional(statusValues),
@@ -257,7 +263,7 @@ export const bulkDeleteTasks = mutation({
 });
 
 export const bulkUpdateStatus = mutation({
-  args: { 
+  args: {
     ids: v.array(v.id("tasks")),
     status: statusValues,
   },

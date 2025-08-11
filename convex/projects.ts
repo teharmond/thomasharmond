@@ -22,16 +22,18 @@ export const getProjects = query({
           .query("tasks")
           .withIndex("by_project", (q) => q.eq("projectId", project._id))
           .collect();
-        
+
         const taskCount = tasks.length;
-        const completedTaskCount = tasks.filter(t => t.status === "completed").length;
-        
+        const completedTaskCount = tasks.filter(
+          (t) => t.status === "completed",
+        ).length;
+
         return {
           ...project,
           taskCount,
           completedTaskCount,
         };
-      })
+      }),
     );
 
     return projectsWithTaskCounts;

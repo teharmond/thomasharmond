@@ -44,7 +44,7 @@ const useClipboard = (duration = 2000) => {
         });
       }
     },
-    [duration]
+    [duration],
   );
 
   return { isCopied, copyToClipboard };
@@ -73,7 +73,7 @@ export default function HTMLSafeConverter() {
         return htmlEntities[char] || `&#${char.charCodeAt(0)};`;
       });
     },
-    [htmlEntities]
+    [htmlEntities],
   );
 
   useEffect(() => {
@@ -81,8 +81,8 @@ export default function HTMLSafeConverter() {
   }, [debouncedInputText, convertToSafeHtml]);
 
   return (
-    <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 overflow-y-auto ">
-      <Card className="w-full max-w-md mx-auto">
+    <div className="min-h-screen overflow-y-auto px-4 py-8 sm:px-6 lg:px-8">
+      <Card className="mx-auto w-full max-w-md">
         <CardHeader>
           <CardTitle>HTML-Safe Text Converter</CardTitle>
           <CardDescription>
@@ -104,7 +104,7 @@ export default function HTMLSafeConverter() {
               />
             </div>
             <div className="space-y-2">
-              <div className="flex justify-between items-center">
+              <div className="flex items-center justify-between">
                 <label
                   htmlFor="safe-html-output"
                   className="text-sm font-medium"
@@ -122,16 +122,16 @@ export default function HTMLSafeConverter() {
                   }
                 >
                   {isCopied ? (
-                    <Check className="h-3.5 w-3.5 mr-2" />
+                    <Check className="mr-2 h-3.5 w-3.5" />
                   ) : (
-                    <Copy className="h-3.5 w-3.5 mr-2" />
+                    <Copy className="mr-2 h-3.5 w-3.5" />
                   )}
                   {isCopied ? "Copied!" : "Copy"}
                 </Button>
               </div>
               <div
                 id="safe-html-output"
-                className="p-2 bg-secondary text-secondary-foreground rounded-md min-h-[100px] break-all"
+                className="bg-secondary text-secondary-foreground min-h-[100px] rounded-md p-2 break-all"
                 aria-live="polite"
               >
                 {safeHtml}

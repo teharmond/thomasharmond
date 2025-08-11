@@ -2,7 +2,19 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Stacks, Bookmarks, Projects, Tasks, Settings, Hourglass, Document, Inbox, Home, Robot, Finance } from "./icons";
+import {
+  Stacks,
+  Bookmarks,
+  Projects,
+  Tasks,
+  Settings,
+  Hourglass,
+  Document,
+  Inbox,
+  Home,
+  Robot,
+  Finance,
+} from "./icons";
 
 import {
   Sidebar,
@@ -23,39 +35,45 @@ const items = [
     title: "Home",
     url: "/inbox",
     icon: Home,
-     section: "main"
+    section: "main",
   },
   {
     title: "Inbox",
     url: "/inbox",
     icon: Inbox,
-     section: "main"
+    section: "main",
   },
   {
     title: "AI Chat",
     url: "/ai-chat",
     icon: Robot,
- section: "main"
+    section: "main",
   },
   {
     title: "Tasks",
     url: "/tasks",
-    icon: Tasks,  section: "apps"
+    icon: Tasks,
+    section: "apps",
   },
-  { title: "Projects", url: "/projects", icon: Projects,  section: "apps" },
-  { title: "Bookmarks", url: "/bookmarks", icon: Bookmarks,  section: "apps" },
-  { title: "Docs", url: "/docs", icon: Document,  section: "apps" },
-  { title: "Time Tracking", url: "/time-tracking", icon: Hourglass,  section: "apps" },
-  { title: "Finance", url: "/finance", icon: Finance,  section: "apps" },
+  { title: "Projects", url: "/projects", icon: Projects, section: "apps" },
+  { title: "Bookmarks", url: "/bookmarks", icon: Bookmarks, section: "apps" },
+  { title: "Docs", url: "/docs", icon: Document, section: "apps" },
+  {
+    title: "Time Tracking",
+    url: "/time-tracking",
+    icon: Hourglass,
+    section: "apps",
+  },
+  { title: "Finance", url: "/finance", icon: Finance, section: "apps" },
   { title: "Settings", url: "/settings", icon: Settings, section: "footer" },
 ];
 
 export function AppSidebar() {
   const pathname = usePathname();
 
-  const mainItems = items.filter(item => item.section === "main");
-  const appItems = items.filter(item => item.section === "apps");
-  const footerItems = items.filter(item => item.section === "footer");
+  const mainItems = items.filter((item) => item.section === "main");
+  const appItems = items.filter((item) => item.section === "apps");
+  const footerItems = items.filter((item) => item.section === "footer");
 
   const renderMenuItems = (itemsToRender: typeof items) => (
     <SidebarMenu className="gap-0">
@@ -69,11 +87,11 @@ export function AppSidebar() {
               asChild
               isActive={isActive}
               className={cn(
-                "rounded-lg py-1 border border-transparent text-muted-foreground hover:text-foreground",
+                "text-muted-foreground hover:text-foreground rounded-lg border border-transparent py-1",
                 isActive &&
-                  " border-muted-foreground/20 !bg-background text-foreground shadow-xs",
+                  "border-muted-foreground/20 !bg-background text-foreground shadow-xs",
                 !isActive && "hover:bg-transparent",
-                (item as any).isLoading && "cursor-default opacity-60"
+                (item as any).isLoading && "cursor-default opacity-60",
               )}
             >
               <Link href={item.url}>
@@ -90,9 +108,9 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader>
-        <span className="font-semibold text-sm  p-2 pb-0 flex items-center gap-1.5">
+        <span className="flex items-center gap-1.5 p-2 pb-0 text-sm font-semibold">
           <span className="text-orange-500">
-          <Stacks height={20} width={20}/>
+            <Stacks height={20} width={20} />
           </span>
           Made by Thomas
         </span>
@@ -108,21 +126,16 @@ export function AppSidebar() {
         {/* Pinned Section */}
         <SidebarGroup>
           <SidebarGroupLabel>Pinned</SidebarGroupLabel>
-          <SidebarGroupContent>
-
-          </SidebarGroupContent>
+          <SidebarGroupContent></SidebarGroupContent>
         </SidebarGroup>
-
 
         {/* Apps Section */}
         <SidebarGroup>
           <SidebarGroupLabel>Apps</SidebarGroupLabel>
-          <SidebarGroupContent>
-            {renderMenuItems(appItems)}
-          </SidebarGroupContent>
+          <SidebarGroupContent>{renderMenuItems(appItems)}</SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      
+
       {/* Footer Section */}
       <SidebarFooter>
         <SidebarGroup>

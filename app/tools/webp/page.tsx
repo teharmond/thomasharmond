@@ -50,7 +50,7 @@ export default function PngToWebpConverter() {
 
       ctx.drawImage(image, 0, 0);
       const webpBlob = await new Promise<Blob | null>((resolve) =>
-        canvas.toBlob(resolve, "image/webp", 0.8)
+        canvas.toBlob(resolve, "image/webp", 0.8),
       );
 
       if (!webpBlob) throw new Error("Conversion failed");
@@ -98,8 +98,8 @@ export default function PngToWebpConverter() {
   };
 
   return (
-    <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 overflow-y-auto ">
-      <Card className="w-full max-w-md mx-auto">
+    <div className="min-h-screen overflow-y-auto px-4 py-8 sm:px-6 lg:px-8">
+      <Card className="mx-auto w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl font-bold">
             PNG to WebP Converter
@@ -107,7 +107,7 @@ export default function PngToWebpConverter() {
         </CardHeader>
         <CardContent>
           <div
-            className="border-2 border-dashed border-gray-300 rounded-lg p-8 mb-4 text-center cursor-pointer"
+            className="mb-4 cursor-pointer rounded-lg border-2 border-dashed border-gray-300 p-8 text-center"
             onDragOver={handleDragOver}
             onDrop={handleDrop}
             onClick={() => fileInputRef.current?.click()}
@@ -127,21 +127,21 @@ export default function PngToWebpConverter() {
           </div>
           {isConverting && <p className="text-blue-500">Converting...</p>}
           {error && (
-            <div className="flex items-center text-red-500 mb-4" role="alert">
+            <div className="mb-4 flex items-center text-red-500" role="alert">
               <AlertCircle className="mr-2" />
               <p>{error}</p>
             </div>
           )}
           {previewUrl && (
             <div className="mt-4">
-              <div className="flex items-center text-green-500 mb-2">
+              <div className="mb-2 flex items-center text-green-500">
                 <CheckCircle2 className="mr-2" />
                 <p>Conversion successful!</p>
               </div>
               <img
                 src={previewUrl}
                 alt="Converted WebP"
-                className="mb-2 max-w-full h-auto rounded-lg"
+                className="mb-2 h-auto max-w-full rounded-lg"
               />
             </div>
           )}

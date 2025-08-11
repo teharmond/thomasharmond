@@ -14,7 +14,11 @@ interface TiptapEditorProps {
   placeholder?: string;
 }
 
-export function TiptapEditor({ taskId, className, placeholder }: TiptapEditorProps) {
+export function TiptapEditor({
+  taskId,
+  className,
+  placeholder,
+}: TiptapEditorProps) {
   // Use the document ID as taskId for collaborative editing
   const documentId = taskId;
   const sync = useTiptapSync(api.prosemirrorSync, documentId);
@@ -28,14 +32,14 @@ export function TiptapEditor({ taskId, className, placeholder }: TiptapEditorPro
 
   if (sync.isLoading || sync.initialContent === null) {
     return (
-      <div className={`border rounded-md p-3 ${className || ""}`}>
+      <div className={`rounded-md border p-3 ${className || ""}`}>
         <p className="text-muted-foreground">Loading...</p>
       </div>
     );
   }
 
   return (
-    <div className={`border rounded-md relative ${className || ""}`}>
+    <div className={`relative rounded-md border ${className || ""}`}>
       <EditorProvider
         content={sync.initialContent}
         extensions={[
@@ -47,7 +51,8 @@ export function TiptapEditor({ taskId, className, placeholder }: TiptapEditorPro
         ]}
         editorProps={{
           attributes: {
-            class: "prose prose-sm focus:outline-none min-h-[100px] p-3 w-full max-w-none",
+            class:
+              "prose prose-sm focus:outline-none min-h-[100px] p-3 w-full max-w-none",
           },
         }}
       >

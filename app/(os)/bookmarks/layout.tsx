@@ -115,13 +115,13 @@ export default function BookmarksLayout({
   }
 
   return (
-    <div className="container mx-auto py-6 space-y-6">
+    <div className="container mx-auto space-y-6 py-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Bookmarks</h1>
         <Dialog open={isAddingFolder} onOpenChange={setIsAddingFolder}>
           <DialogTrigger asChild>
             <Button variant="outline" size="sm">
-              <FolderPlus className="h-4 w-4 mr-2" />
+              <FolderPlus className="mr-2 h-4 w-4" />
               New Folder
             </Button>
           </DialogTrigger>
@@ -211,12 +211,12 @@ export default function BookmarksLayout({
 
       <div className="grid grid-cols-12 gap-6">
         <div className="col-span-3 space-y-2">
-          <div className="text-sm font-medium text-muted-foreground mb-2">
+          <div className="text-muted-foreground mb-2 text-sm font-medium">
             Folders
           </div>
           <Link
             href="/bookmarks"
-            className={`flex items-center gap-2 px-3 py-2 rounded-md hover:bg-accent ${
+            className={`hover:bg-accent flex items-center gap-2 rounded-md px-3 py-2 ${
               isAllBookmarks ? "bg-accent" : ""
             }`}
           >
@@ -227,13 +227,13 @@ export default function BookmarksLayout({
           {folders?.map((folder) => (
             <div
               key={folder._id}
-              className={`flex items-center justify-between px-3 py-2 rounded-md hover:bg-accent group ${
+              className={`hover:bg-accent group flex items-center justify-between rounded-md px-3 py-2 ${
                 currentFolderId === folder._id ? "bg-accent" : ""
               }`}
             >
               <Link
                 href={`/bookmarks/${folder._id}`}
-                className="flex items-center gap-2 flex-1"
+                className="flex flex-1 items-center gap-2"
               >
                 <Folder
                   className="h-4 w-4"
@@ -255,19 +255,19 @@ export default function BookmarksLayout({
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="w-full justify-start h-8"
+                    className="h-8 w-full justify-start"
                     onClick={() => handleStartRename(folder)}
                   >
-                    <Edit3 className="h-3 w-3 mr-2" />
+                    <Edit3 className="mr-2 h-3 w-3" />
                     Rename
                   </Button>
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="w-full justify-start h-8"
+                    className="h-8 w-full justify-start"
                     onClick={() => handleDeleteFolder(folder._id)}
                   >
-                    <Trash2 className="h-3 w-3 mr-2" />
+                    <Trash2 className="mr-2 h-3 w-3" />
                     Delete
                   </Button>
                 </PopoverContent>

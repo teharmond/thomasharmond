@@ -22,7 +22,7 @@ export default function ArticleList({
 
   return (
     <ListComponent
-      className={`text-pretty leading-7 px-2 ${listStyles} ${indentStyles} ${className}`}
+      className={`px-2 leading-7 text-pretty ${listStyles} ${indentStyles} ${className}`}
     >
       {children}
     </ListComponent>

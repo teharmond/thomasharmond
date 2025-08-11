@@ -43,7 +43,7 @@ export default function QRCodeGenerator() {
             padding,
             padding,
             canvas.width - 2 * padding,
-            canvas.height - 2 * padding
+            canvas.height - 2 * padding,
           );
           const pngFile = canvas.toDataURL("image/png");
           const downloadLink = document.createElement("a");
@@ -81,10 +81,10 @@ export default function QRCodeGenerator() {
   };
 
   return (
-    <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 overflow-y-auto">
-      <Card className="w-full max-w-md mx-auto">
+    <div className="min-h-screen overflow-y-auto px-4 py-8 sm:px-6 lg:px-8">
+      <Card className="mx-auto w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center">
+          <CardTitle className="text-center text-2xl font-bold">
             QR Code Generator
           </CardTitle>
         </CardHeader>
@@ -118,7 +118,7 @@ export default function QRCodeGenerator() {
                     type="color"
                     value={backgroundColor}
                     onChange={(e) => setBackgroundColor(e.target.value)}
-                    className="w-12 p-1 mr-2"
+                    className="mr-2 w-12 p-1"
                   />
                   <Input
                     type="text"
@@ -136,7 +136,7 @@ export default function QRCodeGenerator() {
                     type="color"
                     value={qrCodeColor}
                     onChange={(e) => setQrCodeColor(e.target.value)}
-                    className="w-12 p-1 mr-2"
+                    className="mr-2 w-12 p-1"
                   />
                   <Input
                     type="text"
@@ -154,7 +154,7 @@ export default function QRCodeGenerator() {
           {qrCodeText && (
             <div className="mt-6 flex flex-col items-center">
               <div
-                className={`w-full max-w-[300px] aspect-square flex items-center justify-center p-4 rounded-lg`}
+                className={`flex aspect-square w-full max-w-[300px] items-center justify-center rounded-lg p-4`}
                 style={{
                   backgroundColor: isTransparent
                     ? "transparent"

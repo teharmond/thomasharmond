@@ -19,18 +19,18 @@ export default function SectionHeader({
         <Link
           href={url}
           target="_blank"
-          className="mt-10 px-2 hover:bg-primary/10 rounded-md group font-mono"
+          className="hover:bg-primary/10 group mt-10 rounded-md px-2 font-mono"
         >
           <h2
-            className={`text-primary justify-between flex items-center gap-2 w-full border-secondary font-bold border-b group-hover:border-transparent  text-2xl ${className}`}
+            className={`text-primary border-secondary flex w-full items-center justify-between gap-2 border-b text-2xl font-bold group-hover:border-transparent ${className}`}
           >
             {children}
-            <ExternalLink className="w-4 h-4" />
+            <ExternalLink className="h-4 w-4" />
           </h2>
         </Link>
       ) : (
         <h2
-          className={` mx-2 text-primary border-secondary font-bold border-b w-full  text-2xl mt-10 font-mono ${className}`}
+          className={`text-primary border-secondary mx-2 mt-10 w-full border-b font-mono text-2xl font-bold ${className}`}
         >
           {children}
         </h2>

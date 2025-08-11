@@ -61,7 +61,7 @@ export function TaskDetail({
 
   const subtasks = useQuery(
     api.subtasks.getSubtasks,
-    task ? { taskId: task._id as any } : "skip"
+    task ? { taskId: task._id as any } : "skip",
   );
   const createSubtask = useMutation(api.subtasks.createSubtask);
   const updateSubtaskStatus = useMutation(api.subtasks.updateSubtaskStatus);
@@ -79,7 +79,7 @@ export function TaskDetail({
     debounce((id: string, updates: any) => {
       onUpdateTask(id, updates);
     }, 500),
-    [onUpdateTask]
+    [onUpdateTask],
   );
 
   const handleTextChange = (value: string) => {
@@ -137,7 +137,7 @@ export function TaskDetail({
 
   const handleToggleSubtask = async (
     subtaskId: string,
-    currentStatus: string
+    currentStatus: string,
   ) => {
     try {
       await updateSubtaskStatus({
@@ -158,9 +158,9 @@ export function TaskDetail({
   };
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex items-center justify-between p-4 border-b">
-        <h3 className="font-semibold text-lg">Task Details</h3>
+    <div className="flex h-full flex-col">
+      <div className="flex items-center justify-between border-b p-4">
+        <h3 className="text-lg font-semibold">Task Details</h3>
         <div className="flex gap-2">
           <Button
             variant="ghost"
@@ -182,7 +182,7 @@ export function TaskDetail({
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4 space-y-6">
+      <div className="flex-1 space-y-6 overflow-y-auto p-4">
         <div className="space-y-2">
           <Label htmlFor="task-title">Title</Label>
           <Input
@@ -212,7 +212,7 @@ export function TaskDetail({
 
         <div className="space-y-2">
           <Label htmlFor="project">
-            <FolderOpen className="inline h-4 w-4 mr-1" />
+            <FolderOpen className="mr-1 inline h-4 w-4" />
             Project
           </Label>
           <ProjectSelect
@@ -224,7 +224,7 @@ export function TaskDetail({
 
         <div className="space-y-2">
           <Label htmlFor="task-description">
-            <FileText className="inline h-4 w-4 mr-1" />
+            <FileText className="mr-1 inline h-4 w-4" />
             Description
           </Label>
           <TiptapEditor taskId={task._id as any} />
@@ -233,7 +233,7 @@ export function TaskDetail({
         <div className="flex gap-4">
           <div className="flex-1 space-y-2">
             <Label htmlFor="start-date">
-              <Calendar className="inline h-4 w-4 mr-1" />
+              <Calendar className="mr-1 inline h-4 w-4" />
               Start Date
             </Label>
             <Input
@@ -245,7 +245,7 @@ export function TaskDetail({
           </div>
           <div className="flex-1 space-y-2">
             <Label htmlFor="due-date">
-              <Calendar className="inline h-4 w-4 mr-1" />
+              <Calendar className="mr-1 inline h-4 w-4" />
               Due Date
             </Label>
             <Input
@@ -259,7 +259,7 @@ export function TaskDetail({
 
         <div className="space-y-2">
           <Label>
-            <CheckSquare className="inline h-4 w-4 mr-1" />
+            <CheckSquare className="mr-1 inline h-4 w-4" />
             Subtasks
           </Label>
           <div className="space-y-2">
@@ -268,23 +268,23 @@ export function TaskDetail({
                 {subtasks.map((subtask: any) => (
                   <div
                     key={subtask._id}
-                    className="flex items-center gap-2 p-2 rounded hover:bg-accent/50 group"
+                    className="hover:bg-accent/50 group flex items-center gap-2 rounded p-2"
                   >
                     <button
                       onClick={() =>
                         handleToggleSubtask(subtask._id, subtask.status)
                       }
-                      className="flex items-center gap-2 flex-1 text-left"
+                      className="flex flex-1 items-center gap-2 text-left"
                     >
                       {subtask.status === "completed" ? (
-                        <CheckSquare className="h-4 w-4 text-muted-foreground" />
+                        <CheckSquare className="text-muted-foreground h-4 w-4" />
                       ) : (
-                        <Square className="h-4 w-4 text-muted-foreground" />
+                        <Square className="text-muted-foreground h-4 w-4" />
                       )}
                       <span
                         className={`text-sm ${
                           subtask.status === "completed"
-                            ? "line-through text-muted-foreground"
+                            ? "text-muted-foreground line-through"
                             : ""
                         }`}
                       >
@@ -294,7 +294,7 @@ export function TaskDetail({
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100"
                       onClick={() => handleDeleteSubtask(subtask._id)}
                     >
                       <Trash2 className="h-3 w-3" />
@@ -327,15 +327,15 @@ export function TaskDetail({
           </div>
         </div>
 
-        <div className="pt-4 border-t">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="border-t pt-4">
+          <div className="text-muted-foreground flex items-center gap-2 text-sm">
             <Clock className="h-4 w-4" />
             Created {formatDate(task.createdAt)}
           </div>
         </div>
       </div>
 
-      <div className="flex gap-2 p-4 border-t">
+      <div className="flex gap-2 border-t p-4">
         <Button
           variant="destructive"
           onClick={() => onDelete(task._id)}

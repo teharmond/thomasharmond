@@ -69,7 +69,7 @@ export function StatusSelect({ value, onValueChange }: StatusSelectProps) {
   return (
     <Select value={currentValue} onValueChange={onValueChange}>
       <SelectTrigger
-        className="w-[20px] h-[20px] border-none p-0 items-center justify-center"
+        className="h-[20px] w-[20px] items-center justify-center border-none p-0"
         hideIcon
       >
         <SelectValue>

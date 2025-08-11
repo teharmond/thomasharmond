@@ -46,7 +46,7 @@ export const metadata: Metadata = {
 
 export default function page() {
   return (
-    <div className=" gap-4 flex flex-col">
+    <div className="flex flex-col gap-4">
       <ArticleHeader
         title="Churches Need Paper Forms"
         description="Starting over from first principles to meet real needs"
@@ -121,14 +121,14 @@ export default function page() {
       <ArticleParagraph>Not ideal.</ArticleParagraph>
       <ArticleParagraph>
         So when I started working on{" "}
-        <span className="inline ">
+        <span className="inline">
           <Link
             href="https://churchspace.co"
-            className="inline items-baseline group"
+            className="group inline items-baseline"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span className="underline decoration-2 underline-offset-2 group-hover:underline-offset-4 transition-all duration-300 ease-in-out">
+            <span className="underline decoration-2 underline-offset-2 transition-all duration-300 ease-in-out group-hover:underline-offset-4">
               Church Space
             </span>
           </Link>
@@ -140,7 +140,7 @@ export default function page() {
         alt="Paper and Digital Chart"
         width={1000}
         height={1000}
-        className="mt-2 mb-10 w-[80%] mx-auto"
+        className="mx-auto mt-2 mb-10 w-[80%]"
       />
       <SectionHeader>TOWARDS A SOLUTION</SectionHeader>
       <ArticleParagraph>
@@ -156,14 +156,14 @@ export default function page() {
         alt="Form Builder"
         width={1000}
         height={1000}
-        className="mt-2  "
+        className="mt-2"
       />
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//form-conditions.png"
         alt="Form Conditions"
         width={1000}
         height={1000}
-        className="mt-2 mb-10 "
+        className="mt-2 mb-10"
       />
       <ArticleParagraph>
         I then added in a way to link form fields to PCO fields and to have the
@@ -176,14 +176,14 @@ export default function page() {
         alt="Form PCO Logic"
         width={1000}
         height={1000}
-        className="mt-2  "
+        className="mt-2"
       />
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//form-pco-logic-two.png"
         alt="Form PCO Connection"
         width={1000}
         height={1000}
-        className="mt-2 mb-10 "
+        className="mt-2 mb-10"
       />
       <ArticleParagraph>
         Now, we needed a way to get the digital form on paper. For this, I used
@@ -198,7 +198,7 @@ export default function page() {
         alt="Paper Form"
         width={1000}
         height={1000}
-        className="mt-2 mb-10 "
+        className="mt-2 mb-10"
       />
       <ArticleParagraph>
         Once the user is ready to upload their submissions, they can open the
@@ -213,7 +213,7 @@ export default function page() {
         alt="Upload Paper Form"
         width={1000}
         height={1000}
-        className="mt-2 mb-2 "
+        className="mt-2 mb-2"
       />
 
       <ArticleParagraph>
@@ -227,7 +227,7 @@ export default function page() {
         alt="Form Code"
         width={1000}
         height={1000}
-        className="mt-2 mb-10 "
+        className="mt-2 mb-10"
       />
       <ArticleParagraph>
         All the results are then added to the same table as the digital
@@ -262,10 +262,10 @@ export default function page() {
         <Link
           href="/ideas/questions-that-bring-joy"
           target="_blank"
-          className="underline hover:text-primary italic font-medium underline-offset-4"
+          className="hover:text-primary font-medium italic underline underline-offset-4"
         >
           answering these questions
-          <ExternalLink className="h-4 w-4 inline ml-1 mb-1" />
+          <ExternalLink className="mb-1 ml-1 inline h-4 w-4" />
         </Link>{" "}
         in the coming weeks as I decide if I even want to put this out.
       </ArticleParagraph>
@@ -277,16 +277,16 @@ export default function page() {
         .
       </ArticleParagraph>
 
-      <div className="flex flex-col gap-2 bg-muted p-4 rounded-xl mt-12">
-        <h3 className="text-xl font-bold px-2">More</h3>
+      <div className="bg-muted mt-12 flex flex-col gap-2 rounded-xl p-4">
+        <h3 className="px-2 text-xl font-bold">More</h3>
         {articles.map((article, index) => (
           <a
             href={article.link}
-            className="text-pretty hover:bg-blue-100 font-medium hover:text-blue-600 px-2 py-1 rounded-md transition-colors"
+            className="rounded-md px-2 py-1 font-medium text-pretty transition-colors hover:bg-blue-100 hover:text-blue-600"
             key={index}
           >
             <h2>{article.title}</h2>
-            <p className="text-sm text-muted-foreground font-light">
+            <p className="text-muted-foreground text-sm font-light">
               {article.description}
             </p>
           </a>

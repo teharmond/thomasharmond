@@ -37,7 +37,7 @@ const articles = [
 
 export default function Page() {
   return (
-    <div className=" gap-4 flex flex-col">
+    <div className="flex flex-col gap-4">
       <ArticleHeader
         title="Notes on Craft and Quality"
         description="The companies that have helped me shape Church Space"
@@ -75,7 +75,8 @@ export default function Page() {
         I can&apos;t stop thinking about this.
       </ArticleParagraph>
       <ArticleParagraph>
-        It&apos;s one of those insanely simple ideas with an incredible depth.{" "}
+        It&apos;s one of those insanely simple ideas with an incredible
+        depth.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
         What we make—music, paintings, software, products—speaks to who we are,
@@ -86,7 +87,8 @@ export default function Page() {
         craft doesn&apos;t matter. It says we care about function and
         productivity but we don&apos;t care about our product bringing the
         person joy. It says we don&apos;t mind if they have to read some support
-        docs and send us a support email. Plainly, it says we don&apos;t care.{" "}
+        docs and send us a support email. Plainly, it says we don&apos;t
+        care.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
         However, when we sweat the details with small animations, intuitive UIs,
@@ -137,11 +139,11 @@ export default function Page() {
         <span className="inline">
           <Link
             href="https://churchspace.co"
-            className="inline items-baseline group"
+            className="group inline items-baseline"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span className="h-5 w-5 bg-[#6065fe] mr-1.5 rounded items-center justify-center inline-flex">
+            <span className="mr-1.5 inline-flex h-5 w-5 items-center justify-center rounded bg-[#6065fe]">
               <svg
                 height={14}
                 width={14}
@@ -160,7 +162,7 @@ export default function Page() {
                 </g>
               </svg>
             </span>
-            <span className="underline decoration-2 underline-offset-2 group-hover:underline-offset-4 transition-all duration-300 ease-in-out">
+            <span className="underline decoration-2 underline-offset-2 transition-all duration-300 ease-in-out group-hover:underline-offset-4">
               Church Space
             </span>
           </Link>
@@ -352,23 +354,23 @@ export default function Page() {
         If you have any other companies you think of as great examples of craft
         and quality, send them to me at{" "}
         <a
-          className="underline hover:text-primary "
+          className="hover:text-primary underline"
           href="mailto:hey@thomasharmond.com"
         >
           hey@thomasharmond.com
         </a>
         .
       </ArticleParagraph>
-      <div className="flex flex-col gap-2 bg-muted p-4 rounded-xl mt-12">
-        <h3 className="text-xl font-bold px-2">More</h3>
+      <div className="bg-muted mt-12 flex flex-col gap-2 rounded-xl p-4">
+        <h3 className="px-2 text-xl font-bold">More</h3>
         {articles.map((article, index) => (
           <a
             href={article.link}
-            className="text-pretty hover:bg-blue-100 font-medium hover:text-blue-600 px-2 py-1 rounded-md transition-colors"
+            className="rounded-md px-2 py-1 font-medium text-pretty transition-colors hover:bg-blue-100 hover:text-blue-600"
             key={index}
           >
             <h2>{article.title}</h2>
-            <p className="text-sm text-muted-foreground font-light">
+            <p className="text-muted-foreground text-sm font-light">
               {article.description}
             </p>
           </a>

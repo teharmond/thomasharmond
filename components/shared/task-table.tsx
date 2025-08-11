@@ -27,7 +27,10 @@ import {
 } from "lucide-react";
 import React, { useMemo } from "react";
 import { Button } from "../ui/button";
-import { PrioritySelect, TaskPriority } from "../../app/(os)/tasks/priority-select";
+import {
+  PrioritySelect,
+  TaskPriority,
+} from "../../app/(os)/tasks/priority-select";
 import { StatusSelect, TaskStatus } from "../../app/(os)/tasks/status-select";
 
 export type Task = {
@@ -132,7 +135,7 @@ export function TaskTable({
         },
       } as ColumnDef<Task, any>,
     ],
-    []
+    [],
   );
 
   const table = useReactTable({
@@ -159,7 +162,7 @@ export function TaskTable({
 
   if (tasks.length === 0) {
     return (
-      <div className="text-center py-12">
+      <div className="py-12 text-center">
         <p className="text-muted-foreground text-lg">
           No tasks yet. Add one above!
         </p>
@@ -179,7 +182,7 @@ export function TaskTable({
           if (tasksCount === 0) return null;
 
           const lastVisibleIndex = rows.findLastIndex(
-            (r) => r.getIsGrouped() && r.subRows.length > 0
+            (r) => r.getIsGrouped() && r.subRows.length > 0,
           );
           const isLastVisible = index === lastVisibleIndex;
 
@@ -196,21 +199,21 @@ export function TaskTable({
                   row.toggleExpanded(open);
                 }}
               >
-                <div className="flex items-center justify-between w-full bg-muted h-9 border-b pr-6">
+                <div className="bg-muted flex h-9 w-full items-center justify-between border-b pr-6">
                   <div className="flex items-center gap-1.5">
-                    <CollapsibleTrigger className="flex items-center group/collapsible-trigger gap-2 pl-3 pr-0 w-7 py-1 text-sm hover:bg-accent bg-muted transition-colors justify-between">
+                    <CollapsibleTrigger className="group/collapsible-trigger hover:bg-accent bg-muted flex w-7 items-center justify-between gap-2 py-1 pr-0 pl-3 text-sm transition-colors">
                       {isExpanded ? (
-                        <Triangle className="h-2 w-2 rotate-180 text-muted-foreground fill-muted-foreground group-hover/collapsible-trigger:fill-foreground group-hover/collapsible-trigger:text-foreground" />
+                        <Triangle className="text-muted-foreground fill-muted-foreground group-hover/collapsible-trigger:fill-foreground group-hover/collapsible-trigger:text-foreground h-2 w-2 rotate-180" />
                       ) : (
-                        <Triangle className="h-2 w-2 mr-1 fill-foreground text-foreground rotate-90" />
+                        <Triangle className="fill-foreground text-foreground mr-1 h-2 w-2 rotate-90" />
                       )}
                     </CollapsibleTrigger>
                     <div className="flex items-center gap-2">
                       <span className={group.color}>{group.icon}</span>
-                      <span className="text-sm text-secondary-foreground">
+                      <span className="text-secondary-foreground text-sm">
                         {group.label}
                       </span>
-                      <span className="text-muted-foreground text-sm ml-auto bg-muted px-2 py-1 rounded">
+                      <span className="text-muted-foreground bg-muted ml-auto rounded px-2 py-1 text-sm">
                         {tasksCount}
                       </span>
                     </div>
@@ -229,11 +232,13 @@ export function TaskTable({
                     <div className="bg-background">
                       <div className="w-full">
                         {row.subRows.map((subRow, index) => {
-                          const isSelected = selectedRows.has(subRow.original._id);
+                          const isSelected = selectedRows.has(
+                            subRow.original._id,
+                          );
                           return (
                             <div
                               key={subRow.id}
-                              className={`border-b last:border-b-0 hover:bg-muted/30 transition-colors pr-6 pl-1 py-1 ${
+                              className={`hover:bg-muted/30 border-b py-1 pr-6 pl-1 transition-colors last:border-b-0 ${
                                 isSelected
                                   ? "bg-secondary/30 hover:bg-secondary/30"
                                   : index % 2 === 0
@@ -241,9 +246,9 @@ export function TaskTable({
                                     : ""
                               }`}
                             >
-                              <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                                <div className="flex items-center gap-1 flex-1 min-w-0">
-                                  <div className="w-6 flex items-center justify-center group/checkbox">
+                              <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                                <div className="flex min-w-0 flex-1 items-center gap-1">
+                                  <div className="group/checkbox flex w-6 items-center justify-center">
                                     <input
                                       type="checkbox"
                                       checked={isSelected}
@@ -257,47 +262,54 @@ export function TaskTable({
                                         }
                                         onSelectedRowsChange(next);
                                       }}
-                                      className="opacity-0 group-hover/checkbox:opacity-100 checked:opacity-100 transition-opacity"
+                                      className="opacity-0 transition-opacity group-hover/checkbox:opacity-100 checked:opacity-100"
                                       onClick={(e) => e.stopPropagation()}
                                     />
                                   </div>
                                   <StatusSelect
                                     value={subRow.original.status}
                                     onValueChange={(status: TaskStatus) =>
-                                      onUpdateStatus(subRow.original._id, status)
+                                      onUpdateStatus(
+                                        subRow.original._id,
+                                        status,
+                                      )
                                     }
                                   />
                                   <div
-                                    className="cursor-pointer hover:bg-accent/50 p-2 rounded transition-colors flex-1 min-w-0"
+                                    className="hover:bg-accent/50 min-w-0 flex-1 cursor-pointer rounded p-2 transition-colors"
                                     onClick={() => onTaskClick(subRow.original)}
                                   >
                                     <div className="flex items-center gap-2">
-                                      <span className="text-sm line-clamp-1 flex-1">
+                                      <span className="line-clamp-1 flex-1 text-sm">
                                         {subRow.original.text}
                                       </span>
-                                      {(subRow.original.subtaskCount ?? 0) > 0 && (
-                                        <span className="text-xs text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
-                                          {subRow.original.completedSubtaskCount}/
-                                          {subRow.original.subtaskCount}
+                                      {(subRow.original.subtaskCount ?? 0) >
+                                        0 && (
+                                        <span className="text-muted-foreground bg-muted rounded px-1.5 py-0.5 text-xs">
+                                          {
+                                            subRow.original
+                                              .completedSubtaskCount
+                                          }
+                                          /{subRow.original.subtaskCount}
                                         </span>
                                       )}
                                     </div>
                                   </div>
                                 </div>
-                                <div className="flex items-center gap-3 ml-10 sm:ml-0">
+                                <div className="ml-10 flex items-center gap-3 sm:ml-0">
                                   <PrioritySelect
                                     value={subRow.original.priority}
                                     onValueChange={(priority: TaskPriority) =>
                                       onUpdatePriority(
                                         subRow.original._id,
-                                        priority
+                                        priority,
                                       )
                                     }
                                   />
                                   {subRow.original.dueDate && (
                                     <div className="text-sm whitespace-nowrap">
                                       {new Date(
-                                        subRow.original.dueDate
+                                        subRow.original.dueDate,
                                       ).toLocaleDateString()}
                                     </div>
                                   )}

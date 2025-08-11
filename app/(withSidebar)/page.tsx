@@ -46,17 +46,17 @@ const articles = [
 export default function Home() {
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-3xl font-bold px-2">Ideas</h1>
+      <h1 className="px-2 text-3xl font-bold">Ideas</h1>
       {articles.map((article, index) => (
         <a
           href={article.link}
-          className="text-pretty group duration-200 hover:bg-blue-100 font-medium  px-2 py-1 rounded-md transition-colors"
+          className="group rounded-md px-2 py-1 font-medium text-pretty transition-colors duration-200 hover:bg-blue-100"
           key={index}
         >
-          <h2 className="transition-colors group-hover:text-blue-600 ">
+          <h2 className="transition-colors group-hover:text-blue-600">
             {article.title}
           </h2>
-          <p className="text-sm text-muted-foreground font-light">
+          <p className="text-muted-foreground text-sm font-light">
             {article.description}
           </p>
         </a>

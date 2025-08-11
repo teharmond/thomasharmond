@@ -32,7 +32,7 @@ export const getBookmarks = query({
       return await ctx.db
         .query("bookmarks")
         .withIndex("by_user_and_folder", (q) =>
-          q.eq("userId", identity.subject).eq("folderId", args.folderId)
+          q.eq("userId", identity.subject).eq("folderId", args.folderId),
         )
         .collect();
     } else {
@@ -128,7 +128,7 @@ async function fetchOpenGraphData(url: string) {
   try {
     const response = await fetch(url, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; BookmarkBot/1.0)',
+        "User-Agent": "Mozilla/5.0 (compatible; BookmarkBot/1.0)",
       },
     });
 
@@ -137,13 +137,19 @@ async function fetchOpenGraphData(url: string) {
     }
 
     const html = await response.text();
-    
+
     const getMetaContent = (property: string): string | null => {
-      const regex = new RegExp(`<meta[^>]*(?:property|name)=["'](?:og:)?${property}["'][^>]*content=["']([^"']+)["']`, 'i');
+      const regex = new RegExp(
+        `<meta[^>]*(?:property|name)=["'](?:og:)?${property}["'][^>]*content=["']([^"']+)["']`,
+        "i",
+      );
       const match = html.match(regex);
       if (match) return match[1];
-      
-      const reverseRegex = new RegExp(`<meta[^>]*content=["']([^"']+)["'][^>]*(?:property|name)=["'](?:og:)?${property}["']`, 'i');
+
+      const reverseRegex = new RegExp(
+        `<meta[^>]*content=["']([^"']+)["'][^>]*(?:property|name)=["'](?:og:)?${property}["']`,
+        "i",
+      );
       const reverseMatch = html.match(reverseRegex);
       return reverseMatch ? reverseMatch[1] : null;
     };
@@ -154,25 +160,26 @@ async function fetchOpenGraphData(url: string) {
     };
 
     const getFavicon = (): string | null => {
-      const iconRegex = /<link[^>]*rel=["'](?:icon|shortcut icon)["'][^>]*href=["']([^"']+)["']/i;
+      const iconRegex =
+        /<link[^>]*rel=["'](?:icon|shortcut icon)["'][^>]*href=["']([^"']+)["']/i;
       const match = html.match(iconRegex);
-      
+
       if (match) {
         const favicon = match[1];
-        if (favicon.startsWith('http')) {
+        if (favicon.startsWith("http")) {
           return favicon;
-        } else if (favicon.startsWith('//')) {
+        } else if (favicon.startsWith("//")) {
           return `https:${favicon}`;
-        } else if (favicon.startsWith('/')) {
+        } else if (favicon.startsWith("/")) {
           const urlObj = new URL(url);
           return `${urlObj.origin}${favicon}`;
         } else {
           const urlObj = new URL(url);
-          const path = urlObj.pathname.split('/').slice(0, -1).join('/');
+          const path = urlObj.pathname.split("/").slice(0, -1).join("/");
           return `${urlObj.origin}${path}/${favicon}`;
         }
       }
-      
+
       const urlObj = new URL(url);
       return `${urlObj.origin}/favicon.ico`;
     };
@@ -180,17 +187,20 @@ async function fetchOpenGraphData(url: string) {
     const decodeHtmlEntities = (text: string): string => {
       return text
         .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
-        .replace(/&#x([a-fA-F0-9]+);/g, (_, code) => String.fromCharCode(parseInt(code, 16)))
+        .replace(/&#x([a-fA-F0-9]+);/g, (_, code) =>
+          String.fromCharCode(parseInt(code, 16)),
+        )
         .replace(/&quot;/g, '"')
         .replace(/&apos;/g, "'")
-        .replace(/&lt;/g, '<')
-        .replace(/&gt;/g, '>')
-        .replace(/&amp;/g, '&');
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&amp;/g, "&");
     };
 
-    const rawTitle = getMetaContent('title') || getTitleFromTag() || new URL(url).hostname;
+    const rawTitle =
+      getMetaContent("title") || getTitleFromTag() || new URL(url).hostname;
     const title = decodeHtmlEntities(rawTitle);
-    const image = getMetaContent('image');
+    const image = getMetaContent("image");
     const favicon = getFavicon();
 
     return { title, image, favicon };

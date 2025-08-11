@@ -35,8 +35,8 @@ export default function UUIDGenerator() {
   }, []);
 
   return (
-    <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 overflow-y-auto">
-      <Card className="w-full max-w-md mx-auto">
+    <div className="min-h-screen overflow-y-auto px-4 py-8 sm:px-6 lg:px-8">
+      <Card className="mx-auto w-full max-w-md">
         <CardHeader>
           <CardTitle>UUID Generator</CardTitle>
           <CardDescription>Generate and copy UUIDs with ease</CardDescription>
@@ -44,13 +44,13 @@ export default function UUIDGenerator() {
         <CardContent>
           <div className="space-y-4">
             <div className="flex">
-              <div className="flex justify-start items-center border rounded-l-lg px-2 w-full h-8 text-sm border-r-0">
+              <div className="flex h-8 w-full items-center justify-start rounded-l-lg border border-r-0 px-2 text-sm">
                 {uuid}
               </div>
               <Button
                 onClick={copyToClipboard}
                 variant="outline"
-                className="rounded-l-none h-8"
+                className="h-8 rounded-l-none"
                 disabled={!uuid}
               >
                 {copied ? (
@@ -60,7 +60,7 @@ export default function UUIDGenerator() {
                 )}
               </Button>
             </div>
-            <Button onClick={generateUUID} className="w-full h-8">
+            <Button onClick={generateUUID} className="h-8 w-full">
               Generate New UUID
             </Button>
           </div>

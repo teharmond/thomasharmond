@@ -19,13 +19,13 @@ export const getSubtasks = query({
       .withIndex("by_task", (q) => q.eq("taskId", args.taskId))
       .order("asc")
       .collect();
-    
+
     return subtasks;
   },
 });
 
 export const createSubtask = mutation({
-  args: { 
+  args: {
     taskId: v.id("tasks"),
     text: v.string(),
   },
@@ -51,7 +51,7 @@ export const createSubtask = mutation({
 });
 
 export const updateSubtaskStatus = mutation({
-  args: { 
+  args: {
     id: v.id("subtasks"),
     status: v.union(v.literal("todo"), v.literal("completed")),
   },

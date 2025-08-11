@@ -5,10 +5,29 @@ import { api } from "@/convex/_generated/api";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { Plus, MoreHorizontal, Trash2, Move, Globe, Folder } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Plus,
+  MoreHorizontal,
+  Trash2,
+  Move,
+  Globe,
+  Folder,
+} from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Id } from "@/convex/_generated/dataModel";
 import { useAuth } from "@clerk/nextjs";
 
@@ -19,89 +38,96 @@ interface BookmarksContentProps {
 export function BookmarksContent({ folderId }: BookmarksContentProps) {
   const { isLoaded } = useAuth();
   const folders = useQuery(api.bookmarks.getFolders);
-  
-  const actualFolderId = folderId && folderId !== "all" ? folderId as Id<"bookmarkFolders"> : undefined;
+
+  const actualFolderId =
+    folderId && folderId !== "all"
+      ? (folderId as Id<"bookmarkFolders">)
+      : undefined;
   const showAll = !folderId; // Show all when at /bookmarks
-  
-  const bookmarks = useQuery(api.bookmarks.getBookmarks, { 
+
+  const bookmarks = useQuery(api.bookmarks.getBookmarks, {
     folderId: actualFolderId,
-    showAll: showAll
+    showAll: showAll,
   });
-  
+
   const createBookmark = useMutation(api.bookmarks.createBookmark);
   const updateBookmark = useMutation(api.bookmarks.updateBookmark);
   const deleteBookmark = useMutation(api.bookmarks.deleteBookmark);
   const moveBookmark = useMutation(api.bookmarks.moveBookmark);
-  
+
   const [isAddingBookmark, setIsAddingBookmark] = useState(false);
-  const [movingBookmark, setMovingBookmark] = useState<Id<"bookmarks"> | null>(null);
-  
+  const [movingBookmark, setMovingBookmark] = useState<Id<"bookmarks"> | null>(
+    null,
+  );
+
   const [newBookmarkUrl, setNewBookmarkUrl] = useState("");
-  const [bookmarkMetadata, setBookmarkMetadata] = useState<Record<string, { title: string; favicon?: string; loading: boolean }>>({});
+  const [bookmarkMetadata, setBookmarkMetadata] = useState<
+    Record<string, { title: string; favicon?: string; loading: boolean }>
+  >({});
 
   const fetchBookmarkMetadata = async (url: string, bookmarkId: string) => {
     if (bookmarkMetadata[bookmarkId] && !bookmarkMetadata[bookmarkId].loading) {
       return; // Already fetched
     }
 
-    setBookmarkMetadata(prev => ({
+    setBookmarkMetadata((prev) => ({
       ...prev,
       [bookmarkId]: {
         title: new URL(url).hostname,
-        loading: true
-      }
+        loading: true,
+      },
     }));
 
     try {
-      const response = await fetch('/api/opengraph', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/opengraph", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url }),
       });
-      
+
       if (response.ok) {
         const data = await response.json();
-        setBookmarkMetadata(prev => ({
+        setBookmarkMetadata((prev) => ({
           ...prev,
           [bookmarkId]: {
             title: data.title || new URL(url).hostname,
             favicon: data.favicon,
-            loading: false
-          }
+            loading: false,
+          },
         }));
       } else {
-        throw new Error('Failed to fetch metadata');
+        throw new Error("Failed to fetch metadata");
       }
     } catch (error) {
-      console.error('Error fetching OpenGraph data:', error);
-      setBookmarkMetadata(prev => ({
+      console.error("Error fetching OpenGraph data:", error);
+      setBookmarkMetadata((prev) => ({
         ...prev,
         [bookmarkId]: {
           title: new URL(url).hostname,
-          loading: false
-        }
+          loading: false,
+        },
       }));
     }
   };
 
   useEffect(() => {
     // Fetch metadata for all bookmarks when they load
-    bookmarks?.forEach(bookmark => {
+    bookmarks?.forEach((bookmark) => {
       fetchBookmarkMetadata(bookmark.url, bookmark._id);
     });
   }, [bookmarks]);
 
   const handleCreateBookmark = async () => {
     if (!newBookmarkUrl) return;
-    
+
     const bookmarkId = await createBookmark({
       url: newBookmarkUrl,
       folderId: actualFolderId,
     });
-    
+
     setNewBookmarkUrl("");
     setIsAddingBookmark(false);
-    
+
     // Fetch metadata for the new bookmark
     if (bookmarkId) {
       fetchBookmarkMetadata(newBookmarkUrl, bookmarkId as Id<"bookmarks">);
@@ -112,7 +138,10 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
     await deleteBookmark({ id });
   };
 
-  const handleMoveBookmark = async (bookmarkId: Id<"bookmarks">, folderId: Id<"bookmarkFolders"> | undefined) => {
+  const handleMoveBookmark = async (
+    bookmarkId: Id<"bookmarks">,
+    folderId: Id<"bookmarkFolders"> | undefined,
+  ) => {
     await moveBookmark({ id: bookmarkId, folderId });
     setMovingBookmark(null);
   };
@@ -126,11 +155,13 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
     );
   }
 
-  const selectedFolder = actualFolderId ? folders?.find(f => f._id === actualFolderId) : null;
+  const selectedFolder = actualFolderId
+    ? folders?.find((f) => f._id === actualFolderId)
+    : null;
 
   return (
     <>
-      <div className="flex items-center justify-between mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           {selectedFolder && (
             <>
@@ -145,11 +176,11 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
             <h2 className="text-xl font-semibold">All Bookmarks</h2>
           )}
         </div>
-        
+
         <Dialog open={isAddingBookmark} onOpenChange={setIsAddingBookmark}>
           <DialogTrigger asChild>
             <Button size="sm">
-              <Plus className="h-4 w-4 mr-2" />
+              <Plus className="mr-2 h-4 w-4" />
               Add Bookmark
             </Button>
           </DialogTrigger>
@@ -172,13 +203,17 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
                 />
               </div>
               {selectedFolder && (
-                <div className="text-sm text-muted-foreground">
-                  Will be added to: <span className="font-medium">{selectedFolder.name}</span>
+                <div className="text-muted-foreground text-sm">
+                  Will be added to:{" "}
+                  <span className="font-medium">{selectedFolder.name}</span>
                 </div>
               )}
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setIsAddingBookmark(false)}>
+              <Button
+                variant="outline"
+                onClick={() => setIsAddingBookmark(false)}
+              >
                 Cancel
               </Button>
               <Button onClick={handleCreateBookmark} disabled={!newBookmarkUrl}>
@@ -191,28 +226,34 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
 
       <div className="space-y-2">
         {bookmarks?.map((bookmark) => (
-          <div key={bookmark._id} className="group flex items-center gap-3 p-3 rounded-lg border hover:bg-muted/50 transition-colors">
-            <div className="flex items-center gap-3 flex-1 min-w-0">
+          <div
+            key={bookmark._id}
+            className="group hover:bg-muted/50 flex items-center gap-3 rounded-lg border p-3 transition-colors"
+          >
+            <div className="flex min-w-0 flex-1 items-center gap-3">
               {bookmarkMetadata[bookmark._id]?.favicon ? (
                 <img
                   src={bookmarkMetadata[bookmark._id].favicon}
                   alt=""
                   className="h-4 w-4 flex-shrink-0"
                   onError={(e) => {
-                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.style.display = "none";
                   }}
                 />
               ) : (
-                <Globe className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                <Globe className="text-muted-foreground h-4 w-4 flex-shrink-0" />
               )}
               <div className="min-w-0 flex-1">
                 <a
                   href={bookmark.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm font-medium hover:text-primary transition-colors block truncate"
+                  className="hover:text-primary block truncate text-sm font-medium transition-colors"
                 >
-                  {bookmarkMetadata[bookmark._id]?.loading ? 'Loading...' : (bookmarkMetadata[bookmark._id]?.title || new URL(bookmark.url).hostname)}
+                  {bookmarkMetadata[bookmark._id]?.loading
+                    ? "Loading..."
+                    : bookmarkMetadata[bookmark._id]?.title ||
+                      new URL(bookmark.url).hostname}
                 </a>
               </div>
             </div>
@@ -221,7 +262,7 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="h-6 w-6 p-0 opacity-0 group-hover:opacity-100 flex-shrink-0"
+                  className="h-6 w-6 flex-shrink-0 p-0 opacity-0 group-hover:opacity-100"
                 >
                   <MoreHorizontal className="h-3 w-3" />
                 </Button>
@@ -230,19 +271,19 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="w-full justify-start h-8"
+                  className="h-8 w-full justify-start"
                   onClick={() => setMovingBookmark(bookmark._id)}
                 >
-                  <Move className="h-3 w-3 mr-2" />
+                  <Move className="mr-2 h-3 w-3" />
                   Move
                 </Button>
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="w-full justify-start h-8"
+                  className="h-8 w-full justify-start"
                   onClick={() => handleDeleteBookmark(bookmark._id)}
                 >
-                  <Trash2 className="h-3 w-3 mr-2" />
+                  <Trash2 className="mr-2 h-3 w-3" />
                   Delete
                 </Button>
               </PopoverContent>
@@ -252,7 +293,7 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
       </div>
 
       {bookmarks?.length === 0 && (
-        <div className="text-center py-12">
+        <div className="py-12 text-center">
           <p className="text-muted-foreground">No bookmarks yet.</p>
           <Button
             variant="outline"
@@ -260,13 +301,16 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
             className="mt-4"
             onClick={() => setIsAddingBookmark(true)}
           >
-            <Plus className="h-4 w-4 mr-2" />
+            <Plus className="mr-2 h-4 w-4" />
             Add your first bookmark
           </Button>
         </div>
       )}
 
-      <Dialog open={!!movingBookmark} onOpenChange={() => setMovingBookmark(null)}>
+      <Dialog
+        open={!!movingBookmark}
+        onOpenChange={() => setMovingBookmark(null)}
+      >
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Move Bookmark</DialogTitle>
@@ -280,7 +324,7 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
               className="w-full justify-start"
               onClick={() => handleMoveBookmark(movingBookmark!, undefined)}
             >
-              <Folder className="h-4 w-4 mr-2" />
+              <Folder className="mr-2 h-4 w-4" />
               No Folder
             </Button>
             {folders?.map((folder) => (
@@ -291,7 +335,7 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
                 onClick={() => handleMoveBookmark(movingBookmark!, folder._id)}
               >
                 <Folder
-                  className="h-4 w-4 mr-2"
+                  className="mr-2 h-4 w-4"
                   style={{ color: folder.color || undefined }}
                 />
                 {folder.name}

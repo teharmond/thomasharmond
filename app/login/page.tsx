@@ -12,11 +12,11 @@ export default function page() {
   return (
     <div>
       {" "}
-      <header className="flex justify-end items-center p-4 gap-4 h-16">
+      <header className="flex h-16 items-center justify-end gap-4 p-4">
         <SignedOut>
           <SignInButton />
           <SignUpButton>
-            <button className="bg-[#6c47ff] text-ceramic-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer">
+            <button className="text-ceramic-white h-10 cursor-pointer rounded-full bg-[#6c47ff] px-4 text-sm font-medium sm:h-12 sm:px-5 sm:text-base">
               Sign Up
             </button>
           </SignUpButton>

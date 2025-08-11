@@ -5,26 +5,29 @@
 Creates a new task with optional metadata.
 
 ### Endpoint
+
 ```
 POST /api/tasks
 ```
 
 ### Authentication
+
 Requires Bearer token authentication via `Authorization` header:
+
 ```
 Authorization: Bearer YOUR_API_KEY
 ```
 
 ### Request Body
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `title` | string | Yes | The task title/text |
-| `userId` | string | Yes | User ID to associate the task with |
-| `status` | string | No | Task status. Options: `"backlog"`, `"todo"`, `"in_progress"`, `"completed"`, `"canceled"`, `"duplicate"` |
-| `priority` | string | No | Task priority. Options: `"low"`, `"medium"`, `"high"`, `"urgent"` |
-| `description` | string | No | Additional task description |
-| `dueDate` | string | No | Due date for the task (ISO string format recommended) |
+| Field         | Type   | Required | Description                                                                                              |
+| ------------- | ------ | -------- | -------------------------------------------------------------------------------------------------------- |
+| `title`       | string | Yes      | The task title/text                                                                                      |
+| `userId`      | string | Yes      | User ID to associate the task with                                                                       |
+| `status`      | string | No       | Task status. Options: `"backlog"`, `"todo"`, `"in_progress"`, `"completed"`, `"canceled"`, `"duplicate"` |
+| `priority`    | string | No       | Task priority. Options: `"low"`, `"medium"`, `"high"`, `"urgent"`                                        |
+| `description` | string | No       | Additional task description                                                                              |
+| `dueDate`     | string | No       | Due date for the task (ISO string format recommended)                                                    |
 
 ### Example Request
 
@@ -54,7 +57,9 @@ Authorization: Bearer YOUR_API_KEY
 ### Error Responses
 
 #### 401 Unauthorized
+
 Missing or invalid Authorization header:
+
 ```json
 {
   "error": "Unauthorized: Missing or invalid Authorization header"
@@ -62,6 +67,7 @@ Missing or invalid Authorization header:
 ```
 
 Invalid token:
+
 ```json
 {
   "error": "Unauthorized: Invalid token"
@@ -69,7 +75,9 @@ Invalid token:
 ```
 
 #### 400 Bad Request
+
 Missing required fields:
+
 ```json
 {
   "error": "Bad Request: title is required"
@@ -83,7 +91,9 @@ Missing required fields:
 ```
 
 #### 500 Internal Server Error
+
 Server error during task creation:
+
 ```json
 {
   "success": false,

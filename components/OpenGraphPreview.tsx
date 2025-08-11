@@ -38,7 +38,7 @@ export function OpenGraphPreview({
         setError(null);
 
         const response = await fetch(
-          `/api/opengraph?url=${encodeURIComponent(url)}`
+          `/api/opengraph?url=${encodeURIComponent(url)}`,
         );
 
         if (!response.ok) {
@@ -68,13 +68,13 @@ export function OpenGraphPreview({
     if (variant === "compact") {
       return (
         <Card
-          className={`group mx-2 hover:shadow-md transition-shadow duration-200 ${className}`}
+          className={`group mx-2 transition-shadow duration-200 hover:shadow-md ${className}`}
         >
           <CardContent className="p-3">
             <div className="flex items-center space-x-3">
-              <Skeleton className="w-4 h-4 rounded-sm flex-shrink-0" />
+              <Skeleton className="h-4 w-4 flex-shrink-0 rounded-sm" />
               <Skeleton className="h-4 flex-1" />
-              <Skeleton className="w-4 h-4 rounded-sm flex-shrink-0" />
+              <Skeleton className="h-4 w-4 flex-shrink-0 rounded-sm" />
             </div>
           </CardContent>
         </Card>
@@ -83,12 +83,12 @@ export function OpenGraphPreview({
 
     return (
       <Card
-        className={`group mx-2 hover:shadow-md transition-shadow duration-200 ${className}`}
+        className={`group mx-2 transition-shadow duration-200 hover:shadow-md ${className}`}
       >
         <CardContent className="p-0">
           <div className="flex">
-            <Skeleton className="w-32 h-24 rounded-l-lg flex-shrink-0" />
-            <div className="flex-1 p-4 space-y-2">
+            <Skeleton className="h-24 w-32 flex-shrink-0 rounded-l-lg" />
+            <div className="flex-1 space-y-2 p-4">
               <Skeleton className="h-4 w-3/4" />
               <Skeleton className="h-3 w-full" />
               <Skeleton className="h-3 w-2/3" />
@@ -107,16 +107,16 @@ export function OpenGraphPreview({
     if (variant === "compact") {
       return (
         <Card
-          className={`group mx-2 hover:shadow-md transition-all duration-200 cursor-pointer border hover:border-gray-300 ${className}`}
+          className={`group mx-2 cursor-pointer border transition-all duration-200 hover:border-gray-300 hover:shadow-md ${className}`}
           onClick={handleClick}
         >
           <CardContent className="p-3">
             <div className="flex items-center space-x-3">
-              <div className="w-4 h-4 flex-shrink-0" />
-              <span className="text-sm font-medium truncate flex-1 group-hover:text-foreground/80 transition-colors">
+              <div className="h-4 w-4 flex-shrink-0" />
+              <span className="group-hover:text-foreground/80 flex-1 truncate text-sm font-medium transition-colors">
                 {title || new URL(url).hostname}
               </span>
-              <ExternalLink className="w-3 h-3 text-muted-foreground flex-shrink-0" />
+              <ExternalLink className="text-muted-foreground h-3 w-3 flex-shrink-0" />
             </div>
           </CardContent>
         </Card>
@@ -125,13 +125,13 @@ export function OpenGraphPreview({
 
     return (
       <Card
-        className={`group mx-2 hover:shadow-md transition-all duration-200 cursor-pointer border hover:border-border/80 ${className}`}
+        className={`group hover:border-border/80 mx-2 cursor-pointer border transition-all duration-200 hover:shadow-md ${className}`}
         onClick={handleClick}
       >
         <CardContent className="p-4">
-          <div className="flex items-center space-x-2 text-muted-foreground">
-            <ExternalLink className="w-4 h-4" />
-            <span className="text-sm truncate">{title || url}</span>
+          <div className="text-muted-foreground flex items-center space-x-2">
+            <ExternalLink className="h-4 w-4" />
+            <span className="truncate text-sm">{title || url}</span>
           </div>
         </CardContent>
       </Card>
@@ -141,7 +141,7 @@ export function OpenGraphPreview({
   if (variant === "compact") {
     return (
       <Card
-        className={`group mx-2 hover:shadow-md transition-all duration-200 cursor-pointer border hover:border-border/80 ${className}`}
+        className={`group hover:border-border/80 mx-2 cursor-pointer border transition-all duration-200 hover:shadow-md ${className}`}
         onClick={handleClick}
       >
         <CardContent className="p-3">
@@ -150,7 +150,7 @@ export function OpenGraphPreview({
               <img
                 src={data.favicon}
                 alt="Favicon"
-                className="w-4 h-4 flex-shrink-0 object-contain rounded-sm"
+                className="h-4 w-4 flex-shrink-0 rounded-sm object-contain"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   // Try GitHub's SVG favicon as fallback
@@ -162,10 +162,10 @@ export function OpenGraphPreview({
                 }}
               />
             )}
-            <span className="text-sm font-medium truncate flex-1 group-hover:text-foreground/80 transition-colors">
+            <span className="group-hover:text-foreground/80 flex-1 truncate text-sm font-medium transition-colors">
               {title || data.title || new URL(url).hostname}
             </span>
-            <ExternalLink className="w-3 h-3 text-muted-foreground flex-shrink-0" />
+            <ExternalLink className="text-muted-foreground h-3 w-3 flex-shrink-0" />
           </div>
         </CardContent>
       </Card>
@@ -174,7 +174,7 @@ export function OpenGraphPreview({
 
   return (
     <Card
-      className={`group mx-2 hover:shadow-md transition-all duration-200 cursor-pointer border hover:border-border/80 ${className}`}
+      className={`group hover:border-border/80 mx-2 cursor-pointer border transition-all duration-200 hover:shadow-md ${className}`}
       onClick={handleClick}
     >
       <CardContent className="p-0">
@@ -184,7 +184,7 @@ export function OpenGraphPreview({
               <img
                 src={data.image}
                 alt={data.title || "Preview image"}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   target.style.display = "none";
@@ -193,24 +193,24 @@ export function OpenGraphPreview({
             </div>
           )}
           <div
-            className={`flex-1 p-4 min-w-0 ${
+            className={`min-w-0 flex-1 p-4 ${
               !data.image ? "rounded-l-lg" : ""
             }`}
           >
             <div className="space-y-1">
               {(title || data.title) && (
-                <h3 className="font-medium text-sm leading-tight line-clamp-2 group-hover:text-foreground/80 transition-colors">
+                <h3 className="group-hover:text-foreground/80 line-clamp-2 text-sm leading-tight font-medium transition-colors">
                   {title || data.title}
                 </h3>
               )}
               {data.description && (
-                <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                <p className="text-muted-foreground line-clamp-2 text-xs leading-relaxed">
                   {data.description}
                 </p>
               )}
               <div className="flex items-center space-x-1 pt-1">
-                <ExternalLink className="w-3 h-3 text-muted-foreground" />
-                <span className="text-xs text-muted-foreground truncate">
+                <ExternalLink className="text-muted-foreground h-3 w-3" />
+                <span className="text-muted-foreground truncate text-xs">
                   {data.siteName || new URL(url).hostname}
                 </span>
               </div>

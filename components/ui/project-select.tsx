@@ -19,11 +19,15 @@ interface ProjectSelectProps {
   placeholder?: string;
 }
 
-export function ProjectSelect({ value, onValueChange, placeholder = "Select project" }: ProjectSelectProps) {
+export function ProjectSelect({
+  value,
+  onValueChange,
+  placeholder = "Select project",
+}: ProjectSelectProps) {
   const { isSignedIn } = useUser();
   const projects = useQuery(
     api.projects.getProjects,
-    isSignedIn ? undefined : "skip"
+    isSignedIn ? undefined : "skip",
   );
 
   return (
@@ -43,7 +47,7 @@ export function ProjectSelect({ value, onValueChange, placeholder = "Select proj
       <SelectContent>
         <SelectItem value="none">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-gray-300" />
+            <div className="h-3 w-3 rounded-full bg-gray-300" />
             <span>No project</span>
           </div>
         </SelectItem>
@@ -51,7 +55,7 @@ export function ProjectSelect({ value, onValueChange, placeholder = "Select proj
           <SelectItem key={project._id} value={project._id}>
             <div className="flex items-center gap-2">
               <div
-                className={`w-3 h-3 rounded-full ${
+                className={`h-3 w-3 rounded-full ${
                   project.color || "bg-gray-400"
                 }`}
               />

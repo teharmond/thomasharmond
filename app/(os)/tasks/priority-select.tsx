@@ -46,7 +46,7 @@ export function PrioritySelect({ value, onValueChange }: PrioritySelectProps) {
   return (
     <Select value={currentValue} onValueChange={onValueChange}>
       <SelectTrigger
-        className="w-[30px] h-[30px] p-0 items-center justify-center rounded-full md:flex hidden"
+        className="hidden h-[30px] w-[30px] items-center justify-center rounded-full p-0 md:flex"
         hideIcon
       >
         <SelectValue>

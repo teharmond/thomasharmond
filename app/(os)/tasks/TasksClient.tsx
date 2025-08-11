@@ -185,13 +185,13 @@ export default function TasksClient() {
   useEffect(() => {
     localStorage.setItem(
       "task-section-expanded",
-      JSON.stringify(groupExpanded)
+      JSON.stringify(groupExpanded),
     );
   }, [groupExpanded]);
 
   const tasksFromDb = useQuery(
     api.tasks.getTasks,
-    isSignedIn ? undefined : "skip"
+    isSignedIn ? undefined : "skip",
   );
   const updateTask = useMutation(api.tasks.updateTask);
   const deleteTask = useMutation(api.tasks.deleteTask);
@@ -202,27 +202,27 @@ export default function TasksClient() {
     tasksFromDb || [],
     (
       state: Task[],
-      update: { type: string; id?: string; task?: Partial<Task> }
+      update: { type: string; id?: string; task?: Partial<Task> },
     ) => {
       switch (update.type) {
         case "update":
           return state.map((task) =>
-            task._id === update.id ? { ...task, ...update.task } : task
+            task._id === update.id ? { ...task, ...update.task } : task,
           );
         case "delete":
           return state.filter((task) => task._id !== update.id);
         default:
           return state;
       }
-    }
+    },
   );
 
   const setDialogOpen = (value: string) => {
     const params = new URLSearchParams(searchParams.toString());
     if (value) {
-      params.set('newTask', value);
+      params.set("newTask", value);
     } else {
-      params.delete('newTask');
+      params.delete("newTask");
     }
     router.push(`?${params.toString()}`);
   };
@@ -230,9 +230,9 @@ export default function TasksClient() {
   const setPresetStatus = (value: string) => {
     const params = new URLSearchParams(searchParams.toString());
     if (value) {
-      params.set('status', value);
+      params.set("status", value);
     } else {
-      params.delete('status');
+      params.delete("status");
     }
     router.push(`?${params.toString()}`);
   };
@@ -393,22 +393,22 @@ export default function TasksClient() {
         header: "Title",
         cell: ({ row }) => (
           <div
-            className="cursor-pointer hover:bg-accent/50 p-2 rounded transition-colors"
+            className="hover:bg-accent/50 cursor-pointer rounded p-2 transition-colors"
             onClick={() => handleTaskClick(row.original)}
           >
             <div className="flex items-center gap-2">
-              <span className="font-medium text-sm flex-1">
+              <span className="flex-1 text-sm font-medium">
                 {row.original.text}
               </span>
               {(row.original.subtaskCount ?? 0) > 0 && (
-                <span className="text-xs text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
+                <span className="text-muted-foreground bg-muted rounded px-1.5 py-0.5 text-xs">
                   {row.original.completedSubtaskCount}/
                   {row.original.subtaskCount}
                 </span>
               )}
             </div>
             {row.original.description && (
-              <div className="text-sm text-muted-foreground mt-1">
+              <div className="text-muted-foreground mt-1 text-sm">
                 {row.original.description}
               </div>
             )}
@@ -464,7 +464,7 @@ export default function TasksClient() {
       handleUpdatePriority,
       handleTaskClick,
       openDialogWithStatus,
-    ]
+    ],
   );
 
   const table = useReactTable({
@@ -507,260 +507,279 @@ export default function TasksClient() {
 
   return (
     <div className="flex h-screen overflow-hidden">
-        {/* Main task list area - shifts over on desktop */}
-        <motion.div
-          animate={{
-            marginRight: selectedTask && isDesktop ? "512px" : "0px",
-          }}
-          transition={{ type: "spring", damping: 50, stiffness: 1000 }}
-          className="flex-1 h-full"
-          onClick={() => selectedTask && handleCloseDetail()}
-        >
-          <div className="w-full h-full">
-            <header className="border-b sticky top-0  h-10 pl-2 pr-6 flex items-center justify-between">
-              <span className="text-sm flex gap-3 items-center text-secondary-foreground font-medium">
-                <SidebarTrigger />
-                <Breadcrumb>
-                  <BreadcrumbList>
-                    <BreadcrumbItem>
-                      <BreadcrumbPage>Tasks</BreadcrumbPage>
-                    </BreadcrumbItem>
-                  </BreadcrumbList>
-                </Breadcrumb>
-              </span>
-              <Button
-                size="sm"
-                className="h-7 text-xs px-3"
-                onClick={() => openDialogWithStatus()}
-              >
-                <Plus className="h-3.5 w-3.5 mr-1.5" />
-                Add Task
-              </Button>
-            </header>
-            <div className="h-full flex flex-col">
-              <div className="flex-1 overflow-auto">
-                {optimisticTasks.length === 0 ? (
-                  <div className="text-center py-12">
-                    <p className="text-muted-foreground text-lg">
-                      No tasks yet. Add one above!
-                    </p>
-                  </div>
-                ) : (
-                  <div
-                    className="space-y-0 "
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    {table.getRowModel().rows.map((row, index, rows) => {
-                      if (row.getIsGrouped()) {
-                        const groupValue = row.getGroupingValue(
-                          "status"
-                        ) as TaskStatus;
-                        const group = statusGroups[groupValue];
-                        const isExpanded = row.getIsExpanded();
-                        const tasksCount = row.subRows.length;
+      {/* Main task list area - shifts over on desktop */}
+      <motion.div
+        animate={{
+          marginRight: selectedTask && isDesktop ? "512px" : "0px",
+        }}
+        transition={{ type: "spring", damping: 50, stiffness: 1000 }}
+        className="h-full flex-1"
+        onClick={() => selectedTask && handleCloseDetail()}
+      >
+        <div className="h-full w-full">
+          <header className="sticky top-0 flex h-10 items-center justify-between border-b pr-6 pl-2">
+            <span className="text-secondary-foreground flex items-center gap-3 text-sm font-medium">
+              <SidebarTrigger />
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>Tasks</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            </span>
+            <Button
+              size="sm"
+              className="h-7 px-3 text-xs"
+              onClick={() => openDialogWithStatus()}
+            >
+              <Plus className="mr-1.5 h-3.5 w-3.5" />
+              Add Task
+            </Button>
+          </header>
+          <div className="flex h-full flex-col">
+            <div className="flex-1 overflow-auto">
+              {optimisticTasks.length === 0 ? (
+                <div className="py-12 text-center">
+                  <p className="text-muted-foreground text-lg">
+                    No tasks yet. Add one above!
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-0" onClick={(e) => e.stopPropagation()}>
+                  {table.getRowModel().rows.map((row, index, rows) => {
+                    if (row.getIsGrouped()) {
+                      const groupValue = row.getGroupingValue(
+                        "status",
+                      ) as TaskStatus;
+                      const group = statusGroups[groupValue];
+                      const isExpanded = row.getIsExpanded();
+                      const tasksCount = row.subRows.length;
 
-                        if (tasksCount === 0) return null;
+                      if (tasksCount === 0) return null;
 
-                        // Find if this is the last section with tasks
-                        const lastVisibleIndex = rows.findLastIndex(
-                          (r) => r.getIsGrouped() && r.subRows.length > 0
-                        );
-                        const isLastVisible = index === lastVisibleIndex;
+                      // Find if this is the last section with tasks
+                      const lastVisibleIndex = rows.findLastIndex(
+                        (r) => r.getIsGrouped() && r.subRows.length > 0,
+                      );
+                      const isLastVisible = index === lastVisibleIndex;
 
-                        return (
-                          <div
-                            key={row.id}
-                            className={`bg-card ${!isLastVisible && isExpanded ? "border-b" : ""} `}
+                      return (
+                        <div
+                          key={row.id}
+                          className={`bg-card ${!isLastVisible && isExpanded ? "border-b" : ""} `}
+                        >
+                          <Collapsible
+                            open={isExpanded}
+                            onOpenChange={(open) => {
+                              row.toggleExpanded(open);
+                            }}
                           >
-                            <Collapsible
-                              open={isExpanded}
-                              onOpenChange={(open) => {
-                                row.toggleExpanded(open);
-                              }}
-                            >
-                              <div className="flex items-center justify-between w-full bg-muted h-9 border-b pr-6 ">
-                                <div className="flex items-center gap-1.5">
-                                  <CollapsibleTrigger className="flex items-center group/collapsible-trigger gap-2  pl-3 pr-0 w-7 py-1 text-sm hover:bg-accent bg-muted transition-colors justify-between">
-                                    {isExpanded ? (
-                                      <Triangle className="h-2 w-2  rotate-180 text-muted-foreground fill-muted-foreground group-hover/collapsible-trigger:fill-foreground group-hover/collapsible-trigger:text-foreground" />
-                                    ) : (
-                                      <Triangle className="h-2 w-2 mr-1 fill-foreground text-foreground rotate-90" />
-                                    )}
-                                  </CollapsibleTrigger>
-                                  <div className={`flex items-center gap-2 `}>
-                                    <span className={`${group.color}`}>
-                                      {group.icon}
-                                    </span>
-                                    <span className="text-sm text-secondary-foreground">
-                                      {group.label}
-                                    </span>
-                                    <span className="text-muted-foreground text-sm ml-auto bg-muted px-2 py-1 rounded">
-                                      {tasksCount}
-                                    </span>
-                                  </div>
+                            <div className="bg-muted flex h-9 w-full items-center justify-between border-b pr-6">
+                              <div className="flex items-center gap-1.5">
+                                <CollapsibleTrigger className="group/collapsible-trigger hover:bg-accent bg-muted flex w-7 items-center justify-between gap-2 py-1 pr-0 pl-3 text-sm transition-colors">
+                                  {isExpanded ? (
+                                    <Triangle className="text-muted-foreground fill-muted-foreground group-hover/collapsible-trigger:fill-foreground group-hover/collapsible-trigger:text-foreground h-2 w-2 rotate-180" />
+                                  ) : (
+                                    <Triangle className="fill-foreground text-foreground mr-1 h-2 w-2 rotate-90" />
+                                  )}
+                                </CollapsibleTrigger>
+                                <div className={`flex items-center gap-2`}>
+                                  <span className={`${group.color}`}>
+                                    {group.icon}
+                                  </span>
+                                  <span className="text-secondary-foreground text-sm">
+                                    {group.label}
+                                  </span>
+                                  <span className="text-muted-foreground bg-muted ml-auto rounded px-2 py-1 text-sm">
+                                    {tasksCount}
+                                  </span>
                                 </div>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className=" hover:bg-foreground/10 text-muted-foreground hover:text-foreground"
-                                  onClick={() =>
-                                    openDialogWithStatus(groupValue)
-                                  }
-                                >
-                                  <PlusIcon className="h-4 w-4" />
-                                </Button>
                               </div>
-                              <CollapsibleContent>
-                                <div className="">
-                                  <div className="bg-background ">
-                                    <div className="w-full">
-                                      {row.subRows.map((subRow, index) => {
-                                        const isSelected = selectedRows.has(
-                                          subRow.original._id
-                                        );
-                                        return (
-                                          <div
-                                            key={subRow.id}
-                                            className={`border-b last:border-b-0 hover:bg-muted/30 transition-colors pr-6 pl-1 py-1 ${
-                                              isSelected
-                                                ? "bg-secondary/30 hover:bg-secondary/30"
-                                                : index % 2 === 0
-                                                  ? "bg-muted/10"
-                                                  : ""
-                                            }`}
-                                          >
-                                            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                                              <div className="flex items-center gap-1 flex-1 min-w-0">
-                                                <div className="w-6 flex items-center justify-center group/checkbox">
-                                                  <input
-                                                    type="checkbox"
-                                                    checked={isSelected}
-                                                    onChange={(e) => {
-                                                      e.stopPropagation();
-                                                      setSelectedRows(
-                                                        (prev) => {
-                                                          const next = new Set(
-                                                            prev
-                                                          );
-                                                          if (
-                                                            next.has(
-                                                              subRow.original
-                                                                ._id
-                                                            )
-                                                          ) {
-                                                            next.delete(
-                                                              subRow.original
-                                                                ._id
-                                                            );
-                                                          } else {
-                                                            next.add(
-                                                              subRow.original
-                                                                ._id
-                                                            );
-                                                          }
-                                                          return next;
-                                                        }
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="hover:bg-foreground/10 text-muted-foreground hover:text-foreground"
+                                onClick={() => openDialogWithStatus(groupValue)}
+                              >
+                                <PlusIcon className="h-4 w-4" />
+                              </Button>
+                            </div>
+                            <CollapsibleContent>
+                              <div className="">
+                                <div className="bg-background">
+                                  <div className="w-full">
+                                    {row.subRows.map((subRow, index) => {
+                                      const isSelected = selectedRows.has(
+                                        subRow.original._id,
+                                      );
+                                      return (
+                                        <div
+                                          key={subRow.id}
+                                          className={`hover:bg-muted/30 border-b py-1 pr-6 pl-1 transition-colors last:border-b-0 ${
+                                            isSelected
+                                              ? "bg-secondary/30 hover:bg-secondary/30"
+                                              : index % 2 === 0
+                                                ? "bg-muted/10"
+                                                : ""
+                                          }`}
+                                        >
+                                          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                                            <div className="flex min-w-0 flex-1 items-center gap-1">
+                                              <div className="group/checkbox flex w-6 items-center justify-center">
+                                                <input
+                                                  type="checkbox"
+                                                  checked={isSelected}
+                                                  onChange={(e) => {
+                                                    e.stopPropagation();
+                                                    setSelectedRows((prev) => {
+                                                      const next = new Set(
+                                                        prev,
                                                       );
-                                                    }}
-                                                    className="opacity-0 group-hover/checkbox:opacity-100 checked:opacity-100 transition-opacity"
-                                                    onClick={(e) =>
-                                                      e.stopPropagation()
-                                                    }
-                                                  />
-                                                </div>
-                                                <StatusSelect
-                                                  value={subRow.original.status}
-                                                  onValueChange={(
-                                                    status: TaskStatus
-                                                  ) =>
-                                                    handleUpdateStatus(
-                                                      subRow.original._id,
-                                                      status
-                                                    )
+                                                      if (
+                                                        next.has(
+                                                          subRow.original._id,
+                                                        )
+                                                      ) {
+                                                        next.delete(
+                                                          subRow.original._id,
+                                                        );
+                                                      } else {
+                                                        next.add(
+                                                          subRow.original._id,
+                                                        );
+                                                      }
+                                                      return next;
+                                                    });
+                                                  }}
+                                                  className="opacity-0 transition-opacity group-hover/checkbox:opacity-100 checked:opacity-100"
+                                                  onClick={(e) =>
+                                                    e.stopPropagation()
                                                   }
                                                 />
-                                                <div
-                                                  className="cursor-pointer hover:bg-accent/50 p-2 rounded transition-colors flex-1 min-w-0"
-                                                  onClick={() =>
-                                                    handleTaskClick(
-                                                      subRow.original
-                                                    )
-                                                  }
-                                                >
-                                                  <div className="flex items-center gap-2">
-                                                    <span className="text-sm line-clamp-1 flex-1">
-                                                      {subRow.original.text}
-                                                    </span>
-                                                    {(subRow.original
-                                                      .subtaskCount ?? 0) >
-                                                      0 && (
-                                                      <span className="text-xs text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
-                                                        {
-                                                          subRow.original
-                                                            .completedSubtaskCount
-                                                        }
-                                                        /
-                                                        {
-                                                          subRow.original
-                                                            .subtaskCount
-                                                        }
-                                                      </span>
-                                                    )}
-                                                  </div>
-                                                </div>
                                               </div>
-                                              <div className="flex items-center gap-3 ml-10 sm:ml-0">
-                                                <PrioritySelect
-                                                  value={
-                                                    subRow.original.priority
-                                                  }
-                                                  onValueChange={(
-                                                    priority: TaskPriority
-                                                  ) =>
-                                                    handleUpdatePriority(
-                                                      subRow.original._id,
-                                                      priority
-                                                    )
-                                                  }
-                                                />
-                                                {subRow.original.dueDate && (
-                                                  <div className="text-sm whitespace-nowrap">
-                                                    {new Date(
-                                                      subRow.original.dueDate
-                                                    ).toLocaleDateString()}
-                                                  </div>
-                                                )}
+                                              <StatusSelect
+                                                value={subRow.original.status}
+                                                onValueChange={(
+                                                  status: TaskStatus,
+                                                ) =>
+                                                  handleUpdateStatus(
+                                                    subRow.original._id,
+                                                    status,
+                                                  )
+                                                }
+                                              />
+                                              <div
+                                                className="hover:bg-accent/50 min-w-0 flex-1 cursor-pointer rounded p-2 transition-colors"
+                                                onClick={() =>
+                                                  handleTaskClick(
+                                                    subRow.original,
+                                                  )
+                                                }
+                                              >
+                                                <div className="flex items-center gap-2">
+                                                  <span className="line-clamp-1 flex-1 text-sm">
+                                                    {subRow.original.text}
+                                                  </span>
+                                                  {(subRow.original
+                                                    .subtaskCount ?? 0) > 0 && (
+                                                    <span className="text-muted-foreground bg-muted rounded px-1.5 py-0.5 text-xs">
+                                                      {
+                                                        subRow.original
+                                                          .completedSubtaskCount
+                                                      }
+                                                      /
+                                                      {
+                                                        subRow.original
+                                                          .subtaskCount
+                                                      }
+                                                    </span>
+                                                  )}
+                                                </div>
                                               </div>
                                             </div>
+                                            <div className="ml-10 flex items-center gap-3 sm:ml-0">
+                                              <PrioritySelect
+                                                value={subRow.original.priority}
+                                                onValueChange={(
+                                                  priority: TaskPriority,
+                                                ) =>
+                                                  handleUpdatePriority(
+                                                    subRow.original._id,
+                                                    priority,
+                                                  )
+                                                }
+                                              />
+                                              {subRow.original.dueDate && (
+                                                <div className="text-sm whitespace-nowrap">
+                                                  {new Date(
+                                                    subRow.original.dueDate,
+                                                  ).toLocaleDateString()}
+                                                </div>
+                                              )}
+                                            </div>
                                           </div>
-                                        );
-                                      })}
-                                    </div>
+                                        </div>
+                                      );
+                                    })}
                                   </div>
                                 </div>
-                              </CollapsibleContent>
-                            </Collapsible>
-                          </div>
-                        );
-                      }
-                      return null;
-                    })}
-                  </div>
-                )}
-              </div>
+                              </div>
+                            </CollapsibleContent>
+                          </Collapsible>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
+                </div>
+              )}
             </div>
           </div>
-        </motion.div>
+        </div>
+      </motion.div>
 
-        {/* Desktop side panel */}
-        <AnimatePresence>
-          {selectedTask && (
+      {/* Desktop side panel */}
+      <AnimatePresence>
+        {selectedTask && (
+          <motion.div
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "spring", damping: 50, stiffness: 1000 }}
+            className="bg-background fixed top-0 right-0 z-50 hidden h-full w-[32rem] border-l shadow-xl md:block"
+          >
+            <TaskDetail
+              task={selectedTask}
+              onClose={handleCloseDetail}
+              onUpdateStatus={handleUpdateStatus}
+              onUpdatePriority={handleUpdatePriority}
+              onUpdateTask={handleUpdateTask}
+              onDelete={handleDeleteTask}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Mobile bottom sheet */}
+      <AnimatePresence>
+        {selectedTask && (
+          <>
+            {/* Backdrop */}
             <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 50, stiffness: 1000 }}
-              className="hidden md:block fixed top-0 right-0 w-[32rem] h-full border-l bg-background shadow-xl z-50"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-40 bg-black/50 md:hidden"
+              onClick={handleCloseDetail}
+            />
+            {/* Sheet */}
+            <motion.div
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 40, stiffness: 500 }}
+              className="bg-background fixed inset-0 z-50 overflow-y-auto shadow-xl md:hidden"
             >
               <TaskDetail
                 task={selectedTask}
@@ -771,122 +790,89 @@ export default function TasksClient() {
                 onDelete={handleDeleteTask}
               />
             </motion.div>
-          )}
-        </AnimatePresence>
+          </>
+        )}
+      </AnimatePresence>
 
-        {/* Mobile bottom sheet */}
-        <AnimatePresence>
-          {selectedTask && (
-            <>
-              {/* Backdrop */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="md:hidden fixed inset-0 bg-black/50 z-40"
-                onClick={handleCloseDetail}
-              />
-              {/* Sheet */}
-              <motion.div
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                exit={{ y: "100%" }}
-                transition={{ type: "spring", damping: 40, stiffness: 500 }}
-                className="md:hidden fixed inset-0 bg-background shadow-xl z-50 overflow-y-auto"
-              >
-                <TaskDetail
-                  task={selectedTask}
-                  onClose={handleCloseDetail}
-                  onUpdateStatus={handleUpdateStatus}
-                  onUpdatePriority={handleUpdatePriority}
-                  onUpdateTask={handleUpdateTask}
-                  onDelete={handleDeleteTask}
-                />
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>
-
-        {/* Bulk action bar */}
-        <AnimatePresence>
-          {selectedRows.size > 0 && (
-            <motion.div
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "100%" }}
-              transition={{ type: "spring", damping: 30, stiffness: 400 }}
-              className="fixed bottom-0 left-0 right-0 bg-background border-t shadow-lg z-30"
-            >
-              <div className="px-6 py-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <span className="text-sm font-medium">
-                      {selectedRows.size} task{selectedRows.size > 1 ? "s" : ""}{" "}
-                      selected
-                    </span>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setSelectedRows(new Set())}
-                    >
-                      <X className="h-4 w-4 mr-1" />
-                      Clear selection
-                    </Button>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Select onValueChange={handleBulkUpdateStatus}>
-                      <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder="Update status" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="todo">Todo</SelectItem>
-                        <SelectItem value="in_progress">In Progress</SelectItem>
-                        <SelectItem value="backlog">Backlog</SelectItem>
-                        <SelectItem value="completed">Completed</SelectItem>
-                        <SelectItem value="canceled">Canceled</SelectItem>
-                        <SelectItem value="duplicate">Duplicate</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <Button
-                      variant="destructive"
-                      size="sm"
-                      onClick={() => setShowDeleteDialog(true)}
-                    >
-                      <Trash2 className="h-4 w-4 mr-1" />
-                      Delete
-                    </Button>
-                  </div>
+      {/* Bulk action bar */}
+      <AnimatePresence>
+        {selectedRows.size > 0 && (
+          <motion.div
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: "spring", damping: 30, stiffness: 400 }}
+            className="bg-background fixed right-0 bottom-0 left-0 z-30 border-t shadow-lg"
+          >
+            <div className="px-6 py-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <span className="text-sm font-medium">
+                    {selectedRows.size} task{selectedRows.size > 1 ? "s" : ""}{" "}
+                    selected
+                  </span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setSelectedRows(new Set())}
+                  >
+                    <X className="mr-1 h-4 w-4" />
+                    Clear selection
+                  </Button>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Select onValueChange={handleBulkUpdateStatus}>
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Update status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="todo">Todo</SelectItem>
+                      <SelectItem value="in_progress">In Progress</SelectItem>
+                      <SelectItem value="backlog">Backlog</SelectItem>
+                      <SelectItem value="completed">Completed</SelectItem>
+                      <SelectItem value="canceled">Canceled</SelectItem>
+                      <SelectItem value="duplicate">Duplicate</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    onClick={() => setShowDeleteDialog(true)}
+                  >
+                    <Trash2 className="mr-1 h-4 w-4" />
+                    Delete
+                  </Button>
                 </div>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-        {/* Delete confirmation dialog */}
-        <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Confirm deletion</DialogTitle>
-              <DialogDescription>
-                Are you sure you want to delete {selectedRows.size} task
-                {selectedRows.size > 1 ? "s" : ""}? This action cannot be
-                undone.
-              </DialogDescription>
-            </DialogHeader>
-            <DialogFooter>
-              <Button
-                variant="outline"
-                onClick={() => setShowDeleteDialog(false)}
-              >
-                Cancel
-              </Button>
-              <Button variant="destructive" onClick={handleBulkDelete}>
-                Delete {selectedRows.size} task
-                {selectedRows.size > 1 ? "s" : ""}
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      </div>
-    );
+      {/* Delete confirmation dialog */}
+      <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Confirm deletion</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete {selectedRows.size} task
+              {selectedRows.size > 1 ? "s" : ""}? This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setShowDeleteDialog(false)}
+            >
+              Cancel
+            </Button>
+            <Button variant="destructive" onClick={handleBulkDelete}>
+              Delete {selectedRows.size} task
+              {selectedRows.size > 1 ? "s" : ""}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
 }

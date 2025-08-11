@@ -46,7 +46,7 @@ const articles = [
 
 export default function page() {
   return (
-    <div className=" gap-4 flex flex-col">
+    <div className="flex flex-col gap-4">
       <ArticleHeader
         title="On Planning Center Home"
         description="The meta-layer of Planning Center"
@@ -78,7 +78,7 @@ export default function page() {
         But when I was writing{" "}
         <Link
           href="/ideas/14-apps"
-          className="underline hover:text-primary italic font-medium underline-offset-4"
+          className="hover:text-primary font-medium italic underline underline-offset-4"
           target="_blank"
         >
           Do I really need 14 apps to join the team?
@@ -91,11 +91,11 @@ export default function page() {
         width={1000}
         height={1000}
       />
-      <div className="w-full bg-muted  text-muted-foreground text-xs p-2 px-3 rounded-md">
+      <div className="bg-muted text-muted-foreground w-full rounded-md p-2 px-3 text-xs">
         From{" "}
         <a
           href="https://www.planningcenter.com/blog/2021/12/introducing-planning-center-home"
-          className="underline hover:text-primary "
+          className="hover:text-primary underline"
         >
           Introducing Planning Center Home
         </a>
@@ -257,7 +257,7 @@ export default function page() {
         alt="Planning Center Task Description Mockup"
         width={1000}
         height={1000}
-        className="mt-2 "
+        className="mt-2"
       />
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//linked-items.png"
@@ -299,7 +299,7 @@ export default function page() {
         <mark>submit a form and have that auto-create a task</mark> (i.e.,{" "}
         <Link
           href="/ideas/prayer-request-forms"
-          className="underline hover:text-primary italic font-medium underline-offset-4"
+          className="hover:text-primary font-medium italic underline underline-offset-4"
           target="_blank"
         >
           a prayer request form
@@ -318,7 +318,8 @@ export default function page() {
       <ArticleParagraph>
         Knowledge management is hard, especially when you&apos;re trying to keep
         on top of it for staff, volunteers, committees, and congregants.
-        Planning Center needs a place for this, and Home is the perfect option.{" "}
+        Planning Center needs a place for this, and Home is the perfect
+        option.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
         Wiki&apos;s make it easier to document information, to share training
@@ -389,22 +390,22 @@ export default function page() {
         If you have thoughts on this, let me know at{" "}
         <a
           href="mailto:hey@thomasharmond.com"
-          className="underline hover:text-primary "
+          className="hover:text-primary underline"
         >
           hey@thomasharmond.com
         </a>
         .
       </ArticleParagraph>
-      <div className="flex flex-col gap-2 bg-muted p-4 rounded-xl mt-12">
-        <h3 className="text-xl font-bold px-2">More</h3>
+      <div className="bg-muted mt-12 flex flex-col gap-2 rounded-xl p-4">
+        <h3 className="px-2 text-xl font-bold">More</h3>
         {articles.map((article, index) => (
           <a
             href={article.link}
-            className="text-pretty hover:bg-blue-100 font-medium hover:text-blue-600 px-2 py-1 rounded-md transition-colors"
+            className="rounded-md px-2 py-1 font-medium text-pretty transition-colors hover:bg-blue-100 hover:text-blue-600"
             key={index}
           >
             <h2>{article.title}</h2>
-            <p className="text-sm text-muted-foreground font-light">
+            <p className="text-muted-foreground text-sm font-light">
               {article.description}
             </p>
           </a>

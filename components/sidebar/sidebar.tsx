@@ -45,7 +45,7 @@ export default function ResponsiveSidebar() {
     ];
 
     const matchedLink = links.find(
-      (link) => pathname === link.href || pathname.startsWith(`${link.href}/`)
+      (link) => pathname === link.href || pathname.startsWith(`${link.href}/`),
     );
 
     return matchedLink?.text || "Thomas Harmond";
@@ -53,10 +53,10 @@ export default function ResponsiveSidebar() {
 
   const SidebarContent = () => (
     <>
-      <div className="flex gap-2 items-center justify-between">
-        <div className="flex pt-3 md:pt-0 flex-col py-1.5 md:pl-1.5 pl-8 md:px-2">
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex flex-col py-1.5 pt-3 pl-8 md:px-2 md:pt-0 md:pl-1.5">
           <Link href="/">
-            <div className="text-md md:text-lg font-bold">Thomas Harmond</div>
+            <div className="text-md font-bold md:text-lg">Thomas Harmond</div>
           </Link>
           <div className="hidden md:block">
             <EmailCopy />
@@ -66,36 +66,36 @@ export default function ResponsiveSidebar() {
       <div className="flex flex-col gap-0.5">
         <SidebarLink
           href="/"
-          icon={<Home className="w-3.5 h-3.5" />}
+          icon={<Home className="h-3.5 w-3.5" />}
           text="Home"
           setIsOpen={setIsOpen}
         />
       </div>
       <div className="flex flex-col gap-0.5">
-        <div className="text-muted-foreground text-xs uppercase font-medium px-2 py-1">
+        <div className="text-muted-foreground px-2 py-1 text-xs font-medium uppercase">
           Me
         </div>
         <SidebarLink
           href="/blog"
-          icon={<Newspaper className="w-3.5 h-3.5" />}
+          icon={<Newspaper className="h-3.5 w-3.5" />}
           text="Blog"
           setIsOpen={setIsOpen}
         />
         <SidebarLink
           href="/bookmarks"
-          icon={<Bookmark className="w-3.5 h-3.5" />}
+          icon={<Bookmark className="h-3.5 w-3.5" />}
           text="Bookmarks"
           setIsOpen={setIsOpen}
         />
         <SidebarLink
           href="/apps"
-          icon={<Layers className="w-3.5 h-3.5" />}
+          icon={<Layers className="h-3.5 w-3.5" />}
           text="Apps I Use"
           setIsOpen={setIsOpen}
         />
       </div>
       <div className="flex flex-col gap-0.5">
-        <div className="text-muted-foreground text-xs uppercase font-medium px-2 py-1">
+        <div className="text-muted-foreground px-2 py-1 text-xs font-medium uppercase">
           Projects
         </div>
 
@@ -106,7 +106,7 @@ export default function ResponsiveSidebar() {
           setIsOpen={setIsOpen}
           icon={
             <svg
-              className="w-3.5 h-3.5"
+              className="h-3.5 w-3.5"
               viewBox="0 0 168 285"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -132,67 +132,67 @@ export default function ResponsiveSidebar() {
         />
       </div>
       <div className="flex flex-col gap-0.5">
-        <div className="text-muted-foreground text-xs uppercase font-medium px-2 py-1">
+        <div className="text-muted-foreground px-2 py-1 text-xs font-medium uppercase">
           Tools
         </div>
         <SidebarLink
           href="/writing-tools"
-          icon={<PenTool className="w-3.5 h-3.5" />}
+          icon={<PenTool className="h-3.5 w-3.5" />}
           text="Writing Tools"
           setIsOpen={setIsOpen}
         />
         <SidebarLink
           href="/byte"
-          icon={<MemoryStick className="w-3.5 h-3.5" />}
+          icon={<MemoryStick className="h-3.5 w-3.5" />}
           text="Byte Counter"
           setIsOpen={setIsOpen}
         />
         <SidebarLink
           href="/uuid"
-          icon={<Dices className="w-3.5 h-3.5" />}
+          icon={<Dices className="h-3.5 w-3.5" />}
           text="UUID Generator"
           setIsOpen={setIsOpen}
         />
         <SidebarLink
           href="/qr"
-          icon={<QrCode className="w-3.5 h-3.5" />}
+          icon={<QrCode className="h-3.5 w-3.5" />}
           text="QR Code Generator"
           setIsOpen={setIsOpen}
         />
         <SidebarLink
           href="/text-to-safe-html"
-          icon={<Code className="w-3.5 h-3.5" />}
+          icon={<Code className="h-3.5 w-3.5" />}
           text="Text to Safe HTML"
           setIsOpen={setIsOpen}
         />
         <SidebarLink
           href="/webp"
-          icon={<ImageIcon className="w-3.5 h-3.5" />}
+          icon={<ImageIcon className="h-3.5 w-3.5" />}
           text="WebP Converter"
           setIsOpen={setIsOpen}
         />
       </div>
       <div className="flex flex-col gap-0.5">
-        <div className="text-muted-foreground text-xs uppercase font-medium px-2 py-1">
+        <div className="text-muted-foreground px-2 py-1 text-xs font-medium uppercase">
           Socials
         </div>
         <SidebarLink
           href="https://www.goodreads.com/user/show/92633673-thomas-harmond/"
-          icon={<Book className="w-3.5 h-3.5" />}
+          icon={<Book className="h-3.5 w-3.5" />}
           text="Goodreads"
           external
           setIsOpen={setIsOpen}
         />
         <SidebarLink
           href="https://www.instagram.com/thomas.harmond/"
-          icon={<Instagram className="w-3.5 h-3.5" />}
+          icon={<Instagram className="h-3.5 w-3.5" />}
           text="Instagram"
           external
           setIsOpen={setIsOpen}
         />
         <SidebarLink
           href="https://x.com/teharmond"
-          icon={<Twitter className="w-3.5 h-3.5" />}
+          icon={<Twitter className="h-3.5 w-3.5" />}
           text="Twitter"
           external
           setIsOpen={setIsOpen}
@@ -204,7 +204,7 @@ export default function ResponsiveSidebar() {
   return (
     <>
       {/* Hamburger menu for medium screens and below */}
-      <div className="md:hidden border-b px-2 py-1.5 flex items-center gap-1">
+      <div className="flex items-center gap-1 border-b px-2 py-1.5 md:hidden">
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon" className="md:hidden">
@@ -214,18 +214,18 @@ export default function ResponsiveSidebar() {
           </SheetTrigger>
           <SheetContent
             side="left"
-            className="w-[270px] sm:w-[300px] pt-0 px-3"
+            className="w-[270px] px-3 pt-0 sm:w-[300px]"
           >
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setIsOpen(false)}
-              className="absolute left-2.5 top-2.5"
+              className="absolute top-2.5 left-2.5"
             >
               <X className="h-4 w-4" />
               <span className="sr-only">Close menu</span>
             </Button>
-            <div className=" flex flex-col gap-6">
+            <div className="flex flex-col gap-6">
               <SidebarContent />
             </div>
           </SheetContent>
@@ -234,7 +234,7 @@ export default function ResponsiveSidebar() {
       </div>
 
       {/* Regular sidebar for large screens */}
-      <div className="hidden md:flex p-3 h-screen overflow-y-auto text-sm  flex-col gap-6 max-w-xl w-[270px] bg-card border-r">
+      <div className="bg-card hidden h-screen w-[270px] max-w-xl flex-col gap-6 overflow-y-auto border-r p-3 text-sm md:flex">
         <SidebarContent />
       </div>
     </>
@@ -270,8 +270,8 @@ const SidebarLink: React.FC<SidebarLinkProps> = ({
   return (
     <Link
       className={cn(
-        "text-secondary-foreground flex items-center gap-1.5 w-full justify-between hover:bg-muted transition-colors px-2 py-1 rounded-md",
-        isActive && "bg-muted font-medium"
+        "text-secondary-foreground hover:bg-muted flex w-full items-center justify-between gap-1.5 rounded-md px-2 py-1 transition-colors",
+        isActive && "bg-muted font-medium",
       )}
       href={href}
       onClick={handleClick}
@@ -280,7 +280,7 @@ const SidebarLink: React.FC<SidebarLinkProps> = ({
         {icon}
         {text}
       </span>
-      {external && <ExternalLink className="w-3.5 h-3.5" />}
+      {external && <ExternalLink className="h-3.5 w-3.5" />}
     </Link>
   );
 };

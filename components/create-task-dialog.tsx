@@ -82,7 +82,9 @@ export function CreateTaskDialog() {
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState<TaskStatus>("backlog");
   const [priority, setPriority] = useState<TaskPriority>("medium");
-  const [projectId, setProjectId] = useState<Id<"projects"> | undefined>(undefined);
+  const [projectId, setProjectId] = useState<Id<"projects"> | undefined>(
+    undefined,
+  );
   const [dueDate, setDueDate] = useState<Date | undefined>();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [createMore, setCreateMore] = useState(false);
@@ -90,7 +92,7 @@ export function CreateTaskDialog() {
   // Extract project ID from pathname if we're on a project page
   const getCurrentProjectId = (): Id<"projects"> | undefined => {
     const match = pathname.match(/\/projects\/([^\/]+)/);
-    return match ? match[1] as Id<"projects"> : undefined;
+    return match ? (match[1] as Id<"projects">) : undefined;
   };
 
   const isOpen = dialogOpen === "open";
@@ -196,7 +198,7 @@ export function CreateTaskDialog() {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-[525px] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] duration-200">
+      <DialogContent className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] duration-200 sm:max-w-[525px]">
         <DialogHeader>
           <DialogTitle>Create New Task</DialogTitle>
           <DialogDescription>
@@ -219,7 +221,7 @@ export function CreateTaskDialog() {
 
           <div className="space-y-2">
             <Label htmlFor="description">
-              <FileText className="inline h-4 w-4 mr-1" />
+              <FileText className="mr-1 inline h-4 w-4" />
               Description
             </Label>
             <SimpleTiptapEditor
@@ -271,7 +273,7 @@ export function CreateTaskDialog() {
 
           <div className="space-y-2">
             <Label htmlFor="project">
-              <FolderOpen className="inline h-4 w-4 mr-1" />
+              <FolderOpen className="mr-1 inline h-4 w-4" />
               Project
             </Label>
             <ProjectSelect
@@ -290,7 +292,7 @@ export function CreateTaskDialog() {
                   variant="outline"
                   className={cn(
                     "w-full justify-start text-left font-normal",
-                    !dueDate && "text-muted-foreground"
+                    !dueDate && "text-muted-foreground",
                   )}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
@@ -319,17 +321,21 @@ export function CreateTaskDialog() {
               </Label>
             </div>
             <div className="flex justify-end gap-2">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => handleOpenChange(false)}
-              disabled={isSubmitting}
-            >
-              Cancel
-            </Button>
-            <Button type="submit" disabled={!taskText.trim() || isSubmitting}>
-              {isSubmitting ? "Creating..." : createMore ? "Create & Continue" : "Create Task"}
-            </Button>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => handleOpenChange(false)}
+                disabled={isSubmitting}
+              >
+                Cancel
+              </Button>
+              <Button type="submit" disabled={!taskText.trim() || isSubmitting}>
+                {isSubmitting
+                  ? "Creating..."
+                  : createMore
+                    ? "Create & Continue"
+                    : "Create Task"}
+              </Button>
             </div>
           </div>
         </form>

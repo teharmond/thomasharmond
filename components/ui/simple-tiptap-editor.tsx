@@ -12,11 +12,11 @@ interface SimpleTiptapEditorProps {
   className?: string;
 }
 
-export function SimpleTiptapEditor({ 
-  value = "", 
-  onChange, 
+export function SimpleTiptapEditor({
+  value = "",
+  onChange,
   placeholder = "Start typing...",
-  className 
+  className,
 }: SimpleTiptapEditorProps) {
   const editor = useEditor({
     extensions: [
@@ -32,7 +32,8 @@ export function SimpleTiptapEditor({
     },
     editorProps: {
       attributes: {
-        class: "prose prose-sm focus:outline-none min-h-[100px] p-3 w-full max-w-none",
+        class:
+          "prose prose-sm focus:outline-none min-h-[100px] p-3 w-full max-w-none",
       },
     },
   });
@@ -44,7 +45,7 @@ export function SimpleTiptapEditor({
   }, [value, editor]);
 
   return (
-    <div className={`border rounded-md relative ${className || ""}`}>
+    <div className={`relative rounded-md border ${className || ""}`}>
       <EditorContent editor={editor} />
     </div>
   );

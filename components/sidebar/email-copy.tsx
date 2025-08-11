@@ -33,7 +33,7 @@ export default function EmailCopy() {
       <Tooltip delayDuration={0}>
         <TooltipTrigger asChild>
           <div
-            className="text-sm text-muted-foreground cursor-pointer hover:text-foreground transition-colors"
+            className="text-muted-foreground hover:text-foreground cursor-pointer text-sm transition-colors"
             onClick={handleCopy}
           >
             thomas@harmond.us

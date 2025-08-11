@@ -33,11 +33,11 @@ export const getSteps = query({
 });
 
 export const submitSteps = mutation({
-  args: { 
-    id: v.string(), 
-    version: v.number(), 
-    clientId: v.union(v.string(), v.number()), 
-    steps: v.array(v.string()) 
+  args: {
+    id: v.string(),
+    version: v.number(),
+    clientId: v.union(v.string(), v.number()),
+    steps: v.array(v.string()),
   },
   handler: async (ctx, { id, version, clientId, steps }) => {
     return { status: "synced" as const };

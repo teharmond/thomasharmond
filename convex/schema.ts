@@ -9,23 +9,27 @@ export default defineSchema({
     createdAt: v.number(),
     color: v.optional(v.string()),
   }).index("by_user", ["userId"]),
-  
+
   tasks: defineTable({
     text: v.string(),
-    status: v.optional(v.union(
-      v.literal("backlog"),
-      v.literal("todo"),
-      v.literal("in_progress"),
-      v.literal("completed"),
-      v.literal("canceled"),
-      v.literal("duplicate")
-    )),
-    priority: v.optional(v.union(
-      v.literal("low"),
-      v.literal("medium"),
-      v.literal("high"),
-      v.literal("urgent")
-    )),
+    status: v.optional(
+      v.union(
+        v.literal("backlog"),
+        v.literal("todo"),
+        v.literal("in_progress"),
+        v.literal("completed"),
+        v.literal("canceled"),
+        v.literal("duplicate"),
+      ),
+    ),
+    priority: v.optional(
+      v.union(
+        v.literal("low"),
+        v.literal("medium"),
+        v.literal("high"),
+        v.literal("urgent"),
+      ),
+    ),
     description: v.optional(v.string()),
     dueDate: v.optional(v.string()),
     startDate: v.optional(v.string()),
@@ -36,14 +40,11 @@ export default defineSchema({
   })
     .index("by_user", ["userId"])
     .index("by_project", ["projectId"]),
-  
+
   subtasks: defineTable({
     taskId: v.id("tasks"),
     text: v.string(),
-    status: v.union(
-      v.literal("todo"),
-      v.literal("completed")
-    ),
+    status: v.union(v.literal("todo"), v.literal("completed")),
     userId: v.string(),
     createdAt: v.number(),
   })

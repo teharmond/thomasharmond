@@ -70,7 +70,7 @@ export default function ProjectsClient() {
 
   const projectsFromDb = useQuery(
     api.projects.getProjects,
-    isSignedIn ? undefined : "skip"
+    isSignedIn ? undefined : "skip",
   );
   const createProject = useMutation(api.projects.createProject);
   const bulkDeleteProjects = useMutation(api.projects.bulkDeleteProjects);
@@ -129,9 +129,9 @@ export default function ProjectsClient() {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      <div className="flex-1 h-full">
-        <header className="border-b sticky top-0 h-10 pl-2 pr-6 flex items-center justify-between">
-          <span className="text-sm flex gap-3 items-center text-secondary-foreground font-medium">
+      <div className="h-full flex-1">
+        <header className="sticky top-0 flex h-10 items-center justify-between border-b pr-6 pl-2">
+          <span className="text-secondary-foreground flex items-center gap-3 text-sm font-medium">
             <SidebarTrigger />
             <Breadcrumb>
               <BreadcrumbList>
@@ -143,27 +143,27 @@ export default function ProjectsClient() {
           </span>
           <Button
             size="sm"
-            className="h-7 text-xs px-3"
+            className="h-7 px-3 text-xs"
             onClick={() => setShowCreateDialog(true)}
           >
-            <Plus className="h-3.5 w-3.5 mr-1.5" />
+            <Plus className="mr-1.5 h-3.5 w-3.5" />
             Add Project
           </Button>
         </header>
 
-        <div className="h-full flex flex-col">
+        <div className="flex h-full flex-col">
           <div className="flex-1 overflow-auto">
             {!projectsFromDb || projectsFromDb.length === 0 ? (
-              <div className="text-center py-12">
-                <FolderOpen className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+              <div className="py-12 text-center">
+                <FolderOpen className="text-muted-foreground mx-auto mb-4 h-12 w-12" />
                 <p className="text-muted-foreground text-lg">
                   No projects yet. Add one above!
                 </p>
               </div>
             ) : (
               <div className="w-full">
-                <div className="border-b bg-muted/50">
-                  <div className="grid grid-cols-12 gap-4 px-6 py-3 text-sm font-medium text-muted-foreground">
+                <div className="bg-muted/50 border-b">
+                  <div className="text-muted-foreground grid grid-cols-12 gap-4 px-6 py-3 text-sm font-medium">
                     <div className="col-span-1">
                       <input
                         type="checkbox"
@@ -174,7 +174,7 @@ export default function ProjectsClient() {
                         onChange={(e) => {
                           if (e.target.checked) {
                             setSelectedRows(
-                              new Set(projectsFromDb.map((p) => p._id))
+                              new Set(projectsFromDb.map((p) => p._id)),
                             );
                           } else {
                             setSelectedRows(new Set());
@@ -199,7 +199,7 @@ export default function ProjectsClient() {
                     return (
                       <div
                         key={project._id}
-                        className={`grid grid-cols-12 gap-4 px-6 py-4 hover:bg-muted/30 transition-colors ${
+                        className={`hover:bg-muted/30 grid grid-cols-12 gap-4 px-6 py-4 transition-colors ${
                           isSelected
                             ? "bg-secondary/30"
                             : index % 2 === 0
@@ -230,29 +230,29 @@ export default function ProjectsClient() {
                         <div className="col-span-4">
                           <Link
                             href={`/projects/${project._id}`}
-                            className="group flex items-center gap-3 hover:text-primary transition-colors"
+                            className="group hover:text-primary flex items-center gap-3 transition-colors"
                           >
                             <div
-                              className={`w-3 h-3 rounded-full ${
+                              className={`h-3 w-3 rounded-full ${
                                 project.color || "bg-gray-400"
                               }`}
                             />
-                            <span className="font-medium truncate group-hover:underline">
+                            <span className="truncate font-medium group-hover:underline">
                               {project.name}
                             </span>
                           </Link>
                         </div>
                         <div className="col-span-3">
-                          <p className="text-sm text-muted-foreground line-clamp-2">
+                          <p className="text-muted-foreground line-clamp-2 text-sm">
                             {project.description || "No description"}
                           </p>
                         </div>
                         <div className="col-span-2 flex items-center">
                           <div className="w-full">
-                            <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
+                            <div className="text-muted-foreground mb-1 flex items-center justify-between text-xs">
                               <span>{Math.round(progress * 100)}%</span>
                             </div>
-                            <div className="w-full bg-muted rounded-full h-2">
+                            <div className="bg-muted h-2 w-full rounded-full">
                               <div
                                 className="bg-primary h-2 rounded-full transition-all"
                                 style={{ width: `${progress * 100}%` }}
@@ -261,7 +261,7 @@ export default function ProjectsClient() {
                           </div>
                         </div>
                         <div className="col-span-2 flex items-center">
-                          <span className="text-sm text-muted-foreground">
+                          <span className="text-muted-foreground text-sm">
                             {project.completedTaskCount || 0} /{" "}
                             {project.taskCount || 0}
                           </span>
@@ -284,7 +284,7 @@ export default function ProjectsClient() {
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ type: "spring", damping: 30, stiffness: 400 }}
-            className="fixed bottom-0 left-0 right-0 bg-background border-t shadow-lg z-30"
+            className="bg-background fixed right-0 bottom-0 left-0 z-30 border-t shadow-lg"
           >
             <div className="px-6 py-3">
               <div className="flex items-center justify-between">
@@ -298,7 +298,7 @@ export default function ProjectsClient() {
                     size="sm"
                     onClick={() => setSelectedRows(new Set())}
                   >
-                    <X className="h-4 w-4 mr-1" />
+                    <X className="mr-1 h-4 w-4" />
                     Clear selection
                   </Button>
                 </div>
@@ -308,7 +308,7 @@ export default function ProjectsClient() {
                     size="sm"
                     onClick={() => setShowDeleteDialog(true)}
                   >
-                    <Trash2 className="h-4 w-4 mr-1" />
+                    <Trash2 className="mr-1 h-4 w-4" />
                     Delete
                   </Button>
                 </div>
@@ -361,7 +361,7 @@ export default function ProjectsClient() {
                     <SelectItem key={color.value} value={color.value}>
                       <div className="flex items-center gap-2">
                         <div
-                          className={`w-3 h-3 rounded-full ${color.value}`}
+                          className={`h-3 w-3 rounded-full ${color.value}`}
                         />
                         {color.name}
                       </div>

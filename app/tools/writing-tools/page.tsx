@@ -63,7 +63,7 @@ export default function Component() {
           return (
             <span
               key={`${lineIndex}-${sentenceIndex}`}
-              className={`${color} mr-1 px-0.5 rounded`}
+              className={`${color} mr-1 rounded px-0.5`}
             >
               {trimmedSentence}
             </span>
@@ -98,10 +98,10 @@ export default function Component() {
   const time = calculateTime(wordCount, wpm);
 
   return (
-    <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 overflow-y-auto">
-      <Card className="w-full max-w-3xl mx-auto">
+    <div className="min-h-screen overflow-y-auto px-4 py-8 sm:px-6 lg:px-8">
+      <Card className="mx-auto w-full max-w-3xl">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center">
+          <CardTitle className="text-center text-2xl font-bold">
             Writing Tools
           </CardTitle>
         </CardHeader>
@@ -114,8 +114,8 @@ export default function Component() {
             spellCheck={true}
             aria-label="Text input for word counting and sentence analysis"
           />
-          <div className="flex justify-between items-center">
-            <p className=" font-medium pl-2">
+          <div className="flex items-center justify-between">
+            <p className="pl-2 font-medium">
               Word Count: <span className="text-primary">{wordCount}</span>
             </p>
           </div>
@@ -123,20 +123,20 @@ export default function Component() {
             <AccordionItem value="sentence-analysis">
               <AccordionTrigger>Sentence Length Analysis</AccordionTrigger>
               <AccordionContent>
-                <div className="bg-card p-3 rounded-md border border-gray-200 max-h-[300px] overflow-y-auto">
+                <div className="bg-card max-h-[300px] overflow-y-auto rounded-md border border-gray-200 p-3">
                   {highlightedText}
                 </div>
-                <div className="flex flex-wrap gap-2 text-sm mt-2">
-                  <span className="bg-yellow-600 px-2 py-1 rounded">
+                <div className="mt-2 flex flex-wrap gap-2 text-sm">
+                  <span className="rounded bg-yellow-600 px-2 py-1">
                     1-3 words
                   </span>
-                  <span className="bg-purple-600 px-2 py-1 rounded">
+                  <span className="rounded bg-purple-600 px-2 py-1">
                     4-8 words
                   </span>
-                  <span className="bg-green-600 px-2 py-1 rounded">
+                  <span className="rounded bg-green-600 px-2 py-1">
                     9-14 words
                   </span>
-                  <span className="bg-red-600 px-2 py-1 rounded">
+                  <span className="rounded bg-red-600 px-2 py-1">
                     15+ words
                   </span>
                 </div>
@@ -145,7 +145,7 @@ export default function Component() {
             <AccordionItem value="reading-time">
               <AccordionTrigger>Reading Time</AccordionTrigger>
               <AccordionContent>
-                <div className="p-4 rounded-md border border-gray-200">
+                <div className="rounded-md border border-gray-200 p-4">
                   <div className="flex gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="wpm">Words/Min.</Label>
@@ -155,7 +155,7 @@ export default function Component() {
                         value={wpm}
                         onChange={handleWpmChange}
                         min="1"
-                        className="max-w-[80px] h-9"
+                        className="h-9 max-w-[80px]"
                       />
                     </div>
                     <div className="space-y-2">
@@ -170,8 +170,8 @@ export default function Component() {
             </AccordionItem>
           </Accordion>
         </CardContent>
-        <CardFooter className="px-8 mt-4 ">
-          <div className="flex justify-end w-full">
+        <CardFooter className="mt-4 px-8">
+          <div className="flex w-full justify-end">
             <Button
               onClick={handleClearAll}
               variant="outline"

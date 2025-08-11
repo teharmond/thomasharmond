@@ -9,13 +9,16 @@ function sortApps(apps: typeof appsData) {
 }
 
 function groupAppsByCategory(apps: typeof appsData) {
-  return apps.reduce((acc, app) => {
-    if (!acc[app.category]) {
-      acc[app.category] = [];
-    }
-    acc[app.category].push(app);
-    return acc;
-  }, {} as Record<string, typeof appsData>);
+  return apps.reduce(
+    (acc, app) => {
+      if (!acc[app.category]) {
+        acc[app.category] = [];
+      }
+      acc[app.category].push(app);
+      return acc;
+    },
+    {} as Record<string, typeof appsData>,
+  );
 }
 
 export default function page() {
@@ -23,20 +26,20 @@ export default function page() {
   const sortedCategories = Object.keys(groupedApps).sort();
   return (
     <>
-      <div className=" flex-col gap-4 w-full bg-card border-r  px-2 flex lg:hidden">
-        <div className="flex justify-between items-center pt-4 px-2">
+      <div className="bg-card flex w-full flex-col gap-4 border-r px-2 lg:hidden">
+        <div className="flex items-center justify-between px-2 pt-4">
           <div className="text-lg font-medium">Apps I Use</div>
         </div>
         <div className="flex-1">
           {sortedCategories.map((category) => (
-            <div key={category} className="flex flex-col gap-1 mb-4">
-              <div className="text-sm text-muted-foreground px-2">
+            <div key={category} className="mb-4 flex flex-col gap-1">
+              <div className="text-muted-foreground px-2 text-sm">
                 {category}
               </div>
-              <div className="flex flex-col ">
+              <div className="flex flex-col">
                 {sortApps(groupedApps[category]).map((app) => (
                   <Link key={app.id} href={`/apps/${app.id}`}>
-                    <div className="p-1 flex items-center justify-start w-full gap-2.5 text-secondary-foreground hover:bg-muted rounded-lg transition-colors">
+                    <div className="text-secondary-foreground hover:bg-muted flex w-full items-center justify-start gap-2.5 rounded-lg p-1 transition-colors">
                       <div>
                         <Image
                           src={app.icon}
@@ -55,7 +58,7 @@ export default function page() {
           ))}
         </div>
       </div>
-      <div className="flex-col gap-4 w-full bg-card border-r  px-2 hidden lg:flex"></div>
+      <div className="bg-card hidden w-full flex-col gap-4 border-r px-2 lg:flex"></div>
     </>
   );
 }

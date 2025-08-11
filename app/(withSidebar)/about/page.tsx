@@ -17,11 +17,11 @@ export default function page() {
         <span className="inline">
           <Link
             href="https://churchspace.co"
-            className="inline items-baseline group"
+            className="group inline items-baseline"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span className="h-5 w-5 bg-[#6065fe] mr-1.5 rounded items-center justify-center inline-flex">
+            <span className="mr-1.5 inline-flex h-5 w-5 items-center justify-center rounded bg-[#6065fe]">
               <svg
                 height={14}
                 width={14}
@@ -40,7 +40,7 @@ export default function page() {
                 </g>
               </svg>
             </span>
-            <span className="underline decoration-2 underline-offset-2 group-hover:underline-offset-4 transition-all duration-300 ease-in-out">
+            <span className="underline decoration-2 underline-offset-2 transition-all duration-300 ease-in-out group-hover:underline-offset-4">
               Church Space
             </span>
           </Link>
@@ -58,7 +58,7 @@ export default function page() {
         alt="Thomas and Rylea"
         width={1200}
         height={1200}
-        className="w-full rounded-lg aspect-[5/6] object-cover mt-10"
+        className="mt-10 aspect-[5/6] w-full rounded-lg object-cover"
       />
     </div>
   );
