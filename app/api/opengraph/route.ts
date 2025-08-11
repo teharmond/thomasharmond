@@ -59,8 +59,22 @@ export async function POST(request: NextRequest) {
       return `${urlObj.origin}/favicon.ico`;
     };
 
-    const title = getMetaContent('title') || getTitleFromTag() || new URL(url).hostname;
-    const description = getMetaContent('description') || '';
+    const decodeHtmlEntities = (text: string): string => {
+      return text
+        .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
+        .replace(/&#x([a-fA-F0-9]+);/g, (_, code) => String.fromCharCode(parseInt(code, 16)))
+        .replace(/&quot;/g, '"')
+        .replace(/&apos;/g, "'")
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&amp;/g, '&');
+    };
+
+    const rawTitle = getMetaContent('title') || getTitleFromTag() || new URL(url).hostname;
+    const rawDescription = getMetaContent('description') || '';
+    
+    const title = decodeHtmlEntities(rawTitle);
+    const description = decodeHtmlEntities(rawDescription);
     const image = getMetaContent('image');
     const favicon = getFavicon();
 

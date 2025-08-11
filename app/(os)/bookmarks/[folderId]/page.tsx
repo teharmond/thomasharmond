@@ -1,9 +1,10 @@
 import { BookmarksContent } from "../BookmarksContent";
 
-export default function BookmarksFolderPage({
+export default async function BookmarksFolderPage({
   params,
 }: {
-  params: { folderId: string };
+  params: Promise<{ folderId: string }>;
 }) {
-  return <BookmarksContent folderId={params.folderId} />;
+  const { folderId } = await params;
+  return <BookmarksContent folderId={folderId} />;
 }
