@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// Cache for 1 day
+export const revalidate = 86400;
+
 export async function POST(request: NextRequest) {
   try {
     const { url } = await request.json();

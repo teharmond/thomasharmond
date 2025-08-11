@@ -127,10 +127,6 @@ export const deleteFolder = mutation({
 export const createBookmark = mutation({
   args: {
     url: v.string(),
-    title: v.string(),
-    description: v.optional(v.string()),
-    favicon: v.optional(v.string()),
-    image: v.optional(v.string()),
     folderId: v.optional(v.id("bookmarkFolders")),
   },
   handler: async (ctx, args) => {
@@ -139,10 +135,6 @@ export const createBookmark = mutation({
 
     return await ctx.db.insert("bookmarks", {
       url: args.url,
-      title: args.title,
-      description: args.description,
-      favicon: args.favicon,
-      image: args.image,
       folderId: args.folderId,
       userId: identity.subject,
       createdAt: Date.now(),
@@ -154,12 +146,8 @@ export const createBookmark = mutation({
 export const updateBookmark = mutation({
   args: {
     id: v.id("bookmarks"),
-    title: v.optional(v.string()),
-    description: v.optional(v.string()),
     folderId: v.optional(v.id("bookmarkFolders")),
     url: v.optional(v.string()),
-    favicon: v.optional(v.string()),
-    image: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -171,12 +159,8 @@ export const updateBookmark = mutation({
     }
 
     const updates: any = { updatedAt: Date.now() };
-    if (args.title !== undefined) updates.title = args.title;
-    if (args.description !== undefined) updates.description = args.description;
     if (args.folderId !== undefined) updates.folderId = args.folderId;
     if (args.url !== undefined) updates.url = args.url;
-    if (args.favicon !== undefined) updates.favicon = args.favicon;
-    if (args.image !== undefined) updates.image = args.image;
 
     return await ctx.db.patch(args.id, updates);
   },
@@ -215,6 +199,27 @@ export const moveBookmark = mutation({
 
     return await ctx.db.patch(args.id, {
       folderId: args.folderId,
+      updatedAt: Date.now(),
+    });
+  },
+});
+
+export const createBookmarkWithApiKey = mutation({
+  args: {
+    url: v.string(),
+    userId: v.string(),
+    folderId: v.optional(v.id("bookmarkFolders")),
+  },
+  handler: async (ctx, args) => {
+    // Generate a default title from the URL
+    const defaultTitle = new URL(args.url).hostname;
+    
+    return await ctx.db.insert("bookmarks", {
+      url: args.url,
+      title: defaultTitle,
+      folderId: args.folderId,
+      userId: args.userId,
+      createdAt: Date.now(),
       updatedAt: Date.now(),
     });
   },

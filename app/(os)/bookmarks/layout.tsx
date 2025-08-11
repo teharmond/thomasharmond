@@ -5,7 +5,7 @@ import { api } from "@/convex/_generated/api";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Folder, FolderPlus, MoreHorizontal, Trash2 } from "lucide-react";
+import { Folder, FolderPlus, MoreHorizontal, Trash2, Edit3 } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
@@ -25,11 +25,15 @@ export default function BookmarksLayout({
   const router = useRouter();
   const folders = useQuery(api.bookmarks.getFolders);
   const createFolder = useMutation(api.bookmarks.createFolder);
+  const updateFolder = useMutation(api.bookmarks.updateFolder);
   const deleteFolder = useMutation(api.bookmarks.deleteFolder);
   
   const [isAddingFolder, setIsAddingFolder] = useState(false);
   const [newFolderName, setNewFolderName] = useState("");
   const [newFolderColor, setNewFolderColor] = useState("");
+  const [renamingFolder, setRenamingFolder] = useState<Id<"bookmarkFolders"> | null>(null);
+  const [renameFolderName, setRenameFolderName] = useState("");
+  const [renameFolderColor, setRenameFolderColor] = useState("");
   
   const currentFolderId = pathname.split("/bookmarks/")[1];
   const isAllBookmarks = pathname === "/bookmarks";
@@ -52,6 +56,26 @@ export default function BookmarksLayout({
     if (currentFolderId === id) {
       router.push("/bookmarks");
     }
+  };
+  
+  const handleStartRename = (folder: any) => {
+    setRenamingFolder(folder._id);
+    setRenameFolderName(folder.name);
+    setRenameFolderColor(folder.color || "");
+  };
+  
+  const handleRenameFolder = async () => {
+    if (!renamingFolder || !renameFolderName) return;
+    
+    await updateFolder({
+      id: renamingFolder,
+      name: renameFolderName,
+      color: renameFolderColor || undefined,
+    });
+    
+    setRenamingFolder(null);
+    setRenameFolderName("");
+    setRenameFolderColor("");
   };
 
   // Wait for auth to load
@@ -117,6 +141,45 @@ export default function BookmarksLayout({
             </DialogFooter>
           </DialogContent>
         </Dialog>
+        
+        <Dialog open={!!renamingFolder} onOpenChange={() => setRenamingFolder(null)}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Rename Folder</DialogTitle>
+              <DialogDescription>
+                Update the folder name and color.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="rename-folder-name">Folder Name</Label>
+                <Input
+                  id="rename-folder-name"
+                  value={renameFolderName}
+                  onChange={(e) => setRenameFolderName(e.target.value)}
+                  placeholder="Enter folder name"
+                />
+              </div>
+              <div>
+                <Label htmlFor="rename-folder-color">Folder Color (optional)</Label>
+                <Input
+                  id="rename-folder-color"
+                  type="color"
+                  value={renameFolderColor}
+                  onChange={(e) => setRenameFolderColor(e.target.value)}
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setRenamingFolder(null)}>
+                Cancel
+              </Button>
+              <Button onClick={handleRenameFolder} disabled={!renameFolderName}>
+                Save Changes
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
 
       <div className="grid grid-cols-12 gap-6">
@@ -160,6 +223,15 @@ export default function BookmarksLayout({
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-32 p-1">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="w-full justify-start h-8"
+                    onClick={() => handleStartRename(folder)}
+                  >
+                    <Edit3 className="h-3 w-3 mr-2" />
+                    Rename
+                  </Button>
                   <Button
                     variant="ghost"
                     size="sm"

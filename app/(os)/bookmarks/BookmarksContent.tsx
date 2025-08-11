@@ -2,7 +2,7 @@
 
 import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -39,10 +39,22 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
   const [movingBookmark, setMovingBookmark] = useState<Id<"bookmarks"> | null>(null);
   
   const [newBookmarkUrl, setNewBookmarkUrl] = useState("");
-  const [newBookmarkTitle, setNewBookmarkTitle] = useState("");
-  const [newBookmarkDescription, setNewBookmarkDescription] = useState("");
+  const [bookmarkMetadata, setBookmarkMetadata] = useState<Record<string, { title: string; description: string; image?: string; favicon?: string; loading: boolean }>>({});
 
-  const fetchOpenGraphData = async (url: string) => {
+  const fetchBookmarkMetadata = async (url: string, bookmarkId: string) => {
+    if (bookmarkMetadata[bookmarkId] && !bookmarkMetadata[bookmarkId].loading) {
+      return; // Already fetched
+    }
+
+    setBookmarkMetadata(prev => ({
+      ...prev,
+      [bookmarkId]: {
+        title: new URL(url).hostname,
+        description: '',
+        loading: true
+      }
+    }));
+
     try {
       const response = await fetch('/api/opengraph', {
         method: 'POST',
@@ -52,47 +64,54 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
       
       if (response.ok) {
         const data = await response.json();
-        return data;
+        setBookmarkMetadata(prev => ({
+          ...prev,
+          [bookmarkId]: {
+            title: data.title || new URL(url).hostname,
+            description: data.description || '',
+            image: data.image,
+            favicon: data.favicon,
+            loading: false
+          }
+        }));
+      } else {
+        throw new Error('Failed to fetch metadata');
       }
     } catch (error) {
       console.error('Error fetching OpenGraph data:', error);
+      setBookmarkMetadata(prev => ({
+        ...prev,
+        [bookmarkId]: {
+          title: new URL(url).hostname,
+          description: '',
+          loading: false
+        }
+      }));
     }
-    return null;
   };
+
+  useEffect(() => {
+    // Fetch metadata for all bookmarks when they load
+    bookmarks?.forEach(bookmark => {
+      fetchBookmarkMetadata(bookmark.url, bookmark._id);
+    });
+  }, [bookmarks]);
 
   const handleCreateBookmark = async () => {
     if (!newBookmarkUrl) return;
     
-    // Use URL as temporary title if no title provided
-    const tempTitle = newBookmarkTitle || new URL(newBookmarkUrl).hostname;
-    
-    // Create bookmark immediately
     const bookmarkId = await createBookmark({
       url: newBookmarkUrl,
-      title: tempTitle,
-      description: newBookmarkDescription || undefined,
-      favicon: undefined,
-      image: undefined,
       folderId: actualFolderId,
     });
     
     setNewBookmarkUrl("");
-    setNewBookmarkTitle("");
-    setNewBookmarkDescription("");
     setIsAddingBookmark(false);
     
-    // Fetch metadata in background and update
-    fetchOpenGraphData(newBookmarkUrl).then(ogData => {
-      if (ogData && bookmarkId) {
-        updateBookmark({
-          id: bookmarkId as Id<"bookmarks">,
-          title: ogData.title || tempTitle,
-          description: ogData.description || newBookmarkDescription || undefined,
-          favicon: ogData.favicon || undefined,
-          image: ogData.image || undefined,
-        });
-      }
-    });
+    // Fetch metadata for the new bookmark
+    if (bookmarkId) {
+      fetchBookmarkMetadata(newBookmarkUrl, bookmarkId as Id<"bookmarks">);
+    }
   };
 
   const handleDeleteBookmark = async (id: Id<"bookmarks">) => {
@@ -158,24 +177,6 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
                   placeholder="https://example.com"
                 />
               </div>
-              <div>
-                <Label htmlFor="bookmark-title">Title (optional)</Label>
-                <Input
-                  id="bookmark-title"
-                  value={newBookmarkTitle}
-                  onChange={(e) => setNewBookmarkTitle(e.target.value)}
-                  placeholder="Will be fetched automatically"
-                />
-              </div>
-              <div>
-                <Label htmlFor="bookmark-description">Description (optional)</Label>
-                <Textarea
-                  id="bookmark-description"
-                  value={newBookmarkDescription}
-                  onChange={(e) => setNewBookmarkDescription(e.target.value)}
-                  placeholder="Will be fetched automatically"
-                />
-              </div>
               {selectedFolder && (
                 <div className="text-sm text-muted-foreground">
                   Will be added to: <span className="font-medium">{selectedFolder.name}</span>
@@ -200,9 +201,9 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
             <CardHeader className="pb-3">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-2">
-                  {bookmark.favicon ? (
+                  {bookmarkMetadata[bookmark._id]?.favicon ? (
                     <img
-                      src={bookmark.favicon}
+                      src={bookmarkMetadata[bookmark._id].favicon}
                       alt=""
                       className="h-4 w-4"
                       onError={(e) => {
@@ -213,7 +214,7 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
                     <Globe className="h-4 w-4 text-muted-foreground" />
                   )}
                   <CardTitle className="text-sm font-medium line-clamp-1">
-                    {bookmark.title}
+                    {bookmarkMetadata[bookmark._id]?.loading ? 'Loading...' : (bookmarkMetadata[bookmark._id]?.title || new URL(bookmark.url).hostname)}
                   </CardTitle>
                 </div>
                 <Popover>
@@ -250,9 +251,9 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
               </div>
             </CardHeader>
             <CardContent>
-              {bookmark.image && (
+              {bookmarkMetadata[bookmark._id]?.image && (
                 <img
-                  src={bookmark.image}
+                  src={bookmarkMetadata[bookmark._id].image}
                   alt=""
                   className="w-full h-32 object-cover rounded-md mb-2"
                   onError={(e) => {
@@ -260,9 +261,9 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
                   }}
                 />
               )}
-              {bookmark.description && (
+              {bookmarkMetadata[bookmark._id]?.description && (
                 <CardDescription className="text-xs line-clamp-2 mb-2">
-                  {bookmark.description}
+                  {bookmarkMetadata[bookmark._id].description}
                 </CardDescription>
               )}
               <a
