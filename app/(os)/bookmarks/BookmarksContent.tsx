@@ -5,11 +5,9 @@ import { api } from "@/convex/_generated/api";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Plus, Link as LinkIcon, MoreHorizontal, Trash2, Move, ExternalLink, Globe, Folder } from "lucide-react";
+import { Plus, MoreHorizontal, Trash2, Move, Globe, Folder } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Id } from "@/convex/_generated/dataModel";
 import { useAuth } from "@clerk/nextjs";
@@ -39,7 +37,7 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
   const [movingBookmark, setMovingBookmark] = useState<Id<"bookmarks"> | null>(null);
   
   const [newBookmarkUrl, setNewBookmarkUrl] = useState("");
-  const [bookmarkMetadata, setBookmarkMetadata] = useState<Record<string, { title: string; description: string; image?: string; favicon?: string; loading: boolean }>>({});
+  const [bookmarkMetadata, setBookmarkMetadata] = useState<Record<string, { title: string; favicon?: string; loading: boolean }>>({});
 
   const fetchBookmarkMetadata = async (url: string, bookmarkId: string) => {
     if (bookmarkMetadata[bookmarkId] && !bookmarkMetadata[bookmarkId].loading) {
@@ -50,7 +48,6 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
       ...prev,
       [bookmarkId]: {
         title: new URL(url).hostname,
-        description: '',
         loading: true
       }
     }));
@@ -68,8 +65,6 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
           ...prev,
           [bookmarkId]: {
             title: data.title || new URL(url).hostname,
-            description: data.description || '',
-            image: data.image,
             favicon: data.favicon,
             loading: false
           }
@@ -83,7 +78,6 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
         ...prev,
         [bookmarkId]: {
           title: new URL(url).hostname,
-          description: '',
           loading: false
         }
       }));
@@ -195,89 +189,65 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
         </Dialog>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="space-y-2">
         {bookmarks?.map((bookmark) => (
-          <Card key={bookmark._id} className="group relative overflow-hidden">
-            <CardHeader className="pb-3">
-              <div className="flex items-start justify-between">
-                <div className="flex items-center gap-2">
-                  {bookmarkMetadata[bookmark._id]?.favicon ? (
-                    <img
-                      src={bookmarkMetadata[bookmark._id].favicon}
-                      alt=""
-                      className="h-4 w-4"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                      }}
-                    />
-                  ) : (
-                    <Globe className="h-4 w-4 text-muted-foreground" />
-                  )}
-                  <CardTitle className="text-sm font-medium line-clamp-1">
-                    {bookmarkMetadata[bookmark._id]?.loading ? 'Loading...' : (bookmarkMetadata[bookmark._id]?.title || new URL(bookmark.url).hostname)}
-                  </CardTitle>
-                </div>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-6 w-6 p-0 opacity-0 group-hover:opacity-100"
-                    >
-                      <MoreHorizontal className="h-3 w-3" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-32 p-1">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="w-full justify-start h-8"
-                      onClick={() => setMovingBookmark(bookmark._id)}
-                    >
-                      <Move className="h-3 w-3 mr-2" />
-                      Move
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="w-full justify-start h-8"
-                      onClick={() => handleDeleteBookmark(bookmark._id)}
-                    >
-                      <Trash2 className="h-3 w-3 mr-2" />
-                      Delete
-                    </Button>
-                  </PopoverContent>
-                </Popover>
-              </div>
-            </CardHeader>
-            <CardContent>
-              {bookmarkMetadata[bookmark._id]?.image && (
+          <div key={bookmark._id} className="group flex items-center gap-3 p-3 rounded-lg border hover:bg-muted/50 transition-colors">
+            <div className="flex items-center gap-3 flex-1 min-w-0">
+              {bookmarkMetadata[bookmark._id]?.favicon ? (
                 <img
-                  src={bookmarkMetadata[bookmark._id].image}
+                  src={bookmarkMetadata[bookmark._id].favicon}
                   alt=""
-                  className="w-full h-32 object-cover rounded-md mb-2"
+                  className="h-4 w-4 flex-shrink-0"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                   }}
                 />
+              ) : (
+                <Globe className="h-4 w-4 text-muted-foreground flex-shrink-0" />
               )}
-              {bookmarkMetadata[bookmark._id]?.description && (
-                <CardDescription className="text-xs line-clamp-2 mb-2">
-                  {bookmarkMetadata[bookmark._id].description}
-                </CardDescription>
-              )}
-              <a
-                href={bookmark.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs text-muted-foreground hover:text-primary flex items-center gap-1"
-              >
-                <LinkIcon className="h-3 w-3" />
-                <span className="line-clamp-1">{bookmark.url}</span>
-                <ExternalLink className="h-3 w-3 flex-shrink-0" />
-              </a>
-            </CardContent>
-          </Card>
+              <div className="min-w-0 flex-1">
+                <a
+                  href={bookmark.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium hover:text-primary transition-colors block truncate"
+                >
+                  {bookmarkMetadata[bookmark._id]?.loading ? 'Loading...' : (bookmarkMetadata[bookmark._id]?.title || new URL(bookmark.url).hostname)}
+                </a>
+              </div>
+            </div>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-6 w-6 p-0 opacity-0 group-hover:opacity-100 flex-shrink-0"
+                >
+                  <MoreHorizontal className="h-3 w-3" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-32 p-1">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full justify-start h-8"
+                  onClick={() => setMovingBookmark(bookmark._id)}
+                >
+                  <Move className="h-3 w-3 mr-2" />
+                  Move
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full justify-start h-8"
+                  onClick={() => handleDeleteBookmark(bookmark._id)}
+                >
+                  <Trash2 className="h-3 w-3 mr-2" />
+                  Delete
+                </Button>
+              </PopoverContent>
+            </Popover>
+          </div>
         ))}
       </div>
 

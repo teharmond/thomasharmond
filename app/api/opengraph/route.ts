@@ -1,16 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { unstable_cache } from 'next/cache';
 
 // Cache for 1 day
 export const revalidate = 86400;
 
-export async function POST(request: NextRequest) {
-  try {
-    const { url } = await request.json();
-    
-    if (!url) {
-      return NextResponse.json({ error: 'URL is required' }, { status: 400 });
-    }
-
+const fetchOpenGraphDataCached = unstable_cache(
+  async (url: string) => {
     const response = await fetch(url, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (compatible; BookmarkBot/1.0)',
@@ -74,26 +69,29 @@ export async function POST(request: NextRequest) {
     };
 
     const rawTitle = getMetaContent('title') || getTitleFromTag() || new URL(url).hostname;
-    const rawDescription = getMetaContent('description') || '';
-    
     const title = decodeHtmlEntities(rawTitle);
-    const description = decodeHtmlEntities(rawDescription);
-    const image = getMetaContent('image');
     const favicon = getFavicon();
+    const image = getMetaContent('image');
 
-    const processedImage = image ? (
-      image.startsWith('http') ? image :
-      image.startsWith('//') ? `https:${image}` :
-      image.startsWith('/') ? `${new URL(url).origin}${image}` :
-      `${new URL(url).origin}/${image}`
-    ) : null;
+    return { title, favicon, image };
+  },
+  ['opengraph-data'],
+  {
+    revalidate: 86400, // Cache for 1 day
+  }
+);
 
-    return NextResponse.json({
-      title,
-      description,
-      image: processedImage,
-      favicon,
-    });
+export async function POST(request: NextRequest) {
+  try {
+    const { url } = await request.json();
+    
+    if (!url) {
+      return NextResponse.json({ error: 'URL is required' }, { status: 400 });
+    }
+
+    const data = await fetchOpenGraphDataCached(url);
+
+    return NextResponse.json(data);
   } catch (error) {
     console.error('Error fetching OpenGraph data:', error);
     return NextResponse.json(
