@@ -449,3 +449,70 @@ export function Finance({
     </svg>
   );
 }
+
+export function FolderOpen({
+  fill = "currentColor",
+  secondaryfill,
+  strokewidth = 1,
+  width = "1em",
+  height = "1em",
+  ...props
+}: IconProps) {
+  secondaryfill = secondaryfill || fill;
+
+  return (
+    <svg
+      height={height}
+      width={width}
+      {...props}
+      viewBox="0 0 18 18"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g fill={fill}>
+        <path
+          d="M15.298 7C16.7769 7 17.8526 8.40119 17.4717 9.82923L16.3708 13.9578C16.0503 15.1626 14.9597 16 13.714 16H4.28698C3.04143 16 1.95093 15.1628 1.63032 13.9582L0.529335 9.82933C0.148492 8.40165 1.22442 7.00141 2.70077 7L15.298 7Z"
+          fill={secondaryfill}
+          fillOpacity="0.4"
+          fillRule="evenodd"
+        />
+        <path
+          d="M4.25 2C2.73079 2 1.5 3.23079 1.5 4.75V7.34742C1.8441 7.12889 2.25411 7.00043 2.70077 7L15.298 7C15.7452 7 16.1556 7.12816 16.5 7.34646V6.25C16.5 4.73079 15.2692 3.5 13.75 3.5H8.72395L8.34568 3.02826C7.82345 2.37824 7.0355 2 6.20099 2H4.25Z"
+          fill={fill}
+        />
+      </g>
+    </svg>
+  );
+}
+
+export function Folder({
+  fill = "currentColor",
+  secondaryfill,
+  strokewidth = 1,
+  width = "1em",
+  height = "1em",
+  ...props
+}: IconProps) {
+  secondaryfill = secondaryfill || fill;
+
+  return (
+    <svg
+      height={height}
+      width={width}
+      {...props}
+      viewBox="0 0 18 18"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g fill={fill}>
+        <path
+          d="M1.5 6.5H16.5V13.25C16.5 14.7692 15.2692 16 13.75 16H4.25C2.73079 16 1.5 14.7692 1.5 13.25V6.5Z"
+          fill={secondaryfill}
+          fillOpacity="0.4"
+        />
+        <path
+          d="M4.25 2C2.73079 2 1.5 3.23079 1.5 4.75V6.5H16.5V6.25C16.5 4.73079 15.2692 3.5 13.75 3.5H8.72395L8.34569 3.02827C7.82347 2.37825 7.03552 2 6.201 2H4.25Z"
+          fill={fill}
+        />
+      </g>
+    </svg>
+  );
+}

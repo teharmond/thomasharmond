@@ -18,6 +18,7 @@ export const getBookmarks = query({
   args: {
     folderId: v.optional(v.id("bookmarkFolders")),
     showAll: v.optional(v.boolean()),
+    showUncategorized: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -27,6 +28,12 @@ export const getBookmarks = query({
       return await ctx.db
         .query("bookmarks")
         .withIndex("by_user", (q) => q.eq("userId", identity.subject))
+        .collect();
+    } else if (args.showUncategorized) {
+      return await ctx.db
+        .query("bookmarks")
+        .withIndex("by_user", (q) => q.eq("userId", identity.subject))
+        .filter((q) => q.eq(q.field("folderId"), undefined))
         .collect();
     } else if (args.folderId) {
       return await ctx.db

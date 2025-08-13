@@ -1,12 +1,12 @@
 import { Suspense } from "react";
-import { BookmarksContent } from "./BookmarksContent";
+import { FolderList } from "./FolderList";
 
 export const dynamic = "force-dynamic";
 
 export default function BookmarksPage() {
   return (
     <Suspense fallback={<div className="p-6">Loading...</div>}>
-      <BookmarksContent />
+      <FolderList />
     </Suspense>
   );
 }

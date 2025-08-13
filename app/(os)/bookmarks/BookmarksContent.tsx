@@ -22,6 +22,7 @@ import {
   Move,
   Globe,
   Folder,
+  ArrowLeft,
 } from "lucide-react";
 import {
   Popover,
@@ -30,12 +31,14 @@ import {
 } from "@/components/ui/popover";
 import { Id } from "@/convex/_generated/dataModel";
 import { useAuth } from "@clerk/nextjs";
+import Link from "next/link";
 
 interface BookmarksContentProps {
   folderId?: string;
+  showUncategorized?: boolean;
 }
 
-export function BookmarksContent({ folderId }: BookmarksContentProps) {
+export function BookmarksContent({ folderId, showUncategorized }: BookmarksContentProps) {
   const { isLoaded } = useAuth();
   const folders = useQuery(api.bookmarks.getFolders);
 
@@ -43,11 +46,12 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
     folderId && folderId !== "all"
       ? (folderId as Id<"bookmarkFolders">)
       : undefined;
-  const showAll = !folderId; // Show all when at /bookmarks
+  const showAll = !folderId && !showUncategorized;
 
   const bookmarks = useQuery(api.bookmarks.getBookmarks, {
     folderId: actualFolderId,
     showAll: showAll,
+    showUncategorized: showUncategorized,
   });
 
   const createBookmark = useMutation(api.bookmarks.createBookmark);
@@ -160,22 +164,38 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
     : null;
 
   return (
-    <>
-      <div className="mb-4 flex items-center justify-between">
+    <div className="container mx-auto space-y-6 py-6">
+      <div className="flex items-center gap-4">
+        <Link href="/bookmarks">
+          <Button variant="ghost" size="sm">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Folders
+          </Button>
+        </Link>
         <div className="flex items-center gap-2">
           {selectedFolder && (
             <>
               <Folder
-                className="h-5 w-5"
+                className="h-6 w-6"
                 style={{ color: selectedFolder.color || undefined }}
               />
-              <h2 className="text-xl font-semibold">{selectedFolder.name}</h2>
+              <h1 className="text-2xl font-bold">{selectedFolder.name}</h1>
             </>
           )}
-          {!selectedFolder && (
-            <h2 className="text-xl font-semibold">All Bookmarks</h2>
+          {showUncategorized && (
+            <>
+              <Folder className="h-6 w-6 text-muted-foreground" />
+              <h1 className="text-2xl font-bold">Uncategorized</h1>
+            </>
+          )}
+          {!selectedFolder && !showUncategorized && (
+            <h1 className="text-2xl font-bold">All Bookmarks</h1>
           )}
         </div>
+      </div>
+
+      <div className="mb-4 flex items-center justify-between">
+        <div></div>
 
         <Dialog open={isAddingBookmark} onOpenChange={setIsAddingBookmark}>
           <DialogTrigger asChild>
@@ -344,6 +364,6 @@ export function BookmarksContent({ folderId }: BookmarksContentProps) {
           </div>
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   );
 }

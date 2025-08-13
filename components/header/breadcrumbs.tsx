@@ -16,16 +16,17 @@ import { api } from "@/convex/_generated/api";
 
 export default function HeaderBreadcrumbs() {
   const pathname = usePathname();
-  
+
   // Extract folder ID from bookmark paths
   const isBookmarksPage = pathname.startsWith("/bookmarks");
-  const folderId = isBookmarksPage && pathname !== "/bookmarks" 
-    ? pathname.split("/bookmarks/")[1] 
-    : undefined;
+  const isUncategorizedPage = pathname === "/bookmarks/uncategorized";
+  const folderId =
+    isBookmarksPage && pathname !== "/bookmarks" && !isUncategorizedPage
+      ? pathname.split("/bookmarks/")[1]
+      : undefined;
 
   // Use Convex React hooks for authenticated queries
   const folders = useQuery(api.bookmarks.getFolders);
-
 
   if (isBookmarksPage) {
     return (
@@ -34,14 +35,15 @@ export default function HeaderBreadcrumbs() {
           <BreadcrumbItem>
             <BreadcrumbLink href="/bookmarks">Bookmarks</BreadcrumbLink>
           </BreadcrumbItem>
-          {folderId && (
+          {(folderId || isUncategorizedPage) && (
             <>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>
+                <BreadcrumbPage className="flex items-center">
                   <FolderSelect 
                     folders={folders} 
-                    currentFolderId={folderId}
+                    currentFolderId={folderId} 
+                    showUncategorized={isUncategorizedPage}
                   />
                 </BreadcrumbPage>
               </BreadcrumbItem>
