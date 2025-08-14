@@ -23,6 +23,7 @@ import {
   Globe,
   Folder,
   ArrowLeft,
+  Search,
 } from "lucide-react";
 import {
   Popover,
@@ -65,6 +66,7 @@ export function BookmarksContent({ folderId, showUncategorized }: BookmarksConte
   );
 
   const [newBookmarkUrl, setNewBookmarkUrl] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [bookmarkMetadata, setBookmarkMetadata] = useState<
     Record<string, { title: string; favicon?: string; loading: boolean }>
   >({});
@@ -163,6 +165,22 @@ export function BookmarksContent({ folderId, showUncategorized }: BookmarksConte
     ? folders?.find((f) => f._id === actualFolderId)
     : null;
 
+  // Filter bookmarks based on search query
+  const filteredBookmarks = bookmarks?.filter((bookmark) => {
+    if (!searchQuery.trim()) return true;
+    
+    const query = searchQuery.toLowerCase();
+    const title = bookmarkMetadata[bookmark._id]?.title?.toLowerCase() || "";
+    const url = bookmark.url.toLowerCase();
+    const hostname = new URL(bookmark.url).hostname.toLowerCase();
+    
+    return (
+      title.includes(query) ||
+      url.includes(query) ||
+      hostname.includes(query)
+    );
+  }) || [];
+
   return (
     <div className="container mx-auto space-y-6 py-6">
       <div className="flex items-center gap-4">
@@ -195,7 +213,15 @@ export function BookmarksContent({ folderId, showUncategorized }: BookmarksConte
       </div>
 
       <div className="mb-4 flex items-center justify-between">
-        <div></div>
+        <div className="relative max-w-sm">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            placeholder="Search bookmarks..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-9"
+          />
+        </div>
 
         <Dialog open={isAddingBookmark} onOpenChange={setIsAddingBookmark}>
           <DialogTrigger asChild>
@@ -245,7 +271,7 @@ export function BookmarksContent({ folderId, showUncategorized }: BookmarksConte
       </div>
 
       <div className="space-y-2">
-        {bookmarks?.map((bookmark) => (
+        {filteredBookmarks.map((bookmark) => (
           <div
             key={bookmark._id}
             className="group hover:bg-muted/50 flex items-center gap-3 rounded-lg border p-3 transition-colors"
@@ -312,7 +338,21 @@ export function BookmarksContent({ folderId, showUncategorized }: BookmarksConte
         ))}
       </div>
 
-      {bookmarks?.length === 0 && (
+      {filteredBookmarks.length === 0 && searchQuery && (
+        <div className="py-12 text-center">
+          <p className="text-muted-foreground">No bookmarks found for &quot;{searchQuery}&quot;.</p>
+          <Button
+            variant="outline"
+            size="sm"
+            className="mt-4"
+            onClick={() => setSearchQuery("")}
+          >
+            Clear search
+          </Button>
+        </div>
+      )}
+
+      {bookmarks?.length === 0 && !searchQuery && (
         <div className="py-12 text-center">
           <p className="text-muted-foreground">No bookmarks yet.</p>
           <Button
