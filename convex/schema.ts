@@ -76,4 +76,13 @@ export default defineSchema({
     .index("by_user", ["userId"])
     .index("by_folder", ["folderId"])
     .index("by_user_and_folder", ["userId", "folderId"]),
+
+  notes: defineTable({
+    title: v.string(),
+    content: v.optional(v.string()),
+    userId: v.string(),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_user", ["userId"]),
 });

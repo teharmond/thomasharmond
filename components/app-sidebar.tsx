@@ -57,7 +57,7 @@ const items = [
   },
   { title: "Projects", url: "/projects", icon: Projects, section: "apps" },
   { title: "Bookmarks", url: "/bookmarks", icon: Bookmarks, section: "apps" },
-  { title: "Docs", url: "/docs", icon: Document, section: "apps" },
+  { title: "Notes", url: "/notes", icon: Document, section: "apps" },
   {
     title: "Time Tracking",
     url: "/time-tracking",

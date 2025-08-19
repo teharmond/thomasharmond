@@ -9,6 +9,7 @@
  */
 
 import type * as bookmarks from "../bookmarks.js";
+import type * as notes from "../notes.js";
 import type * as projects from "../projects.js";
 import type * as prosemirrorSync from "../prosemirrorSync.js";
 import type * as subtasks from "../subtasks.js";
@@ -31,6 +32,7 @@ import type {
  */
 declare const fullApi: ApiFromModules<{
   bookmarks: typeof bookmarks;
+  notes: typeof notes;
   projects: typeof projects;
   prosemirrorSync: typeof prosemirrorSync;
   subtasks: typeof subtasks;
