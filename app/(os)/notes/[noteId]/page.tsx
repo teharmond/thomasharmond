@@ -149,7 +149,7 @@ export default function NotePage({ params }: NotePageProps) {
         />
         
         <TiptapEditor
-          taskId={noteIdTyped}
+          documentId={noteIdTyped}
           className="min-h-[500px]"
           placeholder="Start writing your note..."
         />

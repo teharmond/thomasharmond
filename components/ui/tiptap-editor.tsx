@@ -9,19 +9,26 @@ import { Id } from "@/convex/_generated/dataModel";
 import { useEffect } from "react";
 
 interface TiptapEditorProps {
-  taskId: Id<"tasks">;
+  taskId?: Id<"tasks">;
+  documentId?: string;
   className?: string;
   placeholder?: string;
 }
 
 export function TiptapEditor({
   taskId,
+  documentId,
   className,
   placeholder,
 }: TiptapEditorProps) {
-  // Use the document ID as taskId for collaborative editing
-  const documentId = taskId;
-  const sync = useTiptapSync(api.prosemirrorSync, documentId);
+  // Use the document ID for collaborative editing
+  const finalDocumentId = documentId || taskId;
+
+  if (!finalDocumentId) {
+    throw new Error("TiptapEditor requires either taskId or documentId");
+  }
+
+  const sync = useTiptapSync(api.prosemirrorSync, finalDocumentId);
 
   // Auto-create empty document if it doesn't exist
   useEffect(() => {
