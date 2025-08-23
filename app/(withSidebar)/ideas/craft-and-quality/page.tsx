@@ -361,6 +361,9 @@ export default function Page() {
         </a>
         .
       </ArticleParagraph>
+      <div className="text-muted-foreground mt-4 border-t px-2 pt-6 text-sm font-semibold">
+        July 14, 2025
+      </div>
       <div className="bg-muted mt-12 flex flex-col gap-2 rounded-xl p-4">
         <h3 className="px-2 text-xl font-bold">More</h3>
         {articles.map((article, index) => (
