@@ -97,6 +97,7 @@ const previewCard = (
             href={article.link}
             key={index}
             className="hover:text-primary hover:border-border flex h-20 w-full items-center gap-3 rounded-r-md border-l-0 border-transparent p-2 px-3"
+            target="_blank"
           >
             {article.image ? (
               <Image
@@ -180,7 +181,7 @@ export default function page() {
         </Link>
         . All the while I&apos;ve been busy building a product of my own:{" "}
         <Link
-          href="https://flowforth.com"
+          href="https://flowforth.co"
           className="hover:text-primary underline"
           target="_blank"
         >
