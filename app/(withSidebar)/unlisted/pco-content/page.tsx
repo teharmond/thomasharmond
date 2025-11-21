@@ -63,12 +63,6 @@ const articles = [
   },
   {
     index: 5,
-    title: "Answer questions that bring you joy",
-    description: "A simple heuristic for the next step",
-    link: "/ideas/questions-that-bring-joy",
-  },
-  {
-    index: 6,
     title: "Why I don’t like prayer request forms",
     description: "The pastoral implications of our technical choices",
     link: "/ideas/prayer-request-forms",
@@ -77,7 +71,7 @@ const articles = [
   },
 
   {
-    index: 7,
+    index: 6,
     title: "Notes on Craft and Quality",
     description: "The companies that have helped me shape Church Space",
     link: "/ideas/craft-and-quality",
@@ -545,7 +539,7 @@ export default function page() {
       </ArticleParagraph>
 
       {/* lsat two articles */}
-      {previewCard([articles[5], articles[6], articles[7]])}
+      {previewCard([articles[5], articles[6]])}
     </div>
   );
 }
