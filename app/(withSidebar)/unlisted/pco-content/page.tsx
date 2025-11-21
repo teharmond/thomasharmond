@@ -4,8 +4,14 @@ import Link from "next/link";
 import Image from "next/image";
 import ArticleParagraph from "@/components/ArticleParagraph";
 import SectionHeader from "@/components/SectionHeader";
-import ArticleList from "@/components/ArticleList";
 import { Kbd, KbdGroup } from "@/components/ui/kbd";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "PCO Content Editor",
+  description:
+    "How a well-crafted content editor could transform Planning Center",
+};
 
 const articles = [
   {
