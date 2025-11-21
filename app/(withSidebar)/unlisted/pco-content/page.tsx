@@ -512,7 +512,7 @@ export default function page() {
           Monday.com, Thinkific, Circle, and more. I know what&apos;s great
           about them and what the common pain points are. This knowedlge has
           helped me outline what to build in this space specifically for
-          churches.
+          churches. I believe this would better serve churches.
         </li>
       </ArticleList>
 
