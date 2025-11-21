@@ -6,6 +6,13 @@ import ArticleParagraph from "@/components/ArticleParagraph";
 import SectionHeader from "@/components/SectionHeader";
 import { Kbd, KbdGroup } from "@/components/ui/kbd";
 import { Metadata } from "next";
+import ArticleList from "@/components/ArticleList";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import { ChevronDown } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "PCO Content Editor | Thomas Harmond",
@@ -128,6 +135,30 @@ export default function page() {
         title="PCO Content Editor"
         description="How a well-crafted content editor could transform Planning Center"
       />
+      <Collapsible className="bg-muted group my-4 rounded-md border">
+        <CollapsibleTrigger className="bg-muted group-hover:text-primary data-[state=open]:text-primary flex w-full items-center justify-between gap-2 rounded-md p-3 px-4">
+          <h2 className="text-lg font-semibold">TLDR</h2>
+          <ChevronDown className="h-4 w-4" />
+        </CollapsibleTrigger>
+        <CollapsibleContent className="p-2 px-3 pb-4">
+          <ArticleList type="unordered">
+            <li>
+              Planning Center should create a block-based content editor that
+              could be used to improve existing features (forms, pages, tasks,
+              etc.) and create new use cases (email, wikis, courses, etc.).
+            </li>
+            <li>
+              I&apos;ve already built part of this with Flowforth and have put
+              together demos of what it could look like in Planning Center.
+            </li>
+            <li>
+              I&apos;d love to join the Planning Center team and build this from
+              within rather than building this as a third-party product.
+            </li>
+          </ArticleList>
+        </CollapsibleContent>
+      </Collapsible>
+
       <ArticleParagraph>
         I&apos;ve written elsewhere about{" "}
         <Link
@@ -275,8 +306,9 @@ export default function page() {
         Screen recording of the current Flowforth editor.
       </div>
       <ArticleParagraph>
-        Another benifit of this style editor is that it increases accessibility.
-        If someone can&apos;t drag and drop a block, they can still type{" "}
+        Another benifit of this style editor is that it increases{" "}
+        <mark>accessibility</mark>. If someone can&apos;t drag and drop a block,
+        they can still type{" "}
         <KbdGroup>
           <Kbd>/</Kbd>
         </KbdGroup>{" "}
@@ -285,12 +317,9 @@ export default function page() {
       </ArticleParagraph>
       <ArticleParagraph>
         All of this goes to the next level when you start to take advantage of
-        all your data being in Planning Center. You can{" "}
-        <KbdGroup>
-          <Kbd>@</Kbd>
-        </KbdGroup>{" "}
-        mention a Services plan and a few songs in a task description to quickly
-        access what you&apos;re working on. You can{" "}
+        all your data being in Planning Center. You can <mark>@ mention</mark> a
+        Services plan and a few songs in a task description to quickly access
+        what you&apos;re working on. You can{" "}
         <KbdGroup>
           <Kbd>@</Kbd>
         </KbdGroup>{" "}
@@ -323,10 +352,10 @@ export default function page() {
         .
       </div>
       <ArticleParagraph>
-        Finally, making the editor realtime means that I no longer need Services
-        and Google Docs open in a service planning meeting. I can simple open
-        Planning Center along with the rest of my team and work together
-        seamlessly.
+        Finally, making the editor <mark>realtime</mark> means that I no longer
+        need Services and Google Docs open in a service planning meeting. I can
+        simple open Planning Center along with the rest of my team and work
+        together seamlessly.
       </ArticleParagraph>
 
       <SectionHeader>02. USE CASES</SectionHeader>
@@ -462,7 +491,38 @@ export default function page() {
         Finally, you could offer a &quot;teams&quot; plan that could combine
         one-to-one messaging with wikis and an advanced version of tasks.
       </ArticleParagraph>
-      <SectionHeader>04. CONCLUSION</SectionHeader>
+      <SectionHeader>04. WHY ME?</SectionHeader>
+
+      <ArticleList type="unordered">
+        <li>
+          I have a deep understanding of what it&apos;s like to use Planning
+          Center at multiple types of churches. I started using it when I worked
+          at a small mobile church plant when I was a kid. I then helped roll it
+          out at Hillsong Online and Hillsong Australia. This included building
+          internal tools on top of the API. I then used it at a mid-sized
+          Methodist church in Houston, TX. Now I&apos;m helping the church I
+          attend use it to its full potential.
+        </li>
+        <li>
+          I work for a company helping churches migrate their data to Planning
+          Center from other systems while building tools for these churches. I
+          understand their pain points and how to solve them.
+        </li>
+        <li>
+          I&apos;ve built Flowforth end-to-end by myself. I&apos;ve worked with
+          real users, use Tiptap in production, and understnad what people are
+          wanting in a content tool for churches.
+        </li>
+        <li>
+          I&apos;ve used and deeply understand prodcuts like Notion, ClickUp,
+          Monday.com, Thinkific, Circle, and more. I know what&apos;s great
+          about them and what the common pain points are. This knowedlge has
+          helped me outline what to build in this space specifically for
+          churches.
+        </li>
+      </ArticleList>
+
+      <SectionHeader>05. CONCLUSION</SectionHeader>
       <ArticleParagraph>
         I love Planning Center, and I&apos;ve loved building tools around it.
         But it would be a dream to build from within and to build something
