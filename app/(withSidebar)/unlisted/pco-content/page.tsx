@@ -8,7 +8,7 @@ import { Kbd, KbdGroup } from "@/components/ui/kbd";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "PCO Content Editor",
+  title: "PCO Content Editor | Thomas Harmond",
   description:
     "How a well-crafted content editor could transform Planning Center",
 };
