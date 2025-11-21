@@ -489,6 +489,12 @@ export default function page() {
 
       <ArticleList type="unordered">
         <li>
+          My degree is in ministry and theology. I think this pastoral edge
+          helps me understand the theological implications of technical
+          decisions and how they impact churches in the day-to-day work of
+          ministry.
+        </li>
+        <li>
           I have a deep understanding of what it&apos;s like to use Planning
           Center at multiple types of churches. I started using it when I worked
           at a small mobile church plant when I was a kid. I then helped roll it
