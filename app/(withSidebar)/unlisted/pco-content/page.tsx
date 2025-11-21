@@ -270,7 +270,7 @@ export default function page() {
       </div>
       <ArticleParagraph>
         Another benifit of this style editor is that it increases accessibility.
-        If someone can't drag and drop a block, they can still type{" "}
+        If someone can&apos;t drag and drop a block, they can still type{" "}
         <KbdGroup>
           <Kbd>/</Kbd>
         </KbdGroup>{" "}
@@ -327,8 +327,8 @@ export default function page() {
       <ArticleParagraph>
         This improves what already exists in Planning Center — People Forms,
         Publishing Pages, Home Tasks, and more — but it also starts to solve the
-        aforementioned "lurking apps" problem. Let&apos;s look at a few new use
-        cases.
+        aforementioned &quot;lurking apps&quot; problem. Let&apos;s look at a
+        few new use cases.
       </ArticleParagraph>
       <div className="mx-2 mt-10 flex items-center gap-2">
         <Image
