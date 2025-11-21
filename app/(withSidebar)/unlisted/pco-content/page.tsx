@@ -489,36 +489,40 @@ export default function page() {
 
       <ArticleList type="unordered">
         <li>
-          My degree is in ministry and theology. I think this pastoral edge
-          helps me understand the theological implications of technical
-          decisions and how they impact churches in the day-to-day work of
-          ministry.
+          My <mark>degree is in ministry and theology.</mark> I think this
+          pastoral edge helps me understand the theological implications of
+          technical decisions and how they impact churches in the day-to-day
+          work of ministry.
         </li>
         <li>
-          I have a deep understanding of what it&apos;s like to use Planning
-          Center at multiple types of churches. I started using it when I worked
-          at a small mobile church plant when I was a kid. I then helped roll it
-          out at Hillsong Online and Hillsong Australia. This included building
-          internal tools on top of the API. I then used it at a mid-sized
-          Methodist church in Houston, TX. Now I&apos;m helping the church I
-          attend use it to its full potential.
+          I have a{" "}
+          <mark>
+            deep understanding of what it&apos;s like to use Planning Center at
+            multiple types of churches.
+          </mark>{" "}
+          I started using it when I worked at a small mobile church plant when I
+          was a kid. I then helped roll it out at Hillsong Online and Hillsong
+          Australia. This included building internal tools on top of the API. I
+          then used it at a mid-sized Methodist church in Houston, TX. Now
+          I&apos;m helping the church I attend use it to its full potential.
         </li>
         <li>
-          I work for a company helping churches migrate their data to Planning
-          Center from other systems while building tools for these churches. I
+          I work for a company{" "}
+          <mark>helping churches migrate their data to Planning Center</mark>{" "}
+          from other systems while building tools for these churches. I
           understand their pain points and how to solve them.
         </li>
         <li>
-          I&apos;ve built Flowforth end-to-end by myself. I&apos;ve worked with
-          real users, use Tiptap in production, and understand what people are
-          wanting in a content tool for churches.
+          I&apos;ve <mark>built Flowforth</mark> end-to-end by myself. I&apos;ve
+          worked with real users, use Tiptap in production, and understand what
+          people are wanting in a content tool for churches.
         </li>
         <li>
-          I&apos;ve used and deeply understand products like Notion, ClickUp,
-          Monday.com, Thinkific, Circle, and more. I know what&apos;s great
-          about them and what the common pain points are. This knowledge has
-          helped me outline what to build in this space specifically for
-          churches. I believe this would better serve churches.
+          I&apos;ve used and <mark>deeply understand workplace products</mark>{" "}
+          like Notion, ClickUp, Monday.com, Thinkific, Circle, and more. I know
+          what&apos;s great about them and what the common pain points are. This
+          knowledge has helped me outline what to build in this space
+          specifically for churches. I believe this would better serve churches.
         </li>
       </ArticleList>
 
