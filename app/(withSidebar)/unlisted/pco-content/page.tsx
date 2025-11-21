@@ -300,7 +300,7 @@ export default function page() {
         Screen recording of the current Flowforth editor.
       </div>
       <ArticleParagraph>
-        Another benifit of this style editor is that it increases{" "}
+        Another benefit of this style editor is that it increases{" "}
         <mark>accessibility</mark>. If someone can&apos;t drag and drop a block,
         they can still type{" "}
         <KbdGroup>
@@ -413,7 +413,7 @@ export default function page() {
         the day to day. It would allow us to store processes and procedures
         (like a staff hub), it would let us keep mood boards and service ideas
         so that people are ready to go when Easter planning roles around, and it
-        would link knowlege managment with church management unlocking
+        would link knowledge management with church management unlocking
         connections not before possible.
       </ArticleParagraph>
       <ArticleParagraph>
@@ -504,13 +504,13 @@ export default function page() {
         </li>
         <li>
           I&apos;ve built Flowforth end-to-end by myself. I&apos;ve worked with
-          real users, use Tiptap in production, and understnad what people are
+          real users, use Tiptap in production, and understand what people are
           wanting in a content tool for churches.
         </li>
         <li>
-          I&apos;ve used and deeply understand prodcuts like Notion, ClickUp,
+          I&apos;ve used and deeply understand products like Notion, ClickUp,
           Monday.com, Thinkific, Circle, and more. I know what&apos;s great
-          about them and what the common pain points are. This knowedlge has
+          about them and what the common pain points are. This knowledge has
           helped me outline what to build in this space specifically for
           churches. I believe this would better serve churches.
         </li>
@@ -534,7 +534,7 @@ export default function page() {
         >
           hey@thomasharmond.com
         </Link>
-        or at the email I&apos;ve attachedk this article to. Thank you for all
+        or at the email I&apos;ve attached this article to. Thank you for all
         you do for the church and for making ministry that much smoother.{" "}
       </ArticleParagraph>
 
