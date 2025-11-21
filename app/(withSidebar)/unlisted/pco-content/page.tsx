@@ -490,9 +490,15 @@ export default function page() {
       <ArticleList type="unordered">
         <li>
           My <mark>degree is in ministry and theology.</mark> I think this
-          pastoral edge helps me understand the theological implications of
-          technical decisions and how they impact churches in the day-to-day
-          work of ministry.
+          pastoral edge helps me understand{" "}
+          <Link
+            href="/ideas/prayer-request-forms"
+            className="hover:text-primary underline"
+            target="_blank"
+          >
+            the theological implications of technical decisions
+          </Link>{" "}
+          and how they impact churches in the day-to-day work of ministry.
         </li>
         <li>
           I have a{" "}
