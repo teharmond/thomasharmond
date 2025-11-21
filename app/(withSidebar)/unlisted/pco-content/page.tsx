@@ -117,8 +117,8 @@ export default function page() {
   return (
     <div className="flex flex-col gap-4">
       <ArticleHeader
-        title="PCO Publishing | July 23, 2025"
-        description="Thoughts on PCO Publishing"
+        title="PCO Content | November 20, 2025"
+        description="What would a content tool look like in Planning Center?"
       />
       <ArticleParagraph>
         I&apos;ve written elsewhere about{" "}
