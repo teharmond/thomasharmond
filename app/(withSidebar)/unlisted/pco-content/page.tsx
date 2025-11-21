@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import ArticleParagraph from "@/components/ArticleParagraph";
 import SectionHeader from "@/components/SectionHeader";
+import ArticleList from "@/components/ArticleList";
+import { Kbd, KbdGroup } from "@/components/ui/kbd";
 
 const articles = [
   {
@@ -117,8 +119,8 @@ export default function page() {
   return (
     <div className="flex flex-col gap-4">
       <ArticleHeader
-        title="PCO Content | November 20, 2025"
-        description="What would a content tool look like in Planning Center?"
+        title="PCO Content Editor"
+        description="How a well-crafted content editor could transform Planning Center"
       />
       <ArticleParagraph>
         I&apos;ve written elsewhere about{" "}
@@ -157,7 +159,7 @@ export default function page() {
       </ArticleParagraph>
       <ArticleParagraph>
         It&apos;s been fun solving a real need for churches and doing it in a
-        way that saves churches money—sometimes hundreds of dollars a month.
+        way that saves churches money — sometimes hundreds of dollars a month.
         However, as I think more about the future, I realize that{" "}
         <Link
           href="/ideas/questions-that-bring-joy"
@@ -167,9 +169,9 @@ export default function page() {
           the joy for me
         </Link>{" "}
         isn&apos;t building a company, it&apos;s building products that serve
-        churches. While this does take a company, the more and more I think
-        about what brings me joy the more I realize that it doesn&apos;t have to
-        be <i>my</i> company. In fact, I think{" "}
+        churches. While this does take a company, the more I think about it, the
+        more I realize it doesn&apos;t have to be <i>my</i> company. In fact, I
+        think{" "}
         <Link
           href="/ideas/14-apps"
           className="hover:text-primary underline"
@@ -177,42 +179,57 @@ export default function page() {
         >
           the more tools that live in one app
         </Link>
-        , the better it serves the churches.
+        , the better it serves churches.
       </ArticleParagraph>
       <ArticleParagraph>
         So, here&apos;s my pitch to join Planning Center and build a content
-        tool from within.{" "}
+        tool from within.
       </ArticleParagraph>
 
       {/* first three articles */}
       {previewCard([articles[0], articles[1], articles[2]])}
+
       <SectionHeader>01. THE PROBLEM</SectionHeader>
+      <Image
+        src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond/behind%20pco.png"
+        alt="Multiple apps behind a Planning Center logo"
+        width={1000}
+        height={1000}
+        className="rounded-md"
+      />
       <ArticleParagraph>
-        A gap that I regularly feel as a customer of Planning Center is that
-        there is not a great solution for content. Designed emails, team wikis,
-        courses, and so on all require separate tools external to Planning
-        Center.
+        Pitching Planning Center is easy: it&apos;s the well-crafted, all-in-one
+        app for our church. The team is bought in, our church signs up, and we
+        start rolling it out.
+      </ArticleParagraph>
+      <ArticleParagraph>And then the promise fades.</ArticleParagraph>
+      <ArticleParagraph>
+        Lurking behind all that Planning Center offers are multiple apps that we
+        still need, many of which don&apos;t integrate with the new digital core
+        of our church. We <i>still</i> need an email tool, <i>still</i> need a
+        way to create and host small group content and courses, and <i>still</i>{" "}
+        need extra tools to help our team collaborate and work together.
       </ArticleParagraph>
       <ArticleParagraph>
-        Having to do this in other services is frustrating for two reasons.
-        First, we have to ask our people to download extra apps, get extra
-        logins, and learn other tools. It makes joining a team a lot harder than
-        it should be. Second, we have to either manually import information or
-        build custom solutions on top of the API to sync the data (and pray we
-        don&apos;t get hundreds of duplicates). For smaller churches, this is
-        next to impossible.
+        The dream of telling my volunteers they can do it all with one app meets
+        the reality of needing ten to get the job done.
+      </ArticleParagraph>
+      <ArticleParagraph>
+        Insert the pain of helping people reset their passwords, teaching them
+        where to look for what, and getting all the data in one place.
       </ArticleParagraph>
       <ArticleParagraph>
         <mark className="font-semibold">There has to be something better.</mark>
       </ArticleParagraph>
+      <ArticleParagraph>
+        And yet, I understand why Planning Center wouldn&apos;t want to build
+        this wide set of tools. I mean, what&apos;s an email tool have to do
+        with an LMS? And what&apos;s a team wiki have to do with a course?
+      </ArticleParagraph>
       <SectionHeader>01. THE SOLUTION</SectionHeader>
       <ArticleParagraph>
-        The three core content pieces missing from Planning Center are an email
-        marketing tool, an learning management system (LMS), and team wikis.
-      </ArticleParagraph>
-      <ArticleParagraph>
-        I believe creating a universal editor with an optional drag and drop
-        sidebar built on top of{" "}
+        I believe the solution is creating a{" "}
+        <mark>universal drag and drop editor</mark> built on top of{" "}
         <Link
           href="https://tiptap.dev"
           className="hover:text-primary underline"
@@ -220,16 +237,26 @@ export default function page() {
         >
           Tiptap
         </Link>{" "}
-        would be a key first step to solving the problem while also adding a lot
-        of value to every area of Planning Center. Having this reusable package
-        would help improve things like the People form editor or the Publishing
-        pages editor. It can be taken further to include blog posts, improved
-        Tasks descriptions (complete with @ mentioning any entity in Planning
-        Center), or even a full website builder.{" "}
+        that is modular enough for multiple contexts while staying familiar
+        enough across all use cases.
       </ArticleParagraph>
       <ArticleParagraph>
-        This one package would take all content within Planning Center to the
-        next level.{" "}
+        The editor should live in a <mark>single package</mark> that can be used
+        across every repo. It should be designed for multiple use cases. In some
+        instances, it should have a sidebar that lets you drag and drop blocks
+        and change block settings. This is great for designing emails, building
+        forms, creating publishing pages, and for creating small group content
+        and courses. In other instances, it should feel like a text editor,
+        perfect for team wikis, task descriptions, and quick emails sent to
+        lists.
+      </ArticleParagraph>
+      <ArticleParagraph>
+        The editor should also be <mark>block-based</mark>, similar to Notion
+        and the many apps that have adopted this design pattern. This not only
+        is increasingly familiar to people, but it also allows the editor to be
+        reused. You can have a set of content blocks (text, images, videos,
+        etc.), form block (inputs, dropdowns, checkboxes, etc.), and interaction
+        blocks (buttons, links, etc.).
       </ArticleParagraph>
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond/editor.gif"
@@ -241,23 +268,91 @@ export default function page() {
       <div className="bg-muted text-muted-foreground w-full rounded-md p-2 px-3 text-xs">
         Screen recording of the current Flowforth editor.
       </div>
-      <h3
-        className={`text-primary mx-2 mt-10 w-full font-mono text-xl font-bold`}
-      >
-        EMAIL
-      </h3>
+      <ArticleParagraph>
+        Another benifit of this style editor is that it increases accessibility.
+        If someone can't drag and drop a block, they can still type{" "}
+        <KbdGroup>
+          <Kbd>/</Kbd>
+        </KbdGroup>{" "}
+        to open the command palette and add a block that way and use key
+        commands to reorder blocks.
+      </ArticleParagraph>
+      <ArticleParagraph>
+        All of this goes to the next level when you start to take advantage of
+        all your data being in Planning Center. You can{" "}
+        <KbdGroup>
+          <Kbd>@</Kbd>
+        </KbdGroup>{" "}
+        mention a Services plan and a few songs in a task description to quickly
+        access what you&apos;re working on. You can{" "}
+        <KbdGroup>
+          <Kbd>@</Kbd>
+        </KbdGroup>{" "}
+        mention a workflow in a wiki so you can know what the process is
+        referencing. You could even{" "}
+        <KbdGroup>
+          <Kbd>@</Kbd>
+        </KbdGroup>{" "}
+        mention content in messages to quickly share a sermon with your small
+        group leaders.
+      </ArticleParagraph>
+      <div className="overflow-hidden rounded-md border shadow-sm">
+        <video
+          src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond/mentions.mp4"
+          controls
+          playsInline
+          className="aspect-[1448/1080] w-full bg-black"
+        />
+      </div>
+      <div className="bg-muted text-muted-foreground w-full rounded-md p-2 px-3 text-xs">
+        @ mentioning demo I put together for Evan a few months ago. You can view
+        a similar demo I built here:{" "}
+        <Link
+          href="https://pcohome.thomasharmond.com"
+          className="hover:text-primary underline"
+          target="_blank"
+        >
+          PCO Home Mockup
+        </Link>
+        .
+      </div>
+      <ArticleParagraph>
+        Finally, making the editor realtime means that I no longer need Services
+        and Google Docs open in a service planning meeting. I can simple open
+        Planning Center along with the rest of my team and work together
+        seamlessly.
+      </ArticleParagraph>
+
+      <SectionHeader>02. USE CASES</SectionHeader>
+      <ArticleParagraph>
+        This improves what already exists in Planning Center — People Forms,
+        Publishing Pages, Home Tasks, and more — but it also starts to solve the
+        aforementioned "lurking apps" problem. Let&apos;s look at a few new use
+        cases.
+      </ArticleParagraph>
+      <div className="mx-2 mt-10 flex items-center gap-2">
+        <Image
+          src="/people.png"
+          alt="Planning Center People"
+          width={24}
+          height={24}
+        />
+        <h3 className={`w-full font-mono text-xl font-semibold`}>EMAIL</h3>
+      </div>
       <ArticleParagraph>
         I think a lot of the features I&apos;ve built for Flowforth have their
         proper place in Planning Center. Things like using custom fields as
         merge tags, importing content from Calendar, Groups, and Registrations
         directly into an email so you don&apos;t have to redo work, and adding
-        conditional blocks based on other lists a person is on.{" "}
+        conditional blocks based on other lists a person is on. This is all
+        possible with this editor package and some small changes to how email
+        already works in Planning Center.
       </ArticleParagraph>
       <ArticleParagraph>
-        Additionally, having all of the email data — opens, unsubscribes, and so
-        on — in Planning Center puts valuable pastoral info back into the system
-        for people to be better cared for by their church based on their
-        engagement (or lack there of).{" "}
+        Adding this moves all the data back into Planning Center. Having email
+        data — opens, unsubscribes, and so on — in Planning Center puts valuable
+        pastoral info back into the system for people to be better cared for by
+        their church based on their engagement (or lack there of).{" "}
       </ArticleParagraph>
       <ArticleParagraph>
         I also believe adding custom emails makes every product in Planning
@@ -267,11 +362,15 @@ export default function page() {
         custom People emails for everything from workflows to forms. One editor
         unlocks a lot of possibility.{" "}
       </ArticleParagraph>
-      <h3
-        className={`text-primary mx-2 mt-10 w-full font-mono text-xl font-bold`}
-      >
-        WIKIS
-      </h3>
+      <div className="mx-2 mt-10 flex items-center gap-2">
+        <Image
+          src="/home.png"
+          alt="Planning Center People"
+          width={24}
+          height={24}
+        />
+        <h3 className={`w-full font-mono text-xl font-semibold`}>WIKIS</h3>
+      </div>
       <ArticleParagraph>
         As mentioned in my{" "}
         <Link
@@ -283,21 +382,30 @@ export default function page() {
         </Link>
         , having wikis would make it easier to work within Planning Center on
         the day to day. It would allow us to store processes and procedures
-        (like a staff hub). It would let us keep mood boards and service ideas
-        so that people are ready to go when Easter planning roles around.{" "}
+        (like a staff hub), it would let us keep mood boards and service ideas
+        so that people are ready to go when Easter planning roles around, and it
+        would link knowlege managment with church management unlocking
+        connections not before possible.
       </ArticleParagraph>
       <ArticleParagraph>
-        These wikis could then be linked through PCO. You could attach one to a
-        Services plan to keep everyone aligned to the vision for the service.
+        These wikis could then be linked throughout PCO. You could attach one to
+        a Services plan to keep everyone aligned to the vision for the service.
         You can add one to a workflow to help volunteers know what to do if
         [blank] comes up in an email chain. You could attach them to a task list
-        so that we know the end goal of the project.{" "}
+        so that we know the end goal of the project.
       </ArticleParagraph>
-      <h3
-        className={`text-primary mx-2 mt-10 w-full font-mono text-xl font-bold`}
-      >
-        LMS
-      </h3>
+
+      <div className="mx-2 mt-10 flex items-center gap-2">
+        <Image
+          src="/publishing.png"
+          alt="Planning Center People"
+          width={24}
+          height={24}
+        />
+        <h3 className={`w-full font-mono text-xl font-semibold`}>
+          COURSES AND SMALL GROUP CONTENT (LMS)
+        </h3>
+      </div>
       <ArticleParagraph>
         Every church I&apos;ve been a part of has made me sign up for a
         different service in order to do training and onboarding. Imagine if
@@ -306,7 +414,7 @@ export default function page() {
         completed the training. Churches could also automate training
         assignments so that when someone joins a team, they get invited to a
         course right away. You could even tie this into a workflow to have the
-        true onboading process all in one place.
+        full onboarding process all in one place.
       </ArticleParagraph>
       <ArticleParagraph>
         I think the core builder could be taken further here to things like
@@ -314,8 +422,15 @@ export default function page() {
         PDF, churches can create their content in Planning Center and assign
         that content to different Groups or even have an open library for group
         leaders to chose material from. The same editor can be used to create
-        both digital and paper guides using tools like React PDF to convert the
-        page to something that looks great in print.
+        both digital and paper guides using tools like{" "}
+        <Link
+          href="https://react-pdf.org"
+          className="hover:text-primary underline"
+          target="_blank"
+        >
+          React PDF
+        </Link>{" "}
+        to convert the page to something that looks great in print.
       </ArticleParagraph>
       {/* next two articles */}
       {previewCard([articles[3], articles[4]])}
@@ -337,6 +452,10 @@ export default function page() {
         module again for months, but their data showing completion will still
         matter.
       </ArticleParagraph>
+      <ArticleParagraph>
+        Finally, you could offer a &quot;teams&quot; plan that could combine
+        one-to-one messaging with wikis and an advanced version of tasks.
+      </ArticleParagraph>
       <SectionHeader>04. CONCLUSION</SectionHeader>
       <ArticleParagraph>
         I love Planning Center, and I&apos;ve loved building tools around it.
@@ -344,13 +463,19 @@ export default function page() {
         that&apos;s been a need for me consistently at the past 4 churches that
         I&apos;ve been involved with, both big and small.{" "}
       </ArticleParagraph>
+
       <ArticleParagraph>
-        I have more fleshed out roadmaps and plenty of demos if this is
-        something you&apos;re even remotely interested in.{" "}
-      </ArticleParagraph>
-      <ArticleParagraph>
-        Thank you for all you do for the church and for making ministry that
-        much smoother.{" "}
+        If you&apos;re interested in any of this, I&apos;d love to chat more.
+        You can reach me at{" "}
+        <Link
+          href="mailto:hey@thomasharmond.com"
+          className="hover:text-primary underline"
+          target="_blank"
+        >
+          hey@thomasharmond.com
+        </Link>
+        or at the email I&apos;ve attachedk this article to. Thank you for all
+        you do for the church and for making ministry that much smoother.{" "}
       </ArticleParagraph>
 
       {/* lsat two articles */}

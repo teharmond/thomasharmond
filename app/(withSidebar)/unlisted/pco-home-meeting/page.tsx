@@ -433,12 +433,13 @@ export default function page() {
           <ArticleList type="unordered" indent>
             <li>
               <span>
-                It might just be me, but profile matching <i>never</i> works for
-                me in People. This has been true at both Good Shepherd and
-                Hillsong. I know there&apos;s the remote ID, but I can never get
-                that to work either and I can&apos;t find much support stuff on
-                it. So in the past (and for Church Space) I&apos;ve had to build
-                my own profile matching and linking logic.
+                It might just be me, but profile matching <i>rarely</i> works
+                perfectly for me in People. This has been true at both Good
+                Shepherd and Hillsong. I know there&apos;s the remote ID, but I
+                can never get that to work either and I can&apos;t find much
+                support stuff on it. So in the past (and for Church Space)
+                I&apos;ve had to build my own profile matching and linking
+                logic.
               </span>
             </li>
           </ArticleList>
