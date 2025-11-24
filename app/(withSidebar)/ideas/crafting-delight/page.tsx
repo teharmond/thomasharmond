@@ -72,24 +72,23 @@ export default function page() {
       </ArticleParagraph>
       <ArticleParagraph>
         Often, we think the path to this is features, and we&apos;re not wrong
-        to think this. I remember the first time I used Roam Research—the app to
-        popularize back-linking in note taking. From the first backlink, I
+        to think this. I remember the first time I used Roam Research — the app
+        that popularized back-linking in note taking. From the first backlink, I
         realized that I finally found a note taking app that works how I&apos;ve
         always wanted. I started bringing together ideas from every book I read
-        by topic, by author, by cross reference of other books I&apos;ve read.
-        I&apos;m not sure how I would&apos;ve written papers in college without
-        Roam. The feature of back-linking brought delight.{" "}
+        by topic, by author, by cross reference of other books. I&apos;m not
+        sure how I would&apos;ve written papers in college without Roam. The
+        feature of back-linking brought delight.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
-        And yet I do know how I&apos;d do college without Roam as I switched to
-        Tana halfway through. They copied the same features, added a bit more,
-        and improved on how the app looked and felt. So I switched. But even
-        then, since I&apos;ve graduated I&apos;ve found myself leaving these
-        back-linking apps all together. Every sermon, blog, or business idea
-        I&apos;ve written since I&apos;ve graduated has been in the simpler,
-        cleaner Notion. Why? It&apos;s simple:{" "}
-        <mark>features are not a moat.</mark> Features matter, but they&apos;re
-        the easiest thing to copy and to come up with.{" "}
+        And yet I <i>do</i> know how I&apos;d do college without Roam as I
+        switched to Tana halfway through. They copied the same features, added a
+        bit more, and improved on how the app looked and felt. So I switched.
+        But even then, since I&apos;ve graduated I&apos;ve found myself leaving
+        these back-linking apps all together. Every sermon, blog, or business
+        idea I&apos;ve written since has been in the simpler, cleaner Notion.
+        Why? Because <mark>features are not a moat.</mark> Features matter, but
+        they&apos;re the easiest thing to copy and to come up with.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
         The key to delight it not features, it&apos;s craft. It&apos;s design
@@ -100,8 +99,8 @@ export default function page() {
       <ArticleParagraph>
         But workplace apps are hard. Most people didn&apos;t sign up for their
         role with the expectation that 90% of it would take place on a screen.
-        So building tools people use at work—from issue trackers to church
-        management softwares—is an uphill battle. People come in with loads of
+        So building tools people use at work — from issue trackers to church
+        management software — is an uphill battle. People come in with loads of
         suspicion (or at least incredibly high expectations), so if your app
         isn&apos;t well designed in both function and form, people will loath
         it. The app will create more work, not less. And the work it creates
@@ -111,18 +110,19 @@ export default function page() {
           target="_blank"
           className="hover:text-primary underline"
         >
-          pointless waste.
-        </Link>{" "}
+          pointless waste
+        </Link>
+        .{" "}
       </ArticleParagraph>
       <ArticleParagraph>
         So how do we make workplace apps that are loved like Linear rather than
         loathed like Jira?{" "}
       </ArticleParagraph>
-      <SectionHeader>01. Follow Common UI/UX Patterns</SectionHeader>
+      <SectionHeader>01. FOLLOW COMMON UI/UX PATTERNS</SectionHeader>
       <ArticleParagraph>
-        Every app—from Facebook to Figma, from Spotify to Stripe—uses the same
-        UI/UX pattern for navigation: a sidebar. Is this because a sidebar is
-        always the best UX to get around? It is because it looks the nicest?
+        Every app — from Facebook to Figma, from Spotify to Stripe — uses the
+        same UI/UX pattern for navigation: a sidebar. Is this because a sidebar
+        is always the best UX to get around? It is because it looks the nicest?
         I&apos;m not sure. But what I do know is that most users know how to use
         it which often makes it the right choice for the job. If you want to
         maximize delight, keep the important things familiar.{" "}
@@ -142,22 +142,22 @@ export default function page() {
       <ArticleParagraph>
         A few years ago, I was driving a rental car to pick someone up from the
         airport. Once we got the car loaded, I shifted into reverse, put my foot
-        on the gas, and to my horror started going forward nearly hitting the
-        parked car in front of me. Did this happen because I’m a klutz? No, it
-        happened because some designer thought that that it would be a wonderful
-        idea to put the reverse icon under the park icon but to get in reverse
-        from park I have to move the gear shifter up. It’s not just me; there’s
-        nearly 100k views on a{" "}
+        on the gas, and to my horror started going forward, nearly hitting the
+        parked car in front of me. Did this happen because I&apos;m a klutz? No,
+        it happened because some designer thought that that it would be a
+        wonderful idea to put the reverse icon under the park icon but to get in
+        reverse from park I have to move the gear shifter up. It&apos;s not just
+        me; there&apos;s nearly 100k views on a{" "}
         <Link
           href="https://www.youtube.com/watch?v=DJWxcHIdPg0"
           target="_blank"
           className="hover:text-primary underline"
         >
-          video showing you how to use the gear shifter in this one car.
-        </Link>{" "}
-        Mitsubishi (and every other modern car maker these days) reinvented
-        something worked fine, and now you have to relearn how to drive in every
-        car you get in.{" "}
+          video showing you how to use the gear shifter in this one car
+        </Link>
+        . Mitsubishi (and every other modern car maker these days) reinvented
+        something that worked perfectly fine, and now you have to relearn how to
+        drive in every car you get in.{" "}
       </ArticleParagraph>
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond/gear-shifter.png"
@@ -167,12 +167,12 @@ export default function page() {
         className="mt-2"
       />
       <ArticleParagraph>
-        That said, not every app in the screenshot above is widely considered
-        delightful. Linear, Notion, Stripe, and Open AI are brands that are
-        constantly praised for their design. Meanwhile Spotify is regularly
-        mocked in design communities for its bloat, Facebook has four navigation
-        paradigms on its main page, and Mailchimp makes it hard to get to basic
-        settings.{" "}
+        That said, not every app in the sidebar screenshot above is widely
+        considered delightful. Linear, Notion, Stripe, and Open AI are brands
+        that are constantly praised for their design. Meanwhile Spotify is
+        regularly mocked in design communities for its bloat, Facebook has four
+        navigation paradigms on its main page, and Mailchimp makes it hard to
+        get to basic settings.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
         <mark>
@@ -193,17 +193,17 @@ export default function page() {
         doesn&apos;t clutter it up before.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
-        Everything just feels thoughtful, and yet it&apos;s almost entirely
-        unseen. Rather, <mark>it&apos;s felt.</mark>{" "}
+        Everything feels thoughtful, and yet it&apos;s almost entirely unseen.
+        Rather, <mark>it&apos;s felt.</mark>{" "}
       </ArticleParagraph>
       <ArticleParagraph>
         At the end of your first day in Linear, you can&apos;t quite say why,
         but you have this feeling of delight. You didn&apos;t hit any pain
         points, nothing worked counter to how you expected, and everything just
-        made sense. Put simply, it just works.{" "}
+        made sense. It just works.
       </ArticleParagraph>
       <ArticleParagraph>
-        Vercel design engineer Rauno Freiberg recently released a course called
+        Vercel design engineer Rauno Freiberg recently released a course called{" "}
         <Link
           href="https://devouringdetails.com"
           target="_blank"
@@ -211,15 +211,22 @@ export default function page() {
         >
           Devouring Details
         </Link>
-        . My biggest takeaway from it is the idea of &quot;inferring
-        intent.&quot; It&apos;s where you know what the user is trying to do and
-        making that easier without them even asking. It&apos;s what makes
-        software feel like magic. You see this in Vercel when you add
-        environment variables. Instead of having to paste the name and then
-        paste the value and then repeat for each variable, you can just paste
-        your full .env file into the first input and it&apos;s automatically
-        parsed.{" "}
+        . My biggest takeaway from it is the idea of{" "}
+        <mark>&quot;inferring intent.&quot;</mark> It&apos;s where you know what
+        the user is trying to do and making that easier without them even
+        asking. It&apos;s what makes software feel like magic. You see this in
+        Vercel when you add environment variables. Instead of having to paste
+        the name and then paste the value and then repeat for each variable, you
+        can just paste your full .env file into the first input and it&apos;s
+        automatically parsed.{" "}
       </ArticleParagraph>
+      <Image
+        src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond/var.gif"
+        alt="Env Variables"
+        width={1920}
+        height={1920}
+        className="mt-2 rounded-md"
+      />
       <ArticleParagraph>
         One of Linear&apos;s best examples of this is{" "}
         <Link
@@ -249,10 +256,16 @@ export default function page() {
       <SectionHeader>03. CARE ABOUT HOW IT LOOKS</SectionHeader>
       <ArticleParagraph>
         Obviously the way an application looks matters. Half the reason I
-        switched from Tana to Notion was a desire for the the cleanest possible
-        interface. I wanted something that focused on beauty and used
-        progressive disclosure for anything that typically clutters lesser
-        interfaces.{" "}
+        switched from Tana to Notion was a desire for the the cleanest interface
+        possible. I wanted something that focused on beauty and used{" "}
+        <Link
+          href="https://www.interaction-design.org/literature/topics/progressive-disclosure"
+          target="_blank"
+          className="hover:text-primary underline"
+        >
+          progressive disclosure
+        </Link>{" "}
+        for anything that typically clutters lesser interfaces.{" "}
       </ArticleParagraph>
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond/colors.png"
@@ -262,16 +275,19 @@ export default function page() {
         className="mt-2 rounded-md"
       />
       <ArticleParagraph>
-        Even the colors you use completely change the feel of the app. The right
-        sans serif can set you apart. Choosing to fade away elements while a
-        person is typing and the mouse is not moving creates focus. Making sure
-        text is readable in both light and dark mode matters. Aligned icons{" "}
-        <i>feel</i>
-        right even if no one ever notices.{" "}
+        Something as simple as the colors you use can completely change the feel
+        of the app. The right sans serif can set you apart. Choosing to fade
+        away elements while a person is typing and the mouse is not moving
+        creates focus. Making sure text is readable in both light and dark mode
+        matters. Aligned icons <i>feel</i> right even if no one ever
+        notices.{" "}
       </ArticleParagraph>
-      <ArticleParagraph>Every visual detail matter. </ArticleParagraph>
+      <ArticleParagraph>
+        Every visual detail matters, and it&apos;s our job as designers to care
+        more than anyone else ever will.{" "}
+      </ArticleParagraph>
       <SectionHeader>
-        04. KNOW WHO YOU&apos;RE BUILDING FOR (AND WHAT YOU'RE BUILDING)
+        04. KNOW WHO YOU&apos;RE BUILDING FOR (AND WHAT YOU&apos;RE BUILDING)
       </SectionHeader>
       <ArticleParagraph>
         Notion doesn&apos;t have common text editor features immediately
@@ -280,14 +296,14 @@ export default function page() {
         the font style, or the font weight. And yet, in Figma, every possible
         option is in my face. Why? Despite both apps being able to format text,
         the former is made for capturing and working on ideas while the latter
-        is made for design. In Figma, how the text looks is the whole point, so
-        having the formatting features readily available is the expectation
-        while in Notion it would be clutter.{" "}
+        is made for design. In Figma, how the text looks{" "}
+        <i>is the whole point</i>, so having the formatting features readily
+        available is the expectation while in Notion it would be clutter.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
-        In the same way, Facebook—a social app—makes it easy to get to my
-        profile whereas Linear—an issue tracker—make my avatar a tiny icon in
-        the corner.{" "}
+        In the same way, Facebook — a social app — makes it easy to get to my
+        profile whereas Linear — an issue tracker — make my avatar a tiny icon
+        in the corner.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
         What you&apos;re building determines if something is clutter or
@@ -301,7 +317,7 @@ export default function page() {
         settings because they believe most people won&apos;t use them, and yet
         everyone I know has tweaked the size of their lock screen clock in iOS
         26. Everyone wants to customize and tweak software, especially the
-        software that we&apos;re stuck in all day.
+        software that they&apos;re stuck in all day.
       </ArticleParagraph>
       <ArticleParagraph>
         When we write off these features as being &quot;advanced,&quot; we say
@@ -324,10 +340,17 @@ export default function page() {
       </div>
       <ArticleParagraph>
         That said, there&apos;s something to balance here. You want to give
-        users the option to make your app their own. Make room for the Ikea
-        effect. But this is not an excuse for laziness. Good, strong opinions
-        from designers still win over a million options. The art is in knowing
-        which choices you give users and which ones need to be made at a product
+        users the option to make your app their own, making room for the{" "}
+        <Link
+          href="https://en.wikipedia.org/wiki/IKEA_effect"
+          target="_blank"
+          className="hover:text-primary underline"
+        >
+          Ikea effect
+        </Link>
+        . But this is not an excuse for laziness. Good, strong opinions from
+        designers still win over a million options. The art is in knowing which
+        choices you give users and which ones need to be made at a product
         level.{" "}
       </ArticleParagraph>
       <SectionHeader>05. AND YEAH, BUILD SOME GREAT FEATURES</SectionHeader>
@@ -335,7 +358,7 @@ export default function page() {
         Of course features matter and bring delight, but even then, the best
         ones, the ones that feel like magic, don&apos;t draw attention to
         themselves. Notion&apos;s AI search has changed how I do note taking. I
-        no longer have to tag and organize everything. I simply ask. And when I
+        no longer have to tag and organize everything. I simply ask. Yet when I
         do, I&apos;m never thinking about how great of a chat interface it is,
         I&apos;m just glad that I could find what I was looking for while
         staying in flow.{" "}
@@ -343,7 +366,7 @@ export default function page() {
       <ArticleParagraph>
         <mark>
           Features matter, but it&apos;s the experience of the features that
-          matter more.{" "}
+          matters more.{" "}
         </mark>
       </ArticleParagraph>
       <SectionHeader>CONCLUSION</SectionHeader>
