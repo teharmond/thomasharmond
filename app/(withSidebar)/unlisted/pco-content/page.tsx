@@ -55,6 +55,14 @@ const articles = [
   },
   {
     index: 4,
+    title: "Crafting Delight",
+    description: "On creating software magic.",
+    link: "/ideas/crafting-delight",
+    image:
+      "https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond/tobi-delight.png",
+  },
+  {
+    index: 5,
     title: "Churches Need Paper Forms",
     description: "Starting over from first principles to meet real needs",
     link: "/ideas/paper-forms",
@@ -62,7 +70,7 @@ const articles = [
       "https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//form-builder.png",
   },
   {
-    index: 5,
+    index: 6,
     title: "Why I don’t like prayer request forms",
     description: "The pastoral implications of our technical choices",
     link: "/ideas/prayer-request-forms",
@@ -71,7 +79,7 @@ const articles = [
   },
 
   {
-    index: 6,
+    index: 7,
     title: "Notes on Craft and Quality",
     description: "The companies that have helped me shape Church Space",
     link: "/ideas/craft-and-quality",
@@ -463,7 +471,7 @@ export default function page() {
         to convert the page to something that looks great in print.
       </ArticleParagraph>
       {/* next two articles */}
-      {previewCard([articles[3], articles[4]])}
+      {previewCard([articles[3], articles[4], articles[5]])}
       <SectionHeader>03. MONETIZATION</SectionHeader>
       <ArticleParagraph>
         I don&apos;t think my actual pricing is perfect, but I think the model
@@ -556,7 +564,7 @@ export default function page() {
       </ArticleParagraph>
 
       {/* lsat two articles */}
-      {previewCard([articles[5], articles[6]])}
+      {previewCard([articles[6], articles[7]])}
     </div>
   );
 }

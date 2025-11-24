@@ -377,11 +377,25 @@ export default function page() {
         that&apos;s how they&apos;ll describe it to everyone.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
-        People feel the smallest decisions we make in our software. Every
-        detail—visible and invisible—matters. It shows that the software was
-        made by people who care about their users and care about the work they
-        do. It shows it was made by people who want to make something wonderful,
-        often just for the sake of putting something great out into the
+        People feel the smallest decisions we make in our software. Every detail
+        — visible and invisible — matters. It shows that the software was made
+        by people who{" "}
+        <Link
+          href="https://alexw.substack.com/p/hire"
+          target="_blank"
+          className="hover:text-primary underline"
+        >
+          care about their users and care about the work they do
+        </Link>
+        . It shows it was made by people who want to{" "}
+        <Link
+          href="https://book.stevejobsarchive.com/"
+          target="_blank"
+          className="hover:text-primary underline"
+        >
+          make something wonderful
+        </Link>
+        , often just for the sake of putting something great out into the
         world.{" "}
       </ArticleParagraph>
       <ArticleParagraph>
