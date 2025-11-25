@@ -481,7 +481,10 @@ export default function page() {
       </Link>
       <div className="bg-muted text-muted-foreground w-full rounded-md p-2 px-3 text-xs">
         Try the (unfinished) demo I built of PCO Courses by clicking the image
-        above.
+        above. This was just my excuse to play with Claude Opus 3.5. Everything
+        persists using IndexedDB, nothing is saved to a database. The editor
+        needs a lot of work. What exists in Flowforth is closer to what I&apos;d
+        want to build in Planning Center.
       </div>
       {/* next two articles */}
       {previewCard([articles[3], articles[4], articles[5]])}
