@@ -470,6 +470,19 @@ export default function page() {
         </Link>{" "}
         to convert the page to something that looks great in print.
       </ArticleParagraph>
+      <Link href="https://pcocontent.thomasharmond.com" target="_blank">
+        <Image
+          src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond/pco-content-demo.png"
+          alt="PCO Course Builder"
+          width={1000}
+          height={1000}
+          className="rounded-md"
+        />
+      </Link>
+      <div className="bg-muted text-muted-foreground w-full rounded-md p-2 px-3 text-xs">
+        Try the (unfinished) demo I built of PCO Courses by clicking the image
+        above.
+      </div>
       {/* next two articles */}
       {previewCard([articles[3], articles[4], articles[5]])}
       <SectionHeader>03. MONETIZATION</SectionHeader>
