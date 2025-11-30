@@ -83,6 +83,48 @@ export default defineSchema({
     userId: v.string(),
     createdAt: v.number(),
     updatedAt: v.number(),
+  }).index("by_user", ["userId"]),
+
+  // Meal Planner - Recipes
+  recipes: defineTable({
+    title: v.string(),
+    ingredients: v.array(
+      v.object({
+        name: v.string(),
+        amount: v.string(),
+      })
+    ),
+    tags: v.array(v.string()),
+    imageUrl: v.optional(v.string()),
+    sourceUrl: v.optional(v.string()),
+    userId: v.string(),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  }).index("by_user", ["userId"]),
+
+  // Meal Planner - Meal Plans
+  mealPlans: defineTable({
+    date: v.string(), // ISO date string YYYY-MM-DD
+    mealType: v.union(
+      v.literal("breakfast"),
+      v.literal("lunch"),
+      v.literal("dinner"),
+      v.literal("other")
+    ),
+    recipeId: v.id("recipes"),
+    userId: v.string(),
+    createdAt: v.number(),
   })
-    .index("by_user", ["userId"]),
+    .index("by_user", ["userId"])
+    .index("by_user_and_date", ["userId", "date"])
+    .index("by_recipe", ["recipeId"]),
+
+  // Meal Planner - Shopping List
+  shoppingListItems: defineTable({
+    name: v.string(),
+    checked: v.boolean(),
+    checkedAt: v.optional(v.number()), // Timestamp when checked
+    userId: v.string(),
+    createdAt: v.number(),
+  }).index("by_user", ["userId"]),
 });
