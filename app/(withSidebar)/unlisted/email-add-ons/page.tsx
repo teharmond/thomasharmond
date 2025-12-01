@@ -69,10 +69,10 @@ export default function page() {
           they give to the add-on. So instead of the
           &quot;MailchimpSyncStatus&quot; endpoint, it could be
           &quot;AddOnSyncStatus.&quot; A list can then be synced with
-          Clearstream for texting, but not with Flowfoth as it's not meant for
-          email. The syncing itself can be done on the provider's end; just use
-          a webhook to tell the provider that they have access. Possibly let the
-          provider write back if the list has been synced.
+          Clearstream for texting, but not with Flowfoth as it&apos;s not meant
+          for email. The syncing itself can be done on the provider&apos;s end;
+          just use a webhook to tell the provider that they have access.
+          Possibly let the provider write back if the list has been synced.
         </li>
       </ArticleList>
       <Image
@@ -101,8 +101,8 @@ export default function page() {
           that an email sent with Flowforth can show on a person&apos;s profile.
           Ideally, this would also show a status for the email (such as opened,
           unsubscribed, etc.). Email data can be helpful pastoral data, so the
-          more that lives in Planning Center — the church's source of truth —
-          the better.
+          more that lives in Planning Center — the church&apos;s source of truth
+          — the better.
         </li>
       </ArticleList>
       <Image
@@ -129,11 +129,12 @@ export default function page() {
       </ArticleList>
       <SectionHeader>03. UNRELATED TO THE ADD-ON</SectionHeader>
       <ArticleParagraph>
-        In general, it&apos;d be cool to have "automated steps" in Workflows.
-        Right now, you have to build a list for when someone finishes a step and
-        then add an automation to that. It would be great to be able to see and
-        manage that within the workflow itself. This would make it easier to get
-        the full picture of someone's journey through the workflow.
+        In general, it&apos;d be cool to have &quot;automated steps&quot; in
+        Workflows. Right now, you have to build a list for when someone finishes
+        a step and then add an automation to that. It would be great to be able
+        to see and manage that within the workflow itself. This would make it
+        easier to get the full picture of someone&apos;s journey through the
+        workflow.
       </ArticleParagraph>
     </div>
   );
