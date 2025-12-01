@@ -516,3 +516,112 @@ export function Folder({
     </svg>
   );
 }
+
+export function NpmIcon({
+  fill = "currentColor",
+  secondaryfill,
+  ...props
+}: IconProps) {
+  secondaryfill = secondaryfill || fill;
+
+  return (
+    <svg
+      height="2500"
+      width="2500"
+      viewBox="0 0 2500 2500"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <g>
+        <path d="M0 0h2500v2500H0z" fill="#000000" />
+        <path
+          d="M1241.5 268.5h-973v1962.9h972.9V763.5h495v1467.9h495V268.5z"
+          fill="#fff"
+        />
+      </g>
+    </svg>
+  );
+}
+
+export function Flowforthsvg({
+  fill = "currentColor",
+  secondaryfill,
+  ...props
+}: IconProps) {
+  secondaryfill = secondaryfill || fill;
+
+  return (
+    <svg
+      height="18"
+      width="18"
+      viewBox="0 0 18 18"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <g fill={fill}>
+        <path
+          d="M14.9298 1.83569C15.8387 1.51064 16.7542 2.2945 16.5796 3.24022L14.3836 15.1001C14.2158 16.0073 13.1545 16.428 12.4112 15.8781L2.30823 8.41014C1.50269 7.81474 1.68979 6.56564 2.63017 6.2289L14.9298 1.83569Z"
+          fill={secondaryfill}
+          fillOpacity="0.4"
+          fillRule="evenodd"
+        />
+        <path
+          d="M6.4665 11.484L4.99823 10.3987L16.151 2.19983L6.4665 11.484Z"
+          fill={fill}
+        />
+        <path
+          d="M5 10.3998V14.268C5 15.289 6.15975 15.8804 6.98634 15.2776L9.30505 13.5821L5 10.3998Z"
+          fill={fill}
+        />
+      </g>
+    </svg>
+  );
+}
+
+export function ChurchkitIcon({
+  fill = "currentColor",
+  secondaryfill,
+  ...props
+}: IconProps) {
+  secondaryfill = secondaryfill || fill;
+
+  return (
+    <svg
+      height="494"
+      width="653"
+      viewBox="0 0 653.84 494.16"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <g fill={fill}>
+        <path d="M645.08,0h-142.89c-6.76,0-13.06,3.41-16.75,9.07l-224.34,343.7c-4.67,7.15-12.63,11.46-21.17,11.46h-57.25c-19.49,0-35.28-15.8-35.28-35.28v-163.73c0-19.49,15.8-35.28,35.28-35.28h117.78c56.72,0,102.71-45.98,102.71-102.71v-7.23c0-11.05-8.95-20-20-20H124.33C55.67,0,0,55.67,0,124.33v245.5C0,438.5,55.67,494.16,124.33,494.16h178.72c12.51,0,22.65-10.14,22.65-22.65v-44.24c0-5.65,7.05-8.22,10.69-3.9l53.53,63.53c3.8,4.6,9.45,7.27,15.42,7.27h161.12c7.42,0,11.47-8.67,6.71-14.36l-126.16-150.77c-4.04-4.83-4.36-11.75-.78-16.93L652.28,13.72c4.01-5.8-.15-13.72-7.2-13.72Z" />
+      </g>
+    </svg>
+  );
+}
+
+export function RaycastIcon({
+  fill = "currentColor",
+  secondaryfill,
+  ...props
+}: IconProps) {
+  secondaryfill = secondaryfill || fill;
+
+  return (
+    <svg
+      height="28"
+      width="28"
+      viewBox="0 0 28 28"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <g fill="none">
+        <path
+          d="M7 18.079V21L0 14L1.46 12.54L7 18.081V18.079ZM9.921 21H7L14 28L15.46 26.54L9.921 21ZM26.535 15.462L27.996 14L13.996 0L12.538 1.466L18.077 7.004H14.73L10.864 3.146L9.404 4.606L11.809 7.01H10.129V17.876H20.994V16.196L23.399 18.6L24.859 17.14L20.994 13.274V9.927L26.535 15.462ZM7.73 6.276L6.265 7.738L7.833 9.304L9.294 7.844L7.73 6.276ZM20.162 18.708L18.702 20.17L20.268 21.738L21.73 20.276L20.162 18.708ZM4.596 9.41L3.134 10.872L7 14.738V11.815L4.596 9.41ZM16.192 21.006H13.268L17.134 24.872L18.596 23.41L16.192 21.006Z"
+          fill={fill}
+          fillRule="evenodd"
+        />
+      </g>
+    </svg>
+  );
+}
