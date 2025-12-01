@@ -24,13 +24,15 @@ const projects = [
   },
   {
     svg: <NpmIcon className="h-4.5 w-4.5" />,
-    title: "PCO NPM Package (work-in-progress)",
+    title: "PCO NPM Package",
     link: "https://github.com/teharmond/planning-center-api",
+    status: "work-in-progress",
   },
   {
     svg: <ChurchkitIcon className="h-4.5 w-4.5" />,
-    title: "churchkit (work-in-progress)",
+    title: "churchkit",
     link: "https://churchkit.io",
+    status: "work-in-progress",
   },
 ];
 const articles = [
@@ -95,19 +97,17 @@ export default function Home() {
       </div> */}
       <div className="flex flex-col gap-2">
         <h2 className="px-2 text-2xl font-bold">Projects</h2>
-        <div className="flex flex-col gap-px">
+        <div className="flex flex-col">
           {projects.map((project, index) => (
             <a href={project.link} key={index} target="_blank">
-              <div
-                className={cn(
-                  "bg-muted flex cursor-pointer items-center gap-2 p-2 px-3 transition-colors duration-200 hover:bg-blue-100",
-                  index === 0 && "rounded-t-lg rounded-b-xs",
-                  index === projects.length - 1 && "rounded-t-xs rounded-b-lg",
-                  index > 0 && index < projects.length - 1 && "rounded-xs",
-                )}
-              >
+              <div className="flex cursor-pointer items-center gap-2 rounded-md p-1 px-2 font-medium transition-colors duration-200 hover:bg-blue-100 hover:text-blue-600">
                 {project.svg}
                 {project.title}
+                {project.status === "work-in-progress" && (
+                  <p className="text-muted-foreground text-sm font-light">
+                    (work in progress)
+                  </p>
+                )}
               </div>
             </a>
           ))}

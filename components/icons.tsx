@@ -519,11 +519,8 @@ export function Folder({
 
 export function NpmIcon({
   fill = "currentColor",
-  secondaryfill,
   ...props
 }: IconProps) {
-  secondaryfill = secondaryfill || fill;
-
   return (
     <svg
       height="2500"
@@ -532,13 +529,11 @@ export function NpmIcon({
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <g>
-        <path d="M0 0h2500v2500H0z" fill="#000000" />
-        <path
-          d="M1241.5 268.5h-973v1962.9h972.9V763.5h495v1467.9h495V268.5z"
-          fill="#fff"
-        />
-      </g>
+      <path
+        d="M0 0h2500v2500H0zM1241.5 268.5h-973v1962.9h972.9V763.5h495v1467.9h495V268.5z"
+        fill={fill}
+        fillRule="evenodd"
+      />
     </svg>
   );
 }
