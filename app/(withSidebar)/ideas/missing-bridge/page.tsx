@@ -48,8 +48,8 @@ export default function page() {
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//church-connections.png"
         alt="Form Builder"
-        width={1000}
-        height={1000}
+        width={1920}
+        height={1920}
         className="mt-2"
       />
       <ArticleParagraph>

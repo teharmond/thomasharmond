@@ -138,8 +138,8 @@ export default function page() {
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//paper-digital-chart.png"
         alt="Paper and Digital Chart"
-        width={1000}
-        height={1000}
+        width={1920}
+        height={1920}
         className="mx-auto mt-2 mb-10 w-[80%]"
       />
       <SectionHeader>TOWARDS A SOLUTION</SectionHeader>
@@ -154,15 +154,15 @@ export default function page() {
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//form-builder.png"
         alt="Form Builder"
-        width={1000}
-        height={1000}
+        width={1920}
+        height={1920}
         className="mt-2"
       />
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//form-conditions.png"
         alt="Form Conditions"
-        width={1000}
-        height={1000}
+        width={1920}
+        height={1920}
         className="mt-2 mb-10"
       />
       <ArticleParagraph>
@@ -174,15 +174,15 @@ export default function page() {
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//form-pco-logic-one.png"
         alt="Form PCO Logic"
-        width={1000}
-        height={1000}
+        width={1920}
+        height={1920}
         className="mt-2"
       />
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//form-pco-logic-two.png"
         alt="Form PCO Connection"
-        width={1000}
-        height={1000}
+        width={1920}
+        height={1920}
         className="mt-2 mb-10"
       />
       <ArticleParagraph>
@@ -196,8 +196,8 @@ export default function page() {
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//paper-form.png"
         alt="Paper Form"
-        width={1000}
-        height={1000}
+        width={1920}
+        height={1920}
         className="mt-2 mb-10"
       />
       <ArticleParagraph>
@@ -211,8 +211,8 @@ export default function page() {
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//upload-paper-form.png"
         alt="Upload Paper Form"
-        width={1000}
-        height={1000}
+        width={1920}
+        height={1920}
         className="mt-2 mb-2"
       />
 
@@ -225,8 +225,8 @@ export default function page() {
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//form-code.png"
         alt="Form Code"
-        width={1000}
-        height={1000}
+        width={1920}
+        height={1920}
         className="mt-2 mb-10"
       />
       <ArticleParagraph>

@@ -88,8 +88,8 @@ export default function page() {
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//pco-home-announcement.png"
         alt="Planning Center Home Announcement"
-        width={1000}
-        height={1000}
+        width={1920}
+        height={1920}
       />
       <div className="bg-muted text-muted-foreground w-full rounded-md p-2 px-3 text-xs">
         From{" "}
@@ -148,14 +148,14 @@ export default function page() {
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//pco-capture-mockup.png"
         alt="Planning Center Capture Mobile App Mockup"
-        width={1000}
-        height={1000}
+        width={1920}
+        height={1920}
       />
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//pco-contact-capture.png"
         alt="Planning Center Capture Mobile App Mockup"
-        width={1000}
-        height={1000}
+        width={1920}
+        height={1920}
       />
       <ArticleParagraph>
         We can then parse these inputs out and process them with some basic tool
@@ -179,8 +179,8 @@ export default function page() {
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//pco-capture-inbox.png"
         alt="Planning Center Capture Inbox Mockup"
-        width={1000}
-        height={1000}
+        width={1920}
+        height={1920}
         className="mb-10"
       />
       <SectionHeader>03. REMINDERS, TASKS, AND CARE</SectionHeader>
@@ -217,15 +217,15 @@ export default function page() {
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//pco-dates.png"
         alt="Planning Center Dates Mockup"
-        width={1000}
-        height={1000}
+        width={1920}
+        height={1920}
         className="mt-10"
       />
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//pco-dates-widget.png"
         alt="Planning Center Dates Widget Mockup"
-        width={1000}
-        height={1000}
+        width={1920}
+        height={1920}
         className="my-10"
       />
       <ArticleParagraph>
@@ -244,8 +244,8 @@ export default function page() {
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//pco-care-board.png"
         alt="Planning Center Care Board Mockup"
-        width={1000}
-        height={1000}
+        width={1920}
+        height={1920}
         className="mt-2 mb-10"
       />
       <ArticleParagraph>
@@ -255,15 +255,15 @@ export default function page() {
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//task-description.png"
         alt="Planning Center Task Description Mockup"
-        width={1000}
-        height={1000}
+        width={1920}
+        height={1920}
         className="mt-2"
       />
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//linked-items.png"
         alt="Planning Center Task Description Mockup"
-        width={1000}
-        height={1000}
+        width={1920}
+        height={1920}
         className="mb-10"
       />
 
@@ -347,8 +347,8 @@ export default function page() {
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond//list-rules.png"
         alt="Planning Center Natural Language Dashboard"
-        width={1000}
-        height={1000}
+        width={1920}
+        height={1920}
         className="mt-10"
       />
       <ArticleParagraph>

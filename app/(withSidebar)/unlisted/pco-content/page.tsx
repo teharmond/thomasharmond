@@ -111,8 +111,8 @@ const previewCard = (
               <Image
                 src={article.image}
                 alt={article.title}
-                width={1000}
-                height={1000}
+                width={1920}
+                height={1920}
                 className="aspect-video h-14 w-auto rounded-md object-contain group-hover:rounded-r-none sm:h-20"
               />
             ) : (
@@ -233,8 +233,8 @@ export default function page() {
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond/behind%20pco.png"
         alt="Multiple apps behind a Planning Center logo"
-        width={1000}
-        height={1000}
+        width={1920}
+        height={1920}
         className="rounded-md"
       />
       <ArticleParagraph>
@@ -301,8 +301,8 @@ export default function page() {
       <Image
         src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond/editor.gif"
         alt="PCO Publishing Editor"
-        width={1000}
-        height={1000}
+        width={1920}
+        height={1920}
         className="rounded-md"
       />
       <div className="bg-muted text-muted-foreground w-full rounded-md p-2 px-3 text-xs">
@@ -474,8 +474,8 @@ export default function page() {
         <Image
           src="https://heucweqplwpswrlbexez.supabase.co/storage/v1/object/public/thomasharmond/pco-content-demo.png"
           alt="PCO Course Builder"
-          width={1000}
-          height={1000}
+          width={1920}
+          height={1920}
           className="rounded-md"
         />
       </Link>
