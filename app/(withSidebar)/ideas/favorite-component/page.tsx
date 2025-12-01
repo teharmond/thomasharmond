@@ -1,10 +1,10 @@
 "use client";
-import React, { useState, useRef, useEffect, type RefObject } from "react";
+
 import { Button } from "@/components/ui/button";
-import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
+import React, { useEffect, useRef, useState, type RefObject } from "react";
 
 type EventType =
   | "mousedown"
@@ -14,7 +14,7 @@ type EventType =
   | "focusin"
   | "focusout";
 
-export function useClickOutside<T extends HTMLElement = HTMLElement>(
+function useClickOutside<T extends HTMLElement = HTMLElement>(
   ref: RefObject<T | null> | RefObject<T | null>[],
   handler: (event: Event) => void,
   eventType: EventType = "mousedown",
