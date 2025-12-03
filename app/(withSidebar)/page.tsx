@@ -1,14 +1,8 @@
-import { Button } from "@/components/ui/button";
-import CopyEmailButton from "@/components/copy-email-button";
-import Link from "next/link";
-import React from "react";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { cn } from "@/lib/utils";
 import {
-  NpmIcon,
   ChurchkitIcon,
-  RaycastIcon,
   Flowforthsvg,
+  NpmIcon,
+  RaycastIcon,
 } from "@/components/icons";
 
 const projects = [
