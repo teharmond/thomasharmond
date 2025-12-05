@@ -28,7 +28,7 @@ export default function page() {
     <>
       <div className="bg-card flex w-full flex-col gap-4 border-r px-2 lg:hidden">
         <div className="flex items-center justify-between px-2 pt-4">
-          <div className="text-lg font-medium">Apps I Use</div>
+          <div className="text-lg font-medium">Apps</div>
         </div>
         <div className="flex-1">
           {sortedCategories.map((category) => (
